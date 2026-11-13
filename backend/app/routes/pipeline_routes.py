@@ -18,8 +18,16 @@ def get_pipeline_summary():
     return jsonify({
         "status": "success",
         "data": {
+            # Direct summary objects for DataProcessing.jsx
+            "framework": summary.get("framework"),
             "pipeline_framework": summary.get("framework"),
             "execution_mode": summary.get("execution_mode"),
+            "java_runtime": summary.get("java_runtime"),
+            "raw_datasets": summary.get("raw_datasets", {}),
+            "cleaning_metrics": summary.get("cleaning_metrics", {}),
+            "processed_datasets": summary.get("processed_datasets", {}),
+            "storage_formats": summary.get("storage_formats", []),
+            # Aliased fields for test suite / spec compliance
             "source_dataset_counts": {
                 "transactions": raw.get("transactions", {}).get("records", 12239),
                 "web_activity": raw.get("web_activity", {}).get("records", 120979),
