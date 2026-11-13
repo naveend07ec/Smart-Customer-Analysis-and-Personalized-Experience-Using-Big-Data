@@ -1,0 +1,37 @@
+[
+  {
+    "k": 2,
+    "inertia": 17925.61,
+    "silhouette_score": 0.3314
+  },
+  {
+    "k": 3,
+    "inertia": 14460.38,
+    "silhouette_score": 0.3194
+  },
+  {
+    "k": 4,
+    "inertia": 11642.59,
+    "silhouette_score": 0.3365
+  },
+  {
+    "k": 5,
+    "inertia": 9784.31,
+    "silhouette_score": 0.3533
+  },
+  {
+    "k": 6,
+    "inertia": 9175.91,
+    "silhouette_score": 0.3484
+  },
+  {
+    "k": 7,
+    "inertia": 8848.88,
+    "silhouette_score": 0.3502
+  },
+  {
+    "k": 8,
+    "inertia": 8426.4,
+    "silhouette_score": 0.3337
+  }
+]
