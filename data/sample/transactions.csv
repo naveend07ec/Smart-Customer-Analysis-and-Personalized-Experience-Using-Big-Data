@@ -1,0 +1,153 @@
+transaction_id,customer_id,transaction_date,product_id,product_category,product_name,quantity,unit_price,discount_percent,total_amount,payment_method,order_status
+TXN_000149,CUST_S_048,2024-01-03 09:00:26,PROD_101,Electronics,Wireless Noise-Cancelling Headphones,1,199.99,0.0,199.99,Debit Card,Completed
+TXN_000063,CUST_S_021,2024-01-04 05:46:55,PROD_130,Books & Media,The Pragmatic Programmer 20th Edition,1,44.00,5.0,41.80,UPI,Completed
+TXN_000145,CUST_S_048,2024-01-04 06:58:49,PROD_104,Electronics,Precision Wireless Gaming Mouse,4,49.99,5.0,189.96,Credit Card,Completed
+TXN_000017,CUST_S_010,2024-01-08 00:50:46,PROD_115,Apparel,Classic Denim Slim Fit Jeans,1,49.99,0.0,49.99,Net Banking,Completed
+TXN_000080,CUST_S_025,2024-01-11 05:43:55,PROD_110,Home & Kitchen,Cast Iron Dutch Oven 6-Quart,1,69.99,0.0,69.99,Debit Card,Completed
+TXN_000041,CUST_S_014,2024-01-12 15:58:40,PROD_111,Home & Kitchen,LED Smart Desk Lamp with Dimmer,1,39.99,0.0,39.99,PayPal,Refunded
+TXN_000021,CUST_S_011,2024-01-20 23:48:33,PROD_128,Books & Media,Atomic Habits: Building Better Routines,1,18.00,0.0,18.00,UPI,Completed
+TXN_000057,CUST_S_020,2024-01-23 09:24:34,PROD_122,Sports & Fitness,Adjustable Dumbbell Pair 5-52.5 lbs,1,299.99,0.0,299.99,Debit Card,Completed
+TXN_000011,CUST_S_005,2024-01-23 11:35:15,PROD_124,Sports & Fitness,High-Resistance Fitness Bands Set,2,18.99,0.0,37.98,PayPal,Completed
+TXN_000152,CUST_S_050,2024-02-02 11:53:00,PROD_116,Apparel,Polarized Aviator Sunglasses,1,34.99,5.0,33.24,PayPal,Cancelled
+TXN_000098,CUST_S_031,2024-02-02 23:09:27,PROD_115,Apparel,Classic Denim Slim Fit Jeans,2,49.99,15.0,84.98,Net Banking,Completed
+TXN_000105,CUST_S_035,2024-02-04 16:16:45,PROD_103,Electronics,Ergonomic Mechanical Keyboard,1,89.99,0.0,89.99,Credit Card,Completed
+TXN_000120,CUST_S_040,2024-02-05 04:42:01,PROD_125,Books & Media,Designing Data-Intensive Applications,1,45.00,0.0,45.00,Credit Card,Completed
+TXN_000054,CUST_S_019,2024-02-09 03:35:51,PROD_115,Apparel,Classic Denim Slim Fit Jeans,1,49.99,15.0,42.49,Net Banking,Completed
+TXN_000012,CUST_S_005,2024-02-11 10:54:48,PROD_112,Apparel,Water-Resistant All-Weather Windbreaker,3,79.99,0.0,239.97,UPI,Completed
+TXN_000035,CUST_S_014,2024-02-15 03:24:40,PROD_105,Electronics,Portable Bluetooth Speaker Waterproof,1,59.99,15.0,50.99,Debit Card,Completed
+TXN_000141,CUST_S_046,2024-02-18 18:21:12,PROD_115,Apparel,Classic Denim Slim Fit Jeans,3,49.99,0.0,149.97,UPI,Completed
+TXN_000008,CUST_S_004,2024-02-23 06:40:54,PROD_130,Books & Media,The Pragmatic Programmer 20th Edition,4,44.00,0.0,176.00,Credit Card,Completed
+TXN_000113,CUST_S_038,2024-02-23 09:44:11,PROD_125,Books & Media,Designing Data-Intensive Applications,1,45.00,15.0,38.25,PayPal,Completed
+TXN_000115,CUST_S_039,2024-02-25 22:30:09,PROD_130,Books & Media,The Pragmatic Programmer 20th Edition,2,44.00,0.0,88.00,Net Banking,Completed
+TXN_000046,CUST_S_015,2024-02-28 04:13:00,PROD_129,Books & Media,Clean Code: Agile Software Craftsmanship,1,42.50,10.0,38.25,UPI,Completed
+TXN_000013,CUST_S_006,2024-02-29 19:37:43,PROD_121,Sports & Fitness,Non-Slip Eco-Friendly Yoga Mat 6mm,5,29.99,5.0,142.45,Net Banking,Completed
+TXN_000151,CUST_S_049,2024-03-01 01:26:48,PROD_107,Home & Kitchen,Digital Smart Air Fryer 5.8 Qt,1,119.99,0.0,119.99,PayPal,Cancelled
+TXN_000045,CUST_S_015,2024-03-04 05:42:00,PROD_122,Sports & Fitness,Adjustable Dumbbell Pair 5-52.5 lbs,1,299.99,0.0,299.99,Debit Card,Completed
+TXN_000139,CUST_S_046,2024-03-16 16:04:40,PROD_130,Books & Media,The Pragmatic Programmer 20th Edition,2,44.00,0.0,88.00,PayPal,Completed
+TXN_000142,CUST_S_047,2024-03-19 23:38:21,PROD_117,Health & Beauty,Sonic Electric Toothbrush Rechargeable,1,44.99,0.0,44.99,Debit Card,Completed
+TXN_000087,CUST_S_027,2024-03-20 16:31:12,PROD_101,Electronics,Wireless Noise-Cancelling Headphones,1,199.99,0.0,199.99,Net Banking,Completed
+TXN_000033,CUST_S_014,2024-03-21 04:10:12,PROD_106,Electronics,Fast Wireless Charging Stand 15W,1,29.99,10.0,26.99,UPI,Completed
+TXN_000078,CUST_S_024,2024-03-23 23:58:12,PROD_117,Health & Beauty,Sonic Electric Toothbrush Rechargeable,1,44.99,0.0,44.99,PayPal,Completed
+TXN_000129,CUST_S_045,2024-03-25 05:58:00,PROD_104,Electronics,Precision Wireless Gaming Mouse,1,49.99,0.0,49.99,UPI,Completed
+TXN_000031,CUST_S_013,2024-03-29 08:20:49,PROD_121,Sports & Fitness,Non-Slip Eco-Friendly Yoga Mat 6mm,3,29.99,0.0,89.97,Debit Card,Completed
+TXN_000047,CUST_S_016,2024-03-29 14:12:08,PROD_102,Electronics,Ultra-HD 4K Smart TV 55-inch,1,499.99,0.0,499.99,Net Banking,Cancelled
+TXN_000081,CUST_S_026,2024-04-03 09:50:35,PROD_118,Health & Beauty,Hydrating Facial Moisturizer Cream,5,24.99,0.0,124.95,Credit Card,Completed
+TXN_000059,CUST_S_020,2024-04-05 03:22:06,PROD_121,Sports & Fitness,Non-Slip Eco-Friendly Yoga Mat 6mm,1,29.99,0.0,29.99,Debit Card,Completed
+TXN_000016,CUST_S_009,2024-04-08 17:26:32,PROD_114,Apparel,Premium Organic Cotton Hoodie,1,54.99,10.0,49.49,Debit Card,Cancelled
+TXN_000101,CUST_S_034,2024-04-09 02:34:23,PROD_117,Health & Beauty,Sonic Electric Toothbrush Rechargeable,1,44.99,0.0,44.99,UPI,Completed
+TXN_000114,CUST_S_039,2024-04-09 10:58:38,PROD_130,Books & Media,The Pragmatic Programmer 20th Edition,1,44.00,0.0,44.00,Debit Card,Completed
+TXN_000034,CUST_S_014,2024-04-10 03:52:47,PROD_129,Books & Media,Clean Code: Agile Software Craftsmanship,1,42.50,10.0,38.25,Debit Card,Completed
+TXN_000093,CUST_S_030,2024-04-11 00:45:24,PROD_124,Sports & Fitness,High-Resistance Fitness Bands Set,2,18.99,0.0,37.98,UPI,Completed
+TXN_000112,CUST_S_037,2024-04-11 03:37:45,PROD_127,Books & Media,Hands-On Big Data Analytics with PySpark,1,39.99,10.0,35.99,UPI,Completed
+TXN_000062,CUST_S_021,2024-04-12 03:30:28,PROD_110,Home & Kitchen,Cast Iron Dutch Oven 6-Quart,5,69.99,0.0,349.95,UPI,Completed
+TXN_000099,CUST_S_032,2024-04-19 15:27:12,PROD_115,Apparel,Classic Denim Slim Fit Jeans,1,49.99,0.0,49.99,Credit Card,Completed
+TXN_000102,CUST_S_034,2024-04-21 07:34:20,PROD_129,Books & Media,Clean Code: Agile Software Craftsmanship,4,42.50,0.0,170.00,Credit Card,Completed
+TXN_000100,CUST_S_033,2024-04-22 13:18:26,PROD_104,Electronics,Precision Wireless Gaming Mouse,1,49.99,0.0,49.99,Net Banking,Completed
+TXN_000049,CUST_S_018,2024-04-23 05:13:54,PROD_112,Apparel,Water-Resistant All-Weather Windbreaker,1,79.99,0.0,79.99,Credit Card,Completed
+TXN_000061,CUST_S_021,2024-04-28 16:03:20,PROD_109,Home & Kitchen,Robot Vacuum Cleaner with LiDAR,1,279.99,10.0,251.99,PayPal,Completed
+TXN_000085,CUST_S_027,2024-05-04 09:51:22,PROD_105,Electronics,Portable Bluetooth Speaker Waterproof,1,59.99,0.0,59.99,UPI,Completed
+TXN_000015,CUST_S_008,2024-05-04 15:12:43,PROD_120,Health & Beauty,Organic Aromatherapy Essential Oil Set,1,19.99,0.0,19.99,UPI,Completed
+TXN_000135,CUST_S_045,2024-05-07 03:52:05,PROD_107,Home & Kitchen,Digital Smart Air Fryer 5.8 Qt,1,119.99,15.0,101.99,Debit Card,Completed
+TXN_000065,CUST_S_021,2024-05-07 05:54:24,PROD_103,Electronics,Ergonomic Mechanical Keyboard,2,89.99,15.0,152.98,Debit Card,Completed
+TXN_000055,CUST_S_020,2024-05-08 16:15:38,PROD_115,Apparel,Classic Denim Slim Fit Jeans,1,49.99,0.0,49.99,Net Banking,Completed
+TXN_000126,CUST_S_043,2024-05-10 06:54:47,PROD_108,Home & Kitchen,Stainless Steel Espresso Coffee Maker,1,189.99,0.0,189.99,Credit Card,Completed
+TXN_000005,CUST_S_002,2024-05-12 15:28:42,PROD_120,Health & Beauty,Organic Aromatherapy Essential Oil Set,1,19.99,0.0,19.99,Net Banking,Completed
+TXN_000127,CUST_S_043,2024-05-13 06:32:16,PROD_119,Health & Beauty,Deep Tissue Massage Gun Percussion,1,99.99,0.0,99.99,Debit Card,Completed
+TXN_000090,CUST_S_029,2024-05-13 19:56:03,PROD_128,Books & Media,Atomic Habits: Building Better Routines,1,18.00,0.0,18.00,Net Banking,Completed
+TXN_000075,CUST_S_023,2024-05-14 08:25:05,PROD_104,Electronics,Precision Wireless Gaming Mouse,1,49.99,5.0,47.49,Credit Card,Completed
+TXN_000119,CUST_S_040,2024-05-14 12:11:28,PROD_123,Sports & Fitness,Insulated Stainless Steel Water Bottle 32oz,1,21.99,0.0,21.99,Net Banking,Completed
+TXN_000116,CUST_S_039,2024-05-16 19:09:32,PROD_128,Books & Media,Atomic Habits: Building Better Routines,1,18.00,0.0,18.00,Debit Card,Completed
+TXN_000144,CUST_S_048,2024-05-17 17:08:33,PROD_126,Books & Media,Machine Learning Engineering in Action,1,49.50,0.0,49.50,UPI,Completed
+TXN_000123,CUST_S_042,2024-05-19 08:45:55,PROD_122,Sports & Fitness,Adjustable Dumbbell Pair 5-52.5 lbs,1,299.99,0.0,299.99,UPI,Completed
+TXN_000043,CUST_S_015,2024-05-20 23:53:21,PROD_125,Books & Media,Designing Data-Intensive Applications,1,45.00,0.0,45.00,Net Banking,Completed
+TXN_000094,CUST_S_030,2024-05-22 05:33:06,PROD_106,Electronics,Fast Wireless Charging Stand 15W,1,29.99,0.0,29.99,Net Banking,Refunded
+TXN_000103,CUST_S_034,2024-05-25 10:51:19,PROD_121,Sports & Fitness,Non-Slip Eco-Friendly Yoga Mat 6mm,1,29.99,0.0,29.99,Net Banking,Completed
+TXN_000110,CUST_S_036,2024-05-26 03:29:04,PROD_125,Books & Media,Designing Data-Intensive Applications,2,45.00,0.0,90.00,Debit Card,Completed
+TXN_000109,CUST_S_036,2024-05-26 17:13:01,PROD_115,Apparel,Classic Denim Slim Fit Jeans,4,49.99,15.0,169.97,UPI,Completed
+TXN_000007,CUST_S_003,2024-05-27 03:40:36,PROD_120,Health & Beauty,Organic Aromatherapy Essential Oil Set,1,19.99,15.0,16.99,Debit Card,Completed
+TXN_000079,CUST_S_025,2024-05-27 06:32:25,PROD_125,Books & Media,Designing Data-Intensive Applications,1,45.00,0.0,45.00,Credit Card,Completed
+TXN_000134,CUST_S_045,2024-05-29 18:04:16,PROD_101,Electronics,Wireless Noise-Cancelling Headphones,1,199.99,0.0,199.99,PayPal,Completed
+TXN_000030,CUST_S_013,2024-06-02 07:32:26,PROD_108,Home & Kitchen,Stainless Steel Espresso Coffee Maker,1,189.99,0.0,189.99,Credit Card,Completed
+TXN_000148,CUST_S_048,2024-06-03 22:30:46,PROD_107,Home & Kitchen,Digital Smart Air Fryer 5.8 Qt,1,119.99,0.0,119.99,Credit Card,Completed
+TXN_000130,CUST_S_045,2024-06-06 18:42:35,PROD_104,Electronics,Precision Wireless Gaming Mouse,2,49.99,0.0,99.98,UPI,Completed
+TXN_000029,CUST_S_013,2024-06-25 05:40:31,PROD_102,Electronics,Ultra-HD 4K Smart TV 55-inch,1,499.99,5.0,474.99,Credit Card,Completed
+TXN_000091,CUST_S_029,2024-06-28 16:13:01,PROD_101,Electronics,Wireless Noise-Cancelling Headphones,1,199.99,0.0,199.99,PayPal,Completed
+TXN_000133,CUST_S_045,2024-06-28 16:52:59,PROD_105,Electronics,Portable Bluetooth Speaker Waterproof,1,59.99,0.0,59.99,Net Banking,Completed
+TXN_000137,CUST_S_046,2024-06-30 01:55:55,PROD_116,Apparel,Polarized Aviator Sunglasses,2,34.99,0.0,69.98,PayPal,Completed
+TXN_000088,CUST_S_027,2024-06-30 19:27:18,PROD_125,Books & Media,Designing Data-Intensive Applications,1,45.00,0.0,45.00,PayPal,Completed
+TXN_000143,CUST_S_048,2024-07-01 02:31:36,PROD_111,Home & Kitchen,LED Smart Desk Lamp with Dimmer,1,39.99,0.0,39.99,Credit Card,Completed
+TXN_000010,CUST_S_005,2024-07-04 15:04:50,PROD_128,Books & Media,Atomic Habits: Building Better Routines,1,18.00,0.0,18.00,UPI,Refunded
+TXN_000146,CUST_S_048,2024-07-05 09:33:56,PROD_102,Electronics,Ultra-HD 4K Smart TV 55-inch,1,499.99,0.0,499.99,Debit Card,Completed
+TXN_000083,CUST_S_027,2024-07-06 17:33:35,PROD_117,Health & Beauty,Sonic Electric Toothbrush Rechargeable,3,44.99,15.0,114.72,Debit Card,Completed
+TXN_000084,CUST_S_027,2024-07-10 06:11:48,PROD_110,Home & Kitchen,Cast Iron Dutch Oven 6-Quart,2,69.99,0.0,139.98,Credit Card,Completed
+TXN_000068,CUST_S_022,2024-07-11 12:18:10,PROD_120,Health & Beauty,Organic Aromatherapy Essential Oil Set,1,19.99,10.0,17.99,UPI,Completed
+TXN_000018,CUST_S_011,2024-07-15 10:29:38,PROD_106,Electronics,Fast Wireless Charging Stand 15W,1,29.99,5.0,28.49,Credit Card,Completed
+TXN_000074,CUST_S_023,2024-07-18 21:01:51,PROD_103,Electronics,Ergonomic Mechanical Keyboard,3,89.99,0.0,269.97,UPI,Completed
+TXN_000006,CUST_S_002,2024-07-21 15:30:00,PROD_120,Health & Beauty,Organic Aromatherapy Essential Oil Set,1,19.99,15.0,16.99,Credit Card,Completed
+TXN_000058,CUST_S_020,2024-07-22 06:28:15,PROD_125,Books & Media,Designing Data-Intensive Applications,1,45.00,0.0,45.00,Credit Card,Completed
+TXN_000077,CUST_S_024,2024-07-29 11:55:03,PROD_117,Health & Beauty,Sonic Electric Toothbrush Rechargeable,1,44.99,0.0,44.99,Net Banking,Completed
+TXN_000050,CUST_S_018,2024-08-02 11:49:14,PROD_120,Health & Beauty,Organic Aromatherapy Essential Oil Set,1,19.99,0.0,19.99,Credit Card,Completed
+TXN_000024,CUST_S_011,2024-08-02 20:46:05,PROD_110,Home & Kitchen,Cast Iron Dutch Oven 6-Quart,5,69.99,5.0,332.45,Debit Card,Completed
+TXN_000020,CUST_S_011,2024-08-04 20:56:55,PROD_114,Apparel,Premium Organic Cotton Hoodie,1,54.99,0.0,54.99,PayPal,Completed
+TXN_000028,CUST_S_012,2024-08-05 19:58:01,PROD_122,Sports & Fitness,Adjustable Dumbbell Pair 5-52.5 lbs,2,299.99,0.0,599.98,Debit Card,Completed
+TXN_000040,CUST_S_014,2024-08-05 21:43:03,PROD_111,Home & Kitchen,LED Smart Desk Lamp with Dimmer,1,39.99,0.0,39.99,Net Banking,Completed
+TXN_000106,CUST_S_036,2024-08-09 01:31:10,PROD_113,Apparel,Breathable Athletic Running Shoes,3,109.99,0.0,329.97,PayPal,Completed
+TXN_000001,CUST_S_001,2024-08-10 11:39:45,PROD_112,Apparel,Water-Resistant All-Weather Windbreaker,1,79.99,0.0,79.99,UPI,Completed
+TXN_000025,CUST_S_011,2024-08-13 11:00:07,PROD_103,Electronics,Ergonomic Mechanical Keyboard,4,89.99,0.0,359.96,Credit Card,Completed
+TXN_000122,CUST_S_041,2024-08-13 19:16:11,PROD_117,Health & Beauty,Sonic Electric Toothbrush Rechargeable,1,44.99,0.0,44.99,Credit Card,Completed
+TXN_000132,CUST_S_045,2024-08-18 03:53:26,PROD_120,Health & Beauty,Organic Aromatherapy Essential Oil Set,4,19.99,0.0,79.96,Credit Card,Completed
+TXN_000052,CUST_S_019,2024-08-20 11:34:00,PROD_114,Apparel,Premium Organic Cotton Hoodie,1,54.99,0.0,54.99,Debit Card,Completed
+TXN_000124,CUST_S_042,2024-08-23 16:09:33,PROD_130,Books & Media,The Pragmatic Programmer 20th Edition,1,44.00,0.0,44.00,Debit Card,Completed
+TXN_000027,CUST_S_011,2024-09-06 19:53:57,PROD_108,Home & Kitchen,Stainless Steel Espresso Coffee Maker,2,189.99,0.0,379.98,Debit Card,Completed
+TXN_000089,CUST_S_028,2024-09-07 03:33:25,PROD_130,Books & Media,The Pragmatic Programmer 20th Edition,1,44.00,0.0,44.00,Credit Card,Completed
+TXN_000044,CUST_S_015,2024-09-07 11:00:37,PROD_127,Books & Media,Hands-On Big Data Analytics with PySpark,1,39.99,0.0,39.99,Debit Card,Completed
+TXN_000096,CUST_S_030,2024-09-07 22:19:18,PROD_102,Electronics,Ultra-HD 4K Smart TV 55-inch,1,499.99,15.0,424.99,Net Banking,Completed
+TXN_000131,CUST_S_045,2024-09-10 13:35:02,PROD_108,Home & Kitchen,Stainless Steel Espresso Coffee Maker,1,189.99,0.0,189.99,Credit Card,Completed
+TXN_000037,CUST_S_014,2024-09-11 15:28:25,PROD_103,Electronics,Ergonomic Mechanical Keyboard,1,89.99,15.0,76.49,Net Banking,Completed
+TXN_000070,CUST_S_023,2024-09-12 03:13:48,PROD_106,Electronics,Fast Wireless Charging Stand 15W,2,29.99,0.0,59.98,Debit Card,Completed
+TXN_000092,CUST_S_029,2024-09-18 14:33:34,PROD_122,Sports & Fitness,Adjustable Dumbbell Pair 5-52.5 lbs,1,299.99,5.0,284.99,PayPal,Completed
+TXN_000026,CUST_S_011,2024-09-20 14:36:49,PROD_112,Apparel,Water-Resistant All-Weather Windbreaker,1,79.99,0.0,79.99,Debit Card,Completed
+TXN_000032,CUST_S_013,2024-09-21 23:03:51,PROD_123,Sports & Fitness,Insulated Stainless Steel Water Bottle 32oz,1,21.99,0.0,21.99,Net Banking,Completed
+TXN_000150,CUST_S_048,2024-09-22 02:36:08,PROD_124,Sports & Fitness,High-Resistance Fitness Bands Set,1,18.99,0.0,18.99,PayPal,Completed
+TXN_000048,CUST_S_017,2024-09-27 10:55:19,PROD_120,Health & Beauty,Organic Aromatherapy Essential Oil Set,1,19.99,0.0,19.99,Credit Card,Completed
+TXN_000121,CUST_S_040,2024-09-30 04:18:35,PROD_122,Sports & Fitness,Adjustable Dumbbell Pair 5-52.5 lbs,2,299.99,0.0,599.98,PayPal,Completed
+TXN_000071,CUST_S_023,2024-10-01 10:22:41,PROD_111,Home & Kitchen,LED Smart Desk Lamp with Dimmer,1,39.99,5.0,37.99,PayPal,Completed
+TXN_000004,CUST_S_001,2024-10-01 19:07:38,PROD_114,Apparel,Premium Organic Cotton Hoodie,2,54.99,0.0,109.98,Credit Card,Completed
+TXN_000076,CUST_S_023,2024-10-06 11:11:01,PROD_108,Home & Kitchen,Stainless Steel Espresso Coffee Maker,2,189.99,0.0,379.98,Credit Card,Completed
+TXN_000038,CUST_S_014,2024-10-08 05:51:33,PROD_108,Home & Kitchen,Stainless Steel Espresso Coffee Maker,1,189.99,0.0,189.99,UPI,Completed
+TXN_000039,CUST_S_014,2024-10-09 05:16:07,PROD_122,Sports & Fitness,Adjustable Dumbbell Pair 5-52.5 lbs,1,299.99,15.0,254.99,Credit Card,Refunded
+TXN_000147,CUST_S_048,2024-10-09 22:48:06,PROD_111,Home & Kitchen,LED Smart Desk Lamp with Dimmer,1,39.99,0.0,39.99,Credit Card,Completed
+TXN_000125,CUST_S_042,2024-10-10 21:42:32,PROD_114,Apparel,Premium Organic Cotton Hoodie,1,54.99,0.0,54.99,UPI,Completed
+TXN_000118,CUST_S_040,2024-10-13 10:07:20,PROD_126,Books & Media,Machine Learning Engineering in Action,1,49.50,0.0,49.50,PayPal,Completed
+TXN_000095,CUST_S_030,2024-10-15 03:14:03,PROD_112,Apparel,Water-Resistant All-Weather Windbreaker,1,79.99,15.0,67.99,UPI,Completed
+TXN_000117,CUST_S_040,2024-10-15 14:41:00,PROD_123,Sports & Fitness,Insulated Stainless Steel Water Bottle 32oz,1,21.99,0.0,21.99,Credit Card,Refunded
+TXN_000002,CUST_S_001,2024-10-20 22:22:17,PROD_118,Health & Beauty,Hydrating Facial Moisturizer Cream,2,24.99,0.0,49.98,PayPal,Refunded
+TXN_000138,CUST_S_046,2024-10-25 07:27:42,PROD_104,Electronics,Precision Wireless Gaming Mouse,3,49.99,0.0,149.97,PayPal,Completed
+TXN_000053,CUST_S_019,2024-10-27 21:14:29,PROD_112,Apparel,Water-Resistant All-Weather Windbreaker,1,79.99,0.0,79.99,UPI,Completed
+TXN_000067,CUST_S_021,2024-10-28 16:00:02,PROD_102,Electronics,Ultra-HD 4K Smart TV 55-inch,1,499.99,0.0,499.99,Debit Card,Completed
+TXN_000022,CUST_S_011,2024-10-30 04:38:07,PROD_101,Electronics,Wireless Noise-Cancelling Headphones,5,199.99,0.0,999.95,Credit Card,Completed
+TXN_000042,CUST_S_015,2024-11-02 14:32:08,PROD_116,Apparel,Polarized Aviator Sunglasses,1,34.99,0.0,34.99,UPI,Completed
+TXN_000082,CUST_S_027,2024-11-02 20:19:31,PROD_107,Home & Kitchen,Digital Smart Air Fryer 5.8 Qt,1,119.99,0.0,119.99,Net Banking,Completed
+TXN_000014,CUST_S_007,2024-11-05 07:31:53,PROD_109,Home & Kitchen,Robot Vacuum Cleaner with LiDAR,2,279.99,5.0,531.98,Debit Card,Completed
+TXN_000097,CUST_S_030,2024-11-12 22:15:55,PROD_125,Books & Media,Designing Data-Intensive Applications,1,45.00,0.0,45.00,Debit Card,Completed
+TXN_000056,CUST_S_020,2024-11-14 10:04:37,PROD_130,Books & Media,The Pragmatic Programmer 20th Edition,1,44.00,0.0,44.00,UPI,Completed
+TXN_000072,CUST_S_023,2024-11-16 09:44:21,PROD_110,Home & Kitchen,Cast Iron Dutch Oven 6-Quart,1,69.99,0.0,69.99,Credit Card,Completed
+TXN_000140,CUST_S_046,2024-11-16 09:52:17,PROD_115,Apparel,Classic Denim Slim Fit Jeans,3,49.99,0.0,149.97,PayPal,Completed
+TXN_000066,CUST_S_021,2024-11-21 09:08:27,PROD_109,Home & Kitchen,Robot Vacuum Cleaner with LiDAR,3,279.99,10.0,755.97,Debit Card,Completed
+TXN_000111,CUST_S_037,2024-11-27 05:14:11,PROD_117,Health & Beauty,Sonic Electric Toothbrush Rechargeable,3,44.99,0.0,134.97,Net Banking,Completed
+TXN_000128,CUST_S_044,2024-11-27 13:26:48,PROD_120,Health & Beauty,Organic Aromatherapy Essential Oil Set,1,19.99,0.0,19.99,PayPal,Completed
+TXN_000104,CUST_S_034,2024-11-28 02:39:34,PROD_117,Health & Beauty,Sonic Electric Toothbrush Rechargeable,1,44.99,10.0,40.49,UPI,Completed
+TXN_000108,CUST_S_036,2024-11-28 02:42:13,PROD_116,Apparel,Polarized Aviator Sunglasses,2,34.99,0.0,69.98,Debit Card,Refunded
+TXN_000009,CUST_S_005,2024-12-04 01:56:30,PROD_112,Apparel,Water-Resistant All-Weather Windbreaker,1,79.99,0.0,79.99,Credit Card,Completed
+TXN_000107,CUST_S_036,2024-12-06 14:22:29,PROD_126,Books & Media,Machine Learning Engineering in Action,1,49.50,0.0,49.50,PayPal,Completed
+TXN_000073,CUST_S_023,2024-12-07 17:25:55,PROD_102,Electronics,Ultra-HD 4K Smart TV 55-inch,1,499.99,0.0,499.99,Debit Card,Completed
+TXN_000060,CUST_S_021,2024-12-10 11:45:24,PROD_117,Health & Beauty,Sonic Electric Toothbrush Rechargeable,2,44.99,5.0,85.48,Net Banking,Completed
+TXN_000019,CUST_S_011,2024-12-16 09:27:25,PROD_104,Electronics,Precision Wireless Gaming Mouse,2,49.99,0.0,99.98,PayPal,Completed
+TXN_000069,CUST_S_022,2024-12-19 13:40:28,PROD_129,Books & Media,Clean Code: Agile Software Craftsmanship,1,42.50,0.0,42.50,UPI,Completed
+TXN_000036,CUST_S_014,2024-12-20 20:08:14,PROD_107,Home & Kitchen,Digital Smart Air Fryer 5.8 Qt,2,119.99,15.0,203.98,,Completed
+TXN_000136,CUST_S_045,2024-12-21 07:23:41,PROD_107,Home & Kitchen,Digital Smart Air Fryer 5.8 Qt,4,119.99,0.0,479.96,PayPal,Completed
+TXN_000051,CUST_S_019,2024-12-23 12:46:55,PROD_116,Apparel,Polarized Aviator Sunglasses,1,34.99,0.0,34.99,PayPal,Completed
+TXN_000023,CUST_S_011,2024-12-24 03:14:35,PROD_103,Electronics,Ergonomic Mechanical Keyboard,1,89.99,0.0,89.99,Credit Card,Completed
+TXN_000086,CUST_S_027,2024-12-26 20:34:46,PROD_106,Electronics,Fast Wireless Charging Stand 15W,1,29.99,10.0,26.99,Credit Card,Completed
+TXN_000003,CUST_S_001,2024-12-27 04:12:41,PROD_122,Sports & Fitness,Adjustable Dumbbell Pair 5-52.5 lbs,1,299.99,0.0,299.99,UPI,Completed
+TXN_000064,CUST_S_021,2024-12-28 07:46:47,PROD_104,Electronics,Precision Wireless Gaming Mouse,1,49.99,0.0,49.99,Debit Card,Completed

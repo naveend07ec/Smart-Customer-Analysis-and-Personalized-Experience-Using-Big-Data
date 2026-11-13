@@ -1,0 +1,1435 @@
+activity_id,customer_id,session_id,timestamp,page_url,action_type,product_id,duration_seconds,device_type,traffic_source
+WEB_000857,CUST_S_029,SESS_000215,2024-01-01 16:11:09,/home,page_view,,30,Mobile,Organic Search
+WEB_000858,CUST_S_029,SESS_000215,2024-01-01 16:13:35,/category/sports-&-fitness,search,,272,Mobile,Organic Search
+WEB_000859,CUST_S_029,SESS_000215,2024-01-01 16:14:35,/product/prod_113,product_view,PROD_113,197,Mobile,Organic Search
+WEB_000244,CUST_S_012,SESS_000062,2024-01-01 21:22:11,/home,page_view,,178,Tablet,Referral
+WEB_000245,CUST_S_012,SESS_000062,2024-01-01 21:24:04,/category/home-&-kitchen,search,,269,Tablet,Referral
+WEB_000246,CUST_S_012,SESS_000062,2024-01-01 21:25:12,/product/prod_127,checkout_start,PROD_127,22,Tablet,Referral
+WEB_001344,CUST_S_046,SESS_000337,2024-01-02 16:43:24,/home,page_view,,284,Desktop,Email Newsletter
+WEB_001345,CUST_S_046,SESS_000337,2024-01-02 16:45:31,/category/apparel,search,,147,Desktop,Email Newsletter
+WEB_001346,CUST_S_046,SESS_000337,2024-01-02 16:46:14,/product/prod_114,product_view,PROD_114,74,Desktop,Email Newsletter
+WEB_001347,CUST_S_046,SESS_000337,2024-01-02 16:48:09,/product/prod_122,checkout_start,PROD_122,14,Desktop,Email Newsletter
+WEB_001348,CUST_S_046,SESS_000337,2024-01-02 16:50:51,/product/prod_126,checkout_start,PROD_126,114,Desktop,Email Newsletter
+WEB_000487,CUST_S_019,SESS_000122,2024-01-05 02:09:37,/home,page_view,,108,Tablet,Social Media
+WEB_000488,CUST_S_019,SESS_000122,2024-01-05 02:12:22,/category/sports-&-fitness,search,,221,Tablet,Social Media
+WEB_000489,CUST_S_019,SESS_000122,2024-01-05 02:12:45,/product/prod_112,product_view,PROD_112,64,Tablet,Social Media
+WEB_000490,CUST_S_019,SESS_000122,2024-01-05 02:14:52,/product/prod_128,product_view,PROD_128,58,Tablet,Social Media
+WEB_000640,CUST_S_022,SESS_000161,2024-01-07 05:38:16,/home,page_view,,52,Tablet,Direct
+WEB_000641,CUST_S_022,SESS_000161,2024-01-07 05:40:49,/category/health-&-beauty,search,,253,Tablet,Direct
+WEB_001189,CUST_S_041,SESS_000298,2024-01-07 19:37:25,/home,page_view,,168,Tablet,Email Newsletter
+WEB_001190,CUST_S_041,SESS_000298,2024-01-07 19:39:00,/category/books-&-media,search,,296,Tablet,Email Newsletter
+WEB_001191,CUST_S_041,SESS_000298,2024-01-07 19:41:49,/product/prod_130,product_view,PROD_130,61,Tablet,Email Newsletter
+WEB_001192,CUST_S_041,SESS_000298,2024-01-07 19:42:15,/product/prod_126,product_view,PROD_126,152,Tablet,Email Newsletter
+WEB_001193,CUST_S_041,SESS_000298,2024-01-07 19:43:29,/product/prod_129,add_to_cart,PROD_129,287,Tablet,Email Newsletter
+WEB_001194,CUST_S_041,SESS_000298,2024-01-07 19:45:47,/product/prod_119,wishlist,PROD_119,34,Tablet,Email Newsletter
+WEB_000001,CUST_S_001,SESS_000001,2024-01-08 23:52:19,/home,page_view,,150,Tablet,Direct
+WEB_000002,CUST_S_001,SESS_000001,2024-01-08 23:53:08,/category/sports-&-fitness,search,,95,Tablet,Direct
+WEB_000003,CUST_S_001,SESS_000001,2024-01-08 23:55:54,/product/prod_122,product_view,PROD_122,145,Tablet,Direct
+WEB_000004,CUST_S_001,SESS_000001,2024-01-08 23:58:16,/product/prod_112,product_view,PROD_112,284,Tablet,Direct
+WEB_000005,CUST_S_001,SESS_000001,2024-01-08 23:59:02,/product/prod_121,product_view,PROD_121,99,Tablet,Direct
+WEB_000155,CUST_S_007,SESS_000039,2024-01-09 05:04:09,/home,page_view,,175,Mobile,Social Media
+WEB_000156,CUST_S_007,SESS_000039,2024-01-09 05:06:36,/category/home-&-kitchen,search,,278,Mobile,Social Media
+WEB_000157,CUST_S_007,SESS_000039,2024-01-09 05:08:13,/product/prod_128,product_view,PROD_128,109,Mobile,Social Media
+WEB_000271,CUST_S_013,SESS_000068,2024-01-10 10:19:02,/home,page_view,,240,Desktop,Direct
+WEB_000272,CUST_S_013,SESS_000068,2024-01-10 10:21:50,/category/apparel,search,,90,Desktop,Direct
+WEB_000273,CUST_S_013,SESS_000068,2024-01-10 10:22:43,/product/prod_129,product_view,PROD_129,158,Desktop,Direct
+WEB_000274,CUST_S_013,SESS_000068,2024-01-10 10:23:38,/product/prod_112,product_view,PROD_112,274,Desktop,Direct
+WEB_000275,CUST_S_013,SESS_000068,2024-01-10 10:24:41,/product/prod_113,add_to_cart,PROD_113,273,Desktop,Direct
+WEB_000839,CUST_S_029,SESS_000210,2024-01-12 11:20:01,/home,page_view,,275,Tablet,Social Media
+WEB_000840,CUST_S_029,SESS_000210,2024-01-12 11:22:04,/category/sports-&-fitness,search,,58,Tablet,Social Media
+WEB_000841,CUST_S_029,SESS_000210,2024-01-12 11:25:04,/product/prod_115,product_view,PROD_115,84,Tablet,Social Media
+WEB_000842,CUST_S_029,SESS_000210,2024-01-12 11:26:57,/product/prod_121,product_view,PROD_121,190,Tablet,Social Media
+WEB_000843,CUST_S_029,SESS_000210,2024-01-12 11:29:40,/product/prod_125,wishlist,PROD_125,286,Tablet,Social Media
+WEB_000844,CUST_S_029,SESS_000210,2024-01-12 11:29:58,/product/prod_121,product_view,PROD_121,298,Tablet,Social Media
+WEB_000491,CUST_S_019,SESS_000123,2024-01-13 07:51:48,/home,page_view,,91,Mobile,Referral
+WEB_000492,CUST_S_019,SESS_000123,2024-01-13 07:53:21,/category/apparel,search,,143,Mobile,Referral
+WEB_000493,CUST_S_019,SESS_000123,2024-01-13 07:55:22,/product/prod_123,add_to_cart,PROD_123,49,Mobile,Referral
+WEB_000494,CUST_S_019,SESS_000123,2024-01-13 07:56:47,/product/prod_130,wishlist,PROD_130,134,Mobile,Referral
+WEB_000495,CUST_S_019,SESS_000123,2024-01-13 07:58:17,/product/prod_130,product_view,PROD_130,129,Mobile,Referral
+WEB_000496,CUST_S_019,SESS_000123,2024-01-13 07:59:06,/product/prod_121,wishlist,PROD_121,289,Mobile,Referral
+WEB_001047,CUST_S_037,SESS_000262,2024-01-14 19:31:24,/home,page_view,,26,Tablet,Organic Search
+WEB_001048,CUST_S_037,SESS_000262,2024-01-14 19:33:05,/category/sports-&-fitness,search,,130,Tablet,Organic Search
+WEB_000324,CUST_S_014,SESS_000082,2024-01-16 03:01:35,/home,page_view,,184,Desktop,Referral
+WEB_000325,CUST_S_014,SESS_000082,2024-01-16 03:02:10,/category/home-&-kitchen,search,,26,Desktop,Referral
+WEB_000957,CUST_S_035,SESS_000240,2024-01-16 11:50:06,/home,page_view,,157,Tablet,Direct
+WEB_000958,CUST_S_035,SESS_000240,2024-01-16 11:52:10,/category/electronics,search,,75,Tablet,Direct
+WEB_000959,CUST_S_035,SESS_000240,2024-01-16 11:52:56,/product/prod_113,product_view,PROD_113,100,Tablet,Direct
+WEB_000960,CUST_S_035,SESS_000240,2024-01-16 11:54:18,/product/prod_104,product_view,PROD_104,133,Tablet,Direct
+WEB_000961,CUST_S_035,SESS_000240,2024-01-16 11:56:41,/product/prod_101,product_view,PROD_101,15,Tablet,Direct
+WEB_001230,CUST_S_042,SESS_000308,2024-01-17 00:31:51,/home,page_view,,187,Tablet,Email Newsletter
+WEB_001231,CUST_S_042,SESS_000308,2024-01-17 00:33:57,/category/sports-&-fitness,search,,91,Tablet,Email Newsletter
+WEB_001232,CUST_S_042,SESS_000308,2024-01-17 00:36:20,/product/prod_119,wishlist,PROD_119,150,Tablet,Email Newsletter
+WEB_001233,CUST_S_042,SESS_000308,2024-01-17 00:38:44,/product/prod_116,add_to_cart,PROD_116,178,Tablet,Email Newsletter
+WEB_000339,CUST_S_014,SESS_000085,2024-01-19 08:03:00,/home,page_view,,182,Tablet,Social Media
+WEB_000340,CUST_S_014,SESS_000085,2024-01-19 08:05:24,/category/electronics,search,,132,Tablet,Social Media
+WEB_000341,CUST_S_014,SESS_000085,2024-01-19 08:05:42,/product/prod_107,wishlist,PROD_107,227,Tablet,Social Media
+WEB_001383,CUST_S_047,SESS_000346,2024-01-19 08:06:21,/home,page_view,,250,Tablet,Social Media
+WEB_000342,CUST_S_014,SESS_000085,2024-01-19 08:06:38,/product/prod_103,add_to_cart,PROD_103,163,Tablet,Social Media
+WEB_001384,CUST_S_047,SESS_000346,2024-01-19 08:07:18,/category/health-&-beauty,search,,45,Tablet,Social Media
+WEB_001385,CUST_S_047,SESS_000346,2024-01-19 08:09:30,/product/prod_119,checkout_start,PROD_119,7,Tablet,Social Media
+WEB_001386,CUST_S_047,SESS_000346,2024-01-19 08:09:59,/product/prod_125,wishlist,PROD_125,30,Tablet,Social Media
+WEB_001262,CUST_S_045,SESS_000316,2024-01-19 21:40:04,/home,page_view,,27,Mobile,Social Media
+WEB_001263,CUST_S_045,SESS_000316,2024-01-19 21:41:48,/category/home-&-kitchen,search,,260,Mobile,Social Media
+WEB_001264,CUST_S_045,SESS_000316,2024-01-19 21:43:54,/product/prod_105,product_view,PROD_105,93,Mobile,Social Media
+WEB_001265,CUST_S_045,SESS_000316,2024-01-19 21:44:50,/product/prod_110,add_to_cart,PROD_110,290,Mobile,Social Media
+WEB_001266,CUST_S_045,SESS_000316,2024-01-19 21:47:24,/product/prod_110,product_view,PROD_110,12,Mobile,Social Media
+WEB_001267,CUST_S_045,SESS_000316,2024-01-19 21:49:38,/product/prod_110,product_view,PROD_110,240,Mobile,Social Media
+WEB_000563,CUST_S_020,SESS_000141,2024-01-20 20:59:27,/home,page_view,,193,Desktop,Direct
+WEB_000564,CUST_S_020,SESS_000141,2024-01-20 21:00:26,/category/sports-&-fitness,search,,178,Desktop,Direct
+WEB_000565,CUST_S_020,SESS_000141,2024-01-20 21:02:43,/product/prod_129,product_view,PROD_129,198,Desktop,Direct
+WEB_000566,CUST_S_020,SESS_000141,2024-01-20 21:04:57,/product/prod_112,checkout_start,PROD_112,73,Desktop,Direct
+WEB_000567,CUST_S_020,SESS_000141,2024-01-20 21:06:20,/product/prod_126,product_view,PROD_126,205,Desktop,Direct
+WEB_001125,CUST_S_039,SESS_000282,2024-01-20 21:54:54,/home,page_view,,91,Mobile,Social Media
+WEB_001126,CUST_S_039,SESS_000282,2024-01-20 21:56:57,/category/sports-&-fitness,search,,128,Mobile,Social Media
+WEB_001127,CUST_S_039,SESS_000282,2024-01-20 21:58:03,/product/prod_112,product_view,PROD_112,185,Mobile,Social Media
+WEB_000881,CUST_S_030,SESS_000221,2024-01-22 09:02:46,/home,page_view,,27,Desktop,Direct
+WEB_000882,CUST_S_030,SESS_000221,2024-01-22 09:04:02,/category/home-&-kitchen,search,,56,Desktop,Direct
+WEB_000883,CUST_S_030,SESS_000221,2024-01-22 09:04:26,/product/prod_104,wishlist,PROD_104,63,Desktop,Direct
+WEB_000884,CUST_S_030,SESS_000221,2024-01-22 09:06:17,/product/prod_110,product_view,PROD_110,74,Desktop,Direct
+WEB_001372,CUST_S_046,SESS_000344,2024-01-22 18:05:00,/home,page_view,,279,Mobile,Email Newsletter
+WEB_001373,CUST_S_046,SESS_000344,2024-01-22 18:06:15,/category/sports-&-fitness,search,,117,Mobile,Email Newsletter
+WEB_001073,CUST_S_039,SESS_000269,2024-01-23 07:29:15,/home,page_view,,75,Mobile,Organic Search
+WEB_001074,CUST_S_039,SESS_000269,2024-01-23 07:31:44,/category/sports-&-fitness,search,,299,Mobile,Organic Search
+WEB_001075,CUST_S_039,SESS_000269,2024-01-23 07:32:52,/product/prod_112,product_view,PROD_112,64,Mobile,Organic Search
+WEB_001227,CUST_S_042,SESS_000307,2024-01-26 10:08:37,/home,page_view,,167,Mobile,Organic Search
+WEB_001228,CUST_S_042,SESS_000307,2024-01-26 10:11:19,/category/health-&-beauty,search,,90,Mobile,Organic Search
+WEB_001229,CUST_S_042,SESS_000307,2024-01-26 10:11:47,/product/prod_116,product_view,PROD_116,134,Mobile,Organic Search
+WEB_000438,CUST_S_016,SESS_000110,2024-01-27 03:11:24,/home,page_view,,204,Mobile,Direct
+WEB_000439,CUST_S_016,SESS_000110,2024-01-27 03:12:15,/category/apparel,search,,61,Mobile,Direct
+WEB_000440,CUST_S_016,SESS_000110,2024-01-27 03:13:55,/product/prod_116,product_view,PROD_116,187,Mobile,Direct
+WEB_000413,CUST_S_015,SESS_000104,2024-01-28 02:06:37,/home,page_view,,58,Mobile,Email Newsletter
+WEB_000414,CUST_S_015,SESS_000104,2024-01-28 02:07:18,/category/sports-&-fitness,search,,49,Mobile,Email Newsletter
+WEB_000415,CUST_S_015,SESS_000104,2024-01-28 02:08:08,/product/prod_112,product_view,PROD_112,299,Mobile,Email Newsletter
+WEB_000416,CUST_S_015,SESS_000104,2024-01-28 02:10:15,/product/prod_122,product_view,PROD_122,125,Mobile,Email Newsletter
+WEB_000417,CUST_S_015,SESS_000104,2024-01-28 02:10:31,/product/prod_124,product_view,PROD_124,257,Mobile,Email Newsletter
+WEB_000418,CUST_S_015,SESS_000104,2024-01-28 02:11:38,/product/prod_115,product_view,PROD_115,98,Mobile,Email Newsletter
+WEB_000226,CUST_S_011,SESS_000057,2024-01-29 06:38:21,/home,page_view,,7,Tablet,Organic Search
+WEB_000227,CUST_S_011,SESS_000057,2024-01-29 06:41:08,/category/electronics,search,,233,Tablet,Organic Search
+WEB_000228,CUST_S_011,SESS_000057,2024-01-29 06:42:31,/product/prod_110,product_view,PROD_110,289,Tablet,Organic Search
+WEB_000229,CUST_S_011,SESS_000057,2024-01-29 06:43:02,/product/prod_110,product_view,PROD_110,145,Tablet,Organic Search
+WEB_000230,CUST_S_011,SESS_000057,2024-01-29 06:46:02,/product/prod_107,wishlist,PROD_107,140,Tablet,Organic Search
+WEB_000231,CUST_S_011,SESS_000057,2024-01-29 06:47:19,/product/prod_101,add_to_cart,PROD_101,238,Tablet,Organic Search
+WEB_000642,CUST_S_022,SESS_000161,2024-01-30 18:38:01,/home,page_view,,148,Tablet,Organic Search
+WEB_000643,CUST_S_022,SESS_000161,2024-01-30 18:40:33,/category/home-&-kitchen,search,,182,Tablet,Organic Search
+WEB_000644,CUST_S_022,SESS_000161,2024-01-30 18:42:04,/product/prod_127,checkout_start,PROD_127,291,Tablet,Organic Search
+WEB_000431,CUST_S_015,SESS_000108,2024-01-31 01:19:55,/home,page_view,,71,Mobile,Social Media
+WEB_000432,CUST_S_015,SESS_000108,2024-01-31 01:21:26,/category/apparel,search,,250,Mobile,Social Media
+WEB_000433,CUST_S_015,SESS_000108,2024-01-31 01:22:42,/product/prod_126,product_view,PROD_126,59,Mobile,Social Media
+WEB_000434,CUST_S_015,SESS_000108,2024-01-31 01:23:05,/product/prod_114,checkout_start,PROD_114,200,Mobile,Social Media
+WEB_000435,CUST_S_015,SESS_000108,2024-01-31 01:25:24,/product/prod_112,product_view,PROD_112,282,Mobile,Social Media
+WEB_001327,CUST_S_046,SESS_000332,2024-02-01 01:43:54,/home,page_view,,281,Tablet,Organic Search
+WEB_001328,CUST_S_046,SESS_000332,2024-02-01 01:46:24,/category/books-&-media,search,,252,Tablet,Organic Search
+WEB_001329,CUST_S_046,SESS_000332,2024-02-01 01:48:06,/product/prod_128,add_to_cart,PROD_128,251,Tablet,Organic Search
+WEB_001330,CUST_S_046,SESS_000332,2024-02-01 01:49:52,/product/prod_129,add_to_cart,PROD_129,22,Tablet,Organic Search
+WEB_001059,CUST_S_037,SESS_000265,2024-02-01 23:58:57,/home,page_view,,180,Tablet,Organic Search
+WEB_001060,CUST_S_037,SESS_000265,2024-02-02 00:00:37,/category/sports-&-fitness,search,,281,Tablet,Organic Search
+WEB_001061,CUST_S_037,SESS_000265,2024-02-02 00:01:08,/product/prod_121,add_to_cart,PROD_121,277,Tablet,Organic Search
+WEB_001062,CUST_S_037,SESS_000265,2024-02-02 00:01:25,/product/prod_112,add_to_cart,PROD_112,222,Tablet,Organic Search
+WEB_001063,CUST_S_037,SESS_000265,2024-02-02 00:03:43,/product/prod_116,add_to_cart,PROD_116,281,Tablet,Organic Search
+WEB_001221,CUST_S_042,SESS_000306,2024-02-02 07:33:36,/home,page_view,,155,Desktop,Direct
+WEB_001222,CUST_S_042,SESS_000306,2024-02-02 07:34:52,/category/sports-&-fitness,search,,225,Desktop,Direct
+WEB_001223,CUST_S_042,SESS_000306,2024-02-02 07:37:46,/product/prod_117,add_to_cart,PROD_117,118,Desktop,Direct
+WEB_001224,CUST_S_042,SESS_000306,2024-02-02 07:39:08,/product/prod_113,product_view,PROD_113,238,Desktop,Direct
+WEB_001225,CUST_S_042,SESS_000306,2024-02-02 07:41:02,/product/prod_122,product_view,PROD_122,194,Desktop,Direct
+WEB_001226,CUST_S_042,SESS_000306,2024-02-02 07:42:11,/product/prod_112,product_view,PROD_112,203,Desktop,Direct
+WEB_000798,CUST_S_029,SESS_000200,2024-02-02 15:19:45,/home,page_view,,228,Mobile,Referral
+WEB_000799,CUST_S_029,SESS_000200,2024-02-02 15:22:26,/category/sports-&-fitness,search,,69,Mobile,Referral
+WEB_000800,CUST_S_029,SESS_000200,2024-02-02 15:24:47,/product/prod_129,product_view,PROD_129,46,Mobile,Referral
+WEB_000555,CUST_S_020,SESS_000139,2024-02-05 23:00:57,/home,page_view,,282,Desktop,Organic Search
+WEB_000556,CUST_S_020,SESS_000139,2024-02-05 23:02:25,/category/sports-&-fitness,search,,128,Desktop,Organic Search
+WEB_000557,CUST_S_020,SESS_000139,2024-02-05 23:03:04,/product/prod_127,product_view,PROD_127,283,Desktop,Organic Search
+WEB_000558,CUST_S_020,SESS_000139,2024-02-05 23:06:02,/product/prod_112,product_view,PROD_112,161,Desktop,Organic Search
+WEB_000056,CUST_S_004,SESS_000015,2024-02-06 18:36:24,/home,page_view,,118,Tablet,Referral
+WEB_000057,CUST_S_004,SESS_000015,2024-02-06 18:38:06,/category/home-&-kitchen,search,,176,Tablet,Referral
+WEB_000058,CUST_S_004,SESS_000015,2024-02-06 18:40:38,/product/prod_128,product_view,PROD_128,59,Tablet,Referral
+WEB_000059,CUST_S_004,SESS_000015,2024-02-06 18:42:03,/product/prod_125,product_view,PROD_125,34,Tablet,Referral
+WEB_000060,CUST_S_004,SESS_000015,2024-02-06 18:43:43,/product/prod_117,product_view,PROD_117,201,Tablet,Referral
+WEB_000061,CUST_S_004,SESS_000015,2024-02-06 18:44:06,/product/prod_117,product_view,PROD_117,79,Tablet,Referral
+WEB_000068,CUST_S_004,SESS_000018,2024-02-07 13:14:45,/home,page_view,,41,Desktop,Social Media
+WEB_000069,CUST_S_004,SESS_000018,2024-02-07 13:17:00,/category/books-&-media,search,,244,Desktop,Social Media
+WEB_000070,CUST_S_004,SESS_000018,2024-02-07 13:19:24,/product/prod_126,wishlist,PROD_126,208,Desktop,Social Media
+WEB_000071,CUST_S_004,SESS_000018,2024-02-07 13:20:07,/product/prod_111,product_view,PROD_111,82,Desktop,Social Media
+WEB_000298,CUST_S_013,SESS_000075,2024-02-08 00:34:38,/home,page_view,,293,Mobile,Social Media
+WEB_000299,CUST_S_013,SESS_000075,2024-02-08 00:35:16,/category/sports-&-fitness,search,,55,Mobile,Social Media
+WEB_000300,CUST_S_013,SESS_000075,2024-02-08 00:38:13,/product/prod_114,product_view,PROD_114,145,Mobile,Social Media
+WEB_000301,CUST_S_013,SESS_000075,2024-02-08 00:40:40,/product/prod_121,product_view,PROD_121,109,Mobile,Social Media
+WEB_000302,CUST_S_013,SESS_000075,2024-02-08 00:42:57,/product/prod_128,product_view,PROD_128,194,Mobile,Social Media
+WEB_001195,CUST_S_041,SESS_000299,2024-02-08 07:28:15,/home,page_view,,39,Desktop,Referral
+WEB_001196,CUST_S_041,SESS_000299,2024-02-08 07:30:40,/category/health-&-beauty,search,,74,Desktop,Referral
+WEB_001197,CUST_S_041,SESS_000299,2024-02-08 07:33:33,/product/prod_107,product_view,PROD_107,122,Desktop,Referral
+WEB_001198,CUST_S_041,SESS_000299,2024-02-08 07:34:12,/product/prod_111,product_view,PROD_111,55,Desktop,Referral
+WEB_001199,CUST_S_041,SESS_000299,2024-02-08 07:34:27,/product/prod_128,product_view,PROD_128,62,Desktop,Referral
+WEB_001268,CUST_S_045,SESS_000318,2024-02-08 23:41:56,/home,page_view,,219,Desktop,Email Newsletter
+WEB_001269,CUST_S_045,SESS_000318,2024-02-08 23:44:56,/category/electronics,search,,293,Desktop,Email Newsletter
+WEB_001270,CUST_S_045,SESS_000318,2024-02-08 23:47:52,/product/prod_104,product_view,PROD_104,190,Desktop,Email Newsletter
+WEB_001271,CUST_S_045,SESS_000318,2024-02-08 23:50:02,/product/prod_105,product_view,PROD_105,43,Desktop,Email Newsletter
+WEB_001272,CUST_S_045,SESS_000318,2024-02-08 23:52:07,/product/prod_109,wishlist,PROD_109,206,Desktop,Email Newsletter
+WEB_001171,CUST_S_040,SESS_000293,2024-02-09 13:09:27,/home,page_view,,157,Mobile,Direct
+WEB_001172,CUST_S_040,SESS_000293,2024-02-09 13:12:03,/category/books-&-media,search,,148,Mobile,Direct
+WEB_001117,CUST_S_039,SESS_000280,2024-02-10 02:44:52,/home,page_view,,220,Tablet,Email Newsletter
+WEB_001118,CUST_S_039,SESS_000280,2024-02-10 02:47:04,/category/books-&-media,search,,222,Tablet,Email Newsletter
+WEB_001119,CUST_S_039,SESS_000280,2024-02-10 02:49:05,/product/prod_123,product_view,PROD_123,45,Tablet,Email Newsletter
+WEB_001120,CUST_S_039,SESS_000280,2024-02-10 02:51:11,/product/prod_116,add_to_cart,PROD_116,196,Tablet,Email Newsletter
+WEB_001121,CUST_S_039,SESS_000280,2024-02-10 02:52:34,/product/prod_125,checkout_start,PROD_125,154,Tablet,Email Newsletter
+WEB_000806,CUST_S_029,SESS_000202,2024-02-10 08:47:47,/home,page_view,,272,Desktop,Email Newsletter
+WEB_000807,CUST_S_029,SESS_000202,2024-02-10 08:48:43,/category/sports-&-fitness,search,,184,Desktop,Email Newsletter
+WEB_000502,CUST_S_019,SESS_000126,2024-02-10 21:10:35,/home,page_view,,287,Tablet,Social Media
+WEB_000503,CUST_S_019,SESS_000126,2024-02-10 21:13:33,/category/apparel,search,,17,Tablet,Social Media
+WEB_000504,CUST_S_019,SESS_000126,2024-02-10 21:15:03,/product/prod_127,product_view,PROD_127,35,Tablet,Social Media
+WEB_000505,CUST_S_019,SESS_000126,2024-02-10 21:16:46,/product/prod_128,product_view,PROD_128,17,Tablet,Social Media
+WEB_000188,CUST_S_011,SESS_000048,2024-02-13 16:35:07,/home,page_view,,92,Tablet,Social Media
+WEB_000189,CUST_S_011,SESS_000048,2024-02-13 16:36:57,/category/electronics,search,,280,Tablet,Social Media
+WEB_001317,CUST_S_046,SESS_000330,2024-02-15 19:16:10,/home,page_view,,106,Desktop,Email Newsletter
+WEB_001318,CUST_S_046,SESS_000330,2024-02-15 19:18:54,/category/apparel,search,,255,Desktop,Email Newsletter
+WEB_001319,CUST_S_046,SESS_000330,2024-02-15 19:21:11,/product/prod_123,product_view,PROD_123,9,Desktop,Email Newsletter
+WEB_001320,CUST_S_046,SESS_000330,2024-02-15 19:21:57,/product/prod_113,product_view,PROD_113,14,Desktop,Email Newsletter
+WEB_000485,CUST_S_019,SESS_000122,2024-02-15 20:54:45,/home,page_view,,254,Desktop,Email Newsletter
+WEB_000486,CUST_S_019,SESS_000122,2024-02-15 20:56:08,/category/sports-&-fitness,search,,14,Desktop,Email Newsletter
+WEB_000767,CUST_S_027,SESS_000192,2024-02-16 00:14:53,/home,page_view,,247,Tablet,Email Newsletter
+WEB_000768,CUST_S_027,SESS_000192,2024-02-16 00:17:41,/category/home-&-kitchen,search,,72,Tablet,Email Newsletter
+WEB_001035,CUST_S_037,SESS_000259,2024-02-16 20:06:45,/home,page_view,,216,Mobile,Organic Search
+WEB_001036,CUST_S_037,SESS_000259,2024-02-16 20:08:07,/category/apparel,search,,291,Mobile,Organic Search
+WEB_001037,CUST_S_037,SESS_000259,2024-02-16 20:09:32,/product/prod_114,wishlist,PROD_114,215,Mobile,Organic Search
+WEB_001038,CUST_S_037,SESS_000259,2024-02-16 20:10:06,/product/prod_123,product_view,PROD_123,220,Mobile,Organic Search
+WEB_000742,CUST_S_027,SESS_000186,2024-02-17 03:26:23,/home,page_view,,80,Tablet,Email Newsletter
+WEB_000743,CUST_S_027,SESS_000186,2024-02-17 03:26:52,/category/electronics,search,,255,Tablet,Email Newsletter
+WEB_000744,CUST_S_027,SESS_000186,2024-02-17 03:27:55,/product/prod_104,product_view,PROD_104,5,Tablet,Email Newsletter
+WEB_000745,CUST_S_027,SESS_000186,2024-02-17 03:30:24,/product/prod_109,add_to_cart,PROD_109,298,Tablet,Email Newsletter
+WEB_001200,CUST_S_041,SESS_000301,2024-02-18 03:26:53,/home,page_view,,298,Desktop,Social Media
+WEB_001201,CUST_S_041,SESS_000301,2024-02-18 03:29:02,/category/home-&-kitchen,search,,31,Desktop,Social Media
+WEB_001202,CUST_S_041,SESS_000301,2024-02-18 03:29:45,/product/prod_108,product_view,PROD_108,18,Desktop,Social Media
+WEB_000920,CUST_S_033,SESS_000231,2024-02-19 06:48:09,/home,page_view,,218,Tablet,Organic Search
+WEB_000921,CUST_S_033,SESS_000231,2024-02-19 06:49:18,/category/electronics,search,,143,Tablet,Organic Search
+WEB_000922,CUST_S_033,SESS_000231,2024-02-19 06:50:05,/product/prod_114,add_to_cart,PROD_114,17,Tablet,Organic Search
+WEB_000923,CUST_S_033,SESS_000231,2024-02-19 06:52:43,/product/prod_106,wishlist,PROD_106,265,Tablet,Organic Search
+WEB_000924,CUST_S_033,SESS_000231,2024-02-19 06:54:20,/product/prod_112,product_view,PROD_112,133,Tablet,Organic Search
+WEB_000925,CUST_S_033,SESS_000231,2024-02-19 06:55:53,/product/prod_102,add_to_cart,PROD_102,117,Tablet,Organic Search
+WEB_000107,CUST_S_005,SESS_000027,2024-02-19 07:06:12,/home,page_view,,153,Tablet,Direct
+WEB_000108,CUST_S_005,SESS_000027,2024-02-19 07:08:00,/category/books-&-media,search,,139,Tablet,Direct
+WEB_000109,CUST_S_005,SESS_000027,2024-02-19 07:09:14,/product/prod_126,checkout_start,PROD_126,8,Tablet,Direct
+WEB_000110,CUST_S_005,SESS_000027,2024-02-19 07:10:35,/product/prod_123,product_view,PROD_123,122,Tablet,Direct
+WEB_000875,CUST_S_030,SESS_000219,2024-02-19 22:57:43,/home,page_view,,167,Tablet,Organic Search
+WEB_000876,CUST_S_030,SESS_000219,2024-02-19 23:00:01,/category/electronics,search,,251,Tablet,Organic Search
+WEB_000877,CUST_S_030,SESS_000219,2024-02-19 23:00:43,/product/prod_106,add_to_cart,PROD_106,297,Tablet,Organic Search
+WEB_000878,CUST_S_030,SESS_000219,2024-02-19 23:03:27,/product/prod_111,add_to_cart,PROD_111,23,Tablet,Organic Search
+WEB_000746,CUST_S_027,SESS_000187,2024-02-20 20:50:33,/home,page_view,,116,Tablet,Organic Search
+WEB_000747,CUST_S_027,SESS_000187,2024-02-20 20:52:14,/category/electronics,search,,278,Tablet,Organic Search
+WEB_000748,CUST_S_027,SESS_000187,2024-02-20 20:54:37,/product/prod_107,product_view,PROD_107,150,Tablet,Organic Search
+WEB_000749,CUST_S_027,SESS_000187,2024-02-20 20:55:23,/product/prod_104,product_view,PROD_104,95,Tablet,Organic Search
+WEB_000616,CUST_S_021,SESS_000155,2024-02-20 22:13:41,/home,page_view,,186,Mobile,Email Newsletter
+WEB_000617,CUST_S_021,SESS_000155,2024-02-20 22:16:04,/category/electronics,search,,72,Mobile,Email Newsletter
+WEB_000618,CUST_S_021,SESS_000155,2024-02-20 22:18:33,/product/prod_108,checkout_start,PROD_108,143,Mobile,Email Newsletter
+WEB_000619,CUST_S_021,SESS_000155,2024-02-20 22:21:26,/product/prod_103,product_view,PROD_103,5,Mobile,Email Newsletter
+WEB_001218,CUST_S_042,SESS_000305,2024-02-22 07:22:46,/home,page_view,,53,Desktop,Email Newsletter
+WEB_001219,CUST_S_042,SESS_000305,2024-02-22 07:24:03,/category/apparel,search,,5,Desktop,Email Newsletter
+WEB_001220,CUST_S_042,SESS_000305,2024-02-22 07:25:22,/product/prod_117,add_to_cart,PROD_117,178,Desktop,Email Newsletter
+WEB_000830,CUST_S_029,SESS_000208,2024-02-22 13:58:18,/home,page_view,,36,Desktop,Referral
+WEB_000831,CUST_S_029,SESS_000208,2024-02-22 14:00:24,/category/sports-&-fitness,search,,107,Desktop,Referral
+WEB_000832,CUST_S_029,SESS_000208,2024-02-22 14:01:56,/product/prod_122,product_view,PROD_122,261,Desktop,Referral
+WEB_000828,CUST_S_029,SESS_000208,2024-02-24 21:45:49,/home,page_view,,74,Tablet,Email Newsletter
+WEB_000829,CUST_S_029,SESS_000208,2024-02-24 21:47:14,/category/apparel,search,,105,Tablet,Email Newsletter
+WEB_001122,CUST_S_039,SESS_000281,2024-02-25 00:40:12,/home,page_view,,121,Tablet,Direct
+WEB_001123,CUST_S_039,SESS_000281,2024-02-25 00:41:30,/category/sports-&-fitness,search,,247,Tablet,Direct
+WEB_001124,CUST_S_039,SESS_000281,2024-02-25 00:43:43,/product/prod_130,add_to_cart,PROD_130,36,Tablet,Direct
+WEB_000529,CUST_S_019,SESS_000133,2024-02-25 10:34:09,/home,page_view,,41,Desktop,Direct
+WEB_000530,CUST_S_019,SESS_000133,2024-02-25 10:36:51,/category/apparel,search,,13,Desktop,Direct
+WEB_000581,CUST_S_020,SESS_000146,2024-02-25 17:02:20,/home,page_view,,116,Tablet,Direct
+WEB_000582,CUST_S_020,SESS_000146,2024-02-25 17:03:49,/category/books-&-media,search,,219,Tablet,Direct
+WEB_000583,CUST_S_020,SESS_000146,2024-02-25 17:06:32,/product/prod_113,product_view,PROD_113,201,Tablet,Direct
+WEB_000584,CUST_S_020,SESS_000146,2024-02-25 17:06:51,/product/prod_113,product_view,PROD_113,52,Tablet,Direct
+WEB_000364,CUST_S_014,SESS_000092,2024-02-26 08:15:08,/home,page_view,,19,Mobile,Social Media
+WEB_000365,CUST_S_014,SESS_000092,2024-02-26 08:16:04,/category/electronics,search,,29,Mobile,Social Media
+WEB_000543,CUST_S_019,SESS_000136,2024-02-28 17:50:20,/home,page_view,,132,Tablet,Referral
+WEB_000544,CUST_S_019,SESS_000136,2024-02-28 17:52:29,/category/books-&-media,search,,158,Tablet,Referral
+WEB_000545,CUST_S_019,SESS_000136,2024-02-28 17:54:19,/product/prod_129,add_to_cart,PROD_129,67,Tablet,Referral
+WEB_000546,CUST_S_019,SESS_000136,2024-02-28 17:54:39,/product/prod_130,product_view,PROD_130,131,Tablet,Referral
+WEB_000183,CUST_S_011,SESS_000046,2024-02-28 23:09:16,/home,page_view,,200,Desktop,Email Newsletter
+WEB_000184,CUST_S_011,SESS_000046,2024-02-28 23:11:12,/category/home-&-kitchen,search,,19,Desktop,Email Newsletter
+WEB_000185,CUST_S_011,SESS_000046,2024-02-28 23:13:27,/product/prod_106,product_view,PROD_106,216,Desktop,Email Newsletter
+WEB_000186,CUST_S_011,SESS_000046,2024-02-28 23:15:03,/product/prod_110,product_view,PROD_110,56,Desktop,Email Newsletter
+WEB_000187,CUST_S_011,SESS_000046,2024-02-28 23:15:34,/product/prod_109,product_view,PROD_109,234,Desktop,Email Newsletter
+WEB_000704,CUST_S_025,SESS_000177,2024-02-29 12:14:53,/home,page_view,,188,Desktop,Direct
+WEB_000705,CUST_S_025,SESS_000177,2024-02-29 12:15:41,/category/books-&-media,search,,115,Desktop,Direct
+WEB_000706,CUST_S_025,SESS_000177,2024-02-29 12:17:56,/product/prod_120,product_view,PROD_120,167,Desktop,Direct
+WEB_000707,CUST_S_025,SESS_000177,2024-02-29 12:19:55,/product/prod_120,product_view,PROD_120,116,Desktop,Direct
+WEB_000708,CUST_S_025,SESS_000177,2024-02-29 12:22:15,/product/prod_128,product_view,PROD_128,254,Desktop,Direct
+WEB_000709,CUST_S_025,SESS_000177,2024-02-29 12:23:37,/product/prod_130,product_view,PROD_130,202,Desktop,Direct
+WEB_000873,CUST_S_030,SESS_000219,2024-03-03 08:49:41,/home,page_view,,147,Mobile,Organic Search
+WEB_000874,CUST_S_030,SESS_000219,2024-03-03 08:50:03,/category/home-&-kitchen,search,,266,Mobile,Organic Search
+WEB_000172,CUST_S_010,SESS_000044,2024-03-03 18:57:34,/home,page_view,,146,Tablet,Referral
+WEB_000173,CUST_S_010,SESS_000044,2024-03-03 18:59:51,/category/electronics,search,,169,Tablet,Referral
+WEB_001103,CUST_S_039,SESS_000276,2024-03-05 01:10:05,/home,page_view,,132,Desktop,Referral
+WEB_001104,CUST_S_039,SESS_000276,2024-03-05 01:12:35,/category/books-&-media,search,,49,Desktop,Referral
+WEB_001105,CUST_S_039,SESS_000276,2024-03-05 01:13:20,/product/prod_125,product_view,PROD_125,232,Desktop,Referral
+WEB_001106,CUST_S_039,SESS_000276,2024-03-05 01:14:46,/product/prod_124,product_view,PROD_124,93,Desktop,Referral
+WEB_001107,CUST_S_039,SESS_000276,2024-03-05 01:17:04,/product/prod_124,add_to_cart,PROD_124,20,Desktop,Referral
+WEB_001108,CUST_S_039,SESS_000276,2024-03-05 01:17:44,/product/prod_127,add_to_cart,PROD_127,7,Desktop,Referral
+WEB_000778,CUST_S_028,SESS_000195,2024-03-05 04:43:03,/home,page_view,,134,Tablet,Referral
+WEB_000779,CUST_S_028,SESS_000195,2024-03-05 04:43:55,/category/home-&-kitchen,search,,135,Tablet,Referral
+WEB_000780,CUST_S_028,SESS_000195,2024-03-05 04:45:10,/product/prod_127,product_view,PROD_127,294,Tablet,Referral
+WEB_000781,CUST_S_028,SESS_000195,2024-03-05 04:47:25,/product/prod_128,add_to_cart,PROD_128,14,Tablet,Referral
+WEB_000782,CUST_S_028,SESS_000195,2024-03-05 04:50:05,/product/prod_107,add_to_cart,PROD_107,93,Tablet,Referral
+WEB_001419,CUST_S_049,SESS_000355,2024-03-05 13:38:13,/home,page_view,,207,Tablet,Organic Search
+WEB_001420,CUST_S_049,SESS_000355,2024-03-05 13:39:30,/category/electronics,search,,103,Tablet,Organic Search
+WEB_001421,CUST_S_049,SESS_000355,2024-03-05 13:40:32,/product/prod_115,wishlist,PROD_115,217,Tablet,Organic Search
+WEB_001422,CUST_S_049,SESS_000355,2024-03-05 13:42:58,/product/prod_106,product_view,PROD_106,212,Tablet,Organic Search
+WEB_001423,CUST_S_049,SESS_000355,2024-03-05 13:45:01,/product/prod_105,wishlist,PROD_105,275,Tablet,Organic Search
+WEB_000632,CUST_S_021,SESS_000159,2024-03-06 00:44:27,/home,page_view,,74,Mobile,Social Media
+WEB_000633,CUST_S_021,SESS_000159,2024-03-06 00:46:42,/category/electronics,search,,34,Mobile,Social Media
+WEB_000331,CUST_S_014,SESS_000083,2024-03-06 01:11:13,/home,page_view,,297,Mobile,Referral
+WEB_000332,CUST_S_014,SESS_000083,2024-03-06 01:11:46,/category/electronics,search,,50,Mobile,Referral
+WEB_001412,CUST_S_048,SESS_000354,2024-03-06 14:21:33,/home,page_view,,202,Tablet,Direct
+WEB_001413,CUST_S_048,SESS_000354,2024-03-06 14:22:14,/category/home-&-kitchen,search,,198,Tablet,Direct
+WEB_001244,CUST_S_043,SESS_000312,2024-03-09 12:28:39,/home,page_view,,252,Mobile,Social Media
+WEB_001245,CUST_S_043,SESS_000312,2024-03-09 12:31:27,/category/home-&-kitchen,search,,279,Mobile,Social Media
+WEB_001246,CUST_S_043,SESS_000312,2024-03-09 12:34:13,/product/prod_108,add_to_cart,PROD_108,267,Mobile,Social Media
+WEB_001247,CUST_S_043,SESS_000312,2024-03-09 12:35:20,/product/prod_119,product_view,PROD_119,282,Mobile,Social Media
+WEB_001248,CUST_S_043,SESS_000312,2024-03-09 12:37:39,/product/prod_118,wishlist,PROD_118,74,Mobile,Social Media
+WEB_000974,CUST_S_036,SESS_000244,2024-03-09 15:39:36,/home,page_view,,172,Mobile,Email Newsletter
+WEB_000975,CUST_S_036,SESS_000244,2024-03-09 15:41:22,/category/sports-&-fitness,search,,37,Mobile,Email Newsletter
+WEB_000976,CUST_S_036,SESS_000244,2024-03-09 15:42:18,/product/prod_126,wishlist,PROD_126,101,Mobile,Email Newsletter
+WEB_000977,CUST_S_036,SESS_000244,2024-03-09 15:44:00,/product/prod_126,product_view,PROD_126,291,Mobile,Email Newsletter
+WEB_000978,CUST_S_036,SESS_000244,2024-03-09 15:45:50,/product/prod_125,wishlist,PROD_125,267,Mobile,Email Newsletter
+WEB_000006,CUST_S_001,SESS_000002,2024-03-09 19:07:35,/home,page_view,,46,Tablet,Social Media
+WEB_000007,CUST_S_001,SESS_000002,2024-03-09 19:09:03,/category/apparel,search,,117,Tablet,Social Media
+WEB_000008,CUST_S_001,SESS_000002,2024-03-09 19:09:23,/product/prod_124,wishlist,PROD_124,157,Tablet,Social Media
+WEB_000037,CUST_S_003,SESS_000010,2024-03-11 13:26:35,/home,page_view,,245,Tablet,Social Media
+WEB_000038,CUST_S_003,SESS_000010,2024-03-11 13:28:07,/category/home-&-kitchen,search,,207,Tablet,Social Media
+WEB_000039,CUST_S_003,SESS_000010,2024-03-11 13:29:54,/product/prod_111,product_view,PROD_111,53,Tablet,Social Media
+WEB_001184,CUST_S_041,SESS_000297,2024-03-11 21:00:22,/home,page_view,,255,Desktop,Email Newsletter
+WEB_001185,CUST_S_041,SESS_000297,2024-03-11 21:02:53,/category/health-&-beauty,search,,83,Desktop,Email Newsletter
+WEB_001186,CUST_S_041,SESS_000297,2024-03-11 21:04:55,/product/prod_125,product_view,PROD_125,23,Desktop,Email Newsletter
+WEB_001187,CUST_S_041,SESS_000297,2024-03-11 21:05:49,/product/prod_120,add_to_cart,PROD_120,220,Desktop,Email Newsletter
+WEB_001188,CUST_S_041,SESS_000297,2024-03-11 21:06:05,/product/prod_118,product_view,PROD_118,58,Desktop,Email Newsletter
+WEB_000111,CUST_S_005,SESS_000028,2024-03-12 15:26:14,/home,page_view,,30,Mobile,Direct
+WEB_000112,CUST_S_005,SESS_000028,2024-03-12 15:27:18,/category/sports-&-fitness,search,,250,Mobile,Direct
+WEB_000113,CUST_S_005,SESS_000028,2024-03-12 15:29:42,/product/prod_112,product_view,PROD_112,125,Mobile,Direct
+WEB_000114,CUST_S_005,SESS_000028,2024-03-12 15:31:00,/product/prod_121,product_view,PROD_121,279,Mobile,Direct
+WEB_000115,CUST_S_005,SESS_000028,2024-03-12 15:33:06,/product/prod_128,product_view,PROD_128,154,Mobile,Direct
+WEB_000933,CUST_S_033,SESS_000234,2024-03-13 01:23:14,/home,page_view,,199,Mobile,Referral
+WEB_000934,CUST_S_033,SESS_000234,2024-03-13 01:23:33,/category/electronics,search,,208,Mobile,Referral
+WEB_000935,CUST_S_033,SESS_000234,2024-03-13 01:26:21,/product/prod_116,wishlist,PROD_116,171,Mobile,Referral
+WEB_000391,CUST_S_015,SESS_000098,2024-03-14 15:30:10,/home,page_view,,103,Mobile,Referral
+WEB_000392,CUST_S_015,SESS_000098,2024-03-14 15:30:41,/category/sports-&-fitness,search,,202,Mobile,Referral
+WEB_000393,CUST_S_015,SESS_000098,2024-03-14 15:31:35,/product/prod_112,product_view,PROD_112,85,Mobile,Referral
+WEB_000394,CUST_S_015,SESS_000098,2024-03-14 15:33:15,/product/prod_122,wishlist,PROD_122,272,Mobile,Referral
+WEB_000395,CUST_S_015,SESS_000098,2024-03-14 15:34:45,/product/prod_124,wishlist,PROD_124,259,Mobile,Referral
+WEB_000276,CUST_S_013,SESS_000070,2024-03-15 00:13:50,/home,page_view,,186,Mobile,Direct
+WEB_000277,CUST_S_013,SESS_000070,2024-03-15 00:16:12,/category/books-&-media,search,,33,Mobile,Direct
+WEB_001128,CUST_S_040,SESS_000283,2024-03-15 04:20:45,/home,page_view,,51,Tablet,Direct
+WEB_001129,CUST_S_040,SESS_000283,2024-03-15 04:23:02,/category/books-&-media,search,,49,Tablet,Direct
+WEB_001300,CUST_S_046,SESS_000326,2024-03-17 22:02:30,/home,page_view,,232,Tablet,Referral
+WEB_001301,CUST_S_046,SESS_000326,2024-03-17 22:03:05,/category/books-&-media,search,,185,Tablet,Referral
+WEB_001302,CUST_S_046,SESS_000326,2024-03-17 22:05:40,/product/prod_124,product_view,PROD_124,247,Tablet,Referral
+WEB_001303,CUST_S_046,SESS_000326,2024-03-17 22:07:47,/product/prod_130,product_view,PROD_130,174,Tablet,Referral
+WEB_001304,CUST_S_046,SESS_000326,2024-03-17 22:09:22,/product/prod_127,wishlist,PROD_127,287,Tablet,Referral
+WEB_000474,CUST_S_018,SESS_000119,2024-03-18 13:33:13,/home,page_view,,164,Mobile,Organic Search
+WEB_000475,CUST_S_018,SESS_000119,2024-03-18 13:34:48,/category/apparel,search,,51,Mobile,Organic Search
+WEB_000476,CUST_S_018,SESS_000119,2024-03-18 13:37:38,/product/prod_112,add_to_cart,PROD_112,122,Mobile,Organic Search
+WEB_000477,CUST_S_018,SESS_000119,2024-03-18 13:38:39,/product/prod_112,checkout_start,PROD_112,254,Mobile,Organic Search
+WEB_000478,CUST_S_018,SESS_000119,2024-03-18 13:39:26,/product/prod_120,add_to_cart,PROD_120,152,Mobile,Organic Search
+WEB_000479,CUST_S_018,SESS_000119,2024-03-18 13:40:38,/product/prod_121,product_view,PROD_121,167,Mobile,Organic Search
+WEB_000087,CUST_S_005,SESS_000022,2024-03-18 18:23:22,/home,page_view,,203,Desktop,Email Newsletter
+WEB_000088,CUST_S_005,SESS_000022,2024-03-18 18:24:01,/category/apparel,search,,133,Desktop,Email Newsletter
+WEB_000089,CUST_S_005,SESS_000022,2024-03-18 18:24:32,/product/prod_127,add_to_cart,PROD_127,280,Desktop,Email Newsletter
+WEB_000090,CUST_S_005,SESS_000022,2024-03-18 18:26:07,/product/prod_113,product_view,PROD_113,122,Desktop,Email Newsletter
+WEB_000264,CUST_S_013,SESS_000067,2024-03-19 00:55:25,/home,page_view,,197,Tablet,Referral
+WEB_000265,CUST_S_013,SESS_000067,2024-03-19 00:58:02,/category/sports-&-fitness,search,,199,Tablet,Referral
+WEB_000266,CUST_S_013,SESS_000067,2024-03-19 00:59:21,/product/prod_123,add_to_cart,PROD_123,250,Tablet,Referral
+WEB_000267,CUST_S_013,SESS_000067,2024-03-19 00:59:38,/product/prod_129,wishlist,PROD_129,246,Tablet,Referral
+WEB_001179,CUST_S_040,SESS_000295,2024-03-19 07:56:23,/home,page_view,,261,Mobile,Direct
+WEB_001180,CUST_S_040,SESS_000295,2024-03-19 07:57:30,/category/books-&-media,search,,162,Mobile,Direct
+WEB_001181,CUST_S_040,SESS_000295,2024-03-19 07:59:26,/product/prod_122,wishlist,PROD_122,170,Mobile,Direct
+WEB_001182,CUST_S_040,SESS_000295,2024-03-19 08:01:40,/product/prod_115,wishlist,PROD_115,228,Mobile,Direct
+WEB_001183,CUST_S_040,SESS_000295,2024-03-19 08:03:06,/product/prod_115,product_view,PROD_115,145,Mobile,Direct
+WEB_001163,CUST_S_040,SESS_000291,2024-03-20 04:49:08,/home,page_view,,277,Desktop,Referral
+WEB_001164,CUST_S_040,SESS_000291,2024-03-20 04:52:04,/category/books-&-media,search,,33,Desktop,Referral
+WEB_001165,CUST_S_040,SESS_000291,2024-03-20 04:54:07,/product/prod_112,product_view,PROD_112,261,Desktop,Referral
+WEB_001166,CUST_S_040,SESS_000291,2024-03-20 04:55:44,/product/prod_126,product_view,PROD_126,144,Desktop,Referral
+WEB_001167,CUST_S_040,SESS_000291,2024-03-20 04:56:45,/product/prod_122,wishlist,PROD_122,64,Desktop,Referral
+WEB_001071,CUST_S_038,SESS_000268,2024-03-20 14:26:12,/home,page_view,,45,Mobile,Referral
+WEB_001072,CUST_S_038,SESS_000268,2024-03-20 14:28:12,/category/apparel,search,,182,Mobile,Referral
+WEB_000594,CUST_S_021,SESS_000149,2024-03-20 22:24:08,/home,page_view,,166,Tablet,Organic Search
+WEB_000595,CUST_S_021,SESS_000149,2024-03-20 22:25:57,/category/electronics,search,,49,Tablet,Organic Search
+WEB_000596,CUST_S_021,SESS_000149,2024-03-20 22:27:23,/product/prod_111,add_to_cart,PROD_111,38,Tablet,Organic Search
+WEB_000597,CUST_S_021,SESS_000149,2024-03-20 22:27:58,/product/prod_107,product_view,PROD_107,179,Tablet,Organic Search
+WEB_000598,CUST_S_021,SESS_000149,2024-03-20 22:30:55,/product/prod_101,product_view,PROD_101,290,Tablet,Organic Search
+WEB_000821,CUST_S_029,SESS_000206,2024-03-22 03:17:07,/home,page_view,,257,Desktop,Referral
+WEB_000822,CUST_S_029,SESS_000206,2024-03-22 03:18:10,/category/apparel,search,,285,Desktop,Referral
+WEB_001387,CUST_S_047,SESS_000347,2024-03-22 06:18:57,/home,page_view,,33,Desktop,Social Media
+WEB_001388,CUST_S_047,SESS_000347,2024-03-22 06:21:57,/category/home-&-kitchen,search,,251,Desktop,Social Media
+WEB_001389,CUST_S_047,SESS_000347,2024-03-22 06:24:21,/product/prod_126,product_view,PROD_126,71,Desktop,Social Media
+WEB_001390,CUST_S_047,SESS_000347,2024-03-22 06:25:41,/product/prod_129,product_view,PROD_129,41,Desktop,Social Media
+WEB_001391,CUST_S_047,SESS_000347,2024-03-22 06:26:50,/product/prod_107,wishlist,PROD_107,50,Desktop,Social Media
+WEB_000771,CUST_S_027,SESS_000193,2024-03-23 05:44:07,/home,page_view,,147,Tablet,Referral
+WEB_000772,CUST_S_027,SESS_000193,2024-03-23 05:45:15,/category/electronics,search,,88,Tablet,Referral
+WEB_000773,CUST_S_027,SESS_000193,2024-03-23 05:47:57,/product/prod_110,add_to_cart,PROD_110,120,Tablet,Referral
+WEB_000774,CUST_S_027,SESS_000193,2024-03-23 05:50:46,/product/prod_107,add_to_cart,PROD_107,15,Tablet,Referral
+WEB_000018,CUST_S_001,SESS_000005,2024-03-27 23:23:16,/home,page_view,,166,Tablet,Email Newsletter
+WEB_000019,CUST_S_001,SESS_000005,2024-03-27 23:26:07,/category/apparel,search,,64,Tablet,Email Newsletter
+WEB_000020,CUST_S_001,SESS_000005,2024-03-27 23:28:58,/product/prod_122,product_view,PROD_122,153,Tablet,Email Newsletter
+WEB_000021,CUST_S_001,SESS_000005,2024-03-27 23:29:38,/product/prod_124,product_view,PROD_124,145,Tablet,Email Newsletter
+WEB_000241,CUST_S_012,SESS_000061,2024-04-01 00:04:28,/home,page_view,,5,Mobile,Direct
+WEB_000242,CUST_S_012,SESS_000061,2024-04-01 00:06:28,/category/books-&-media,search,,136,Mobile,Direct
+WEB_000243,CUST_S_012,SESS_000061,2024-04-01 00:07:06,/product/prod_125,wishlist,PROD_125,188,Mobile,Direct
+WEB_001294,CUST_S_045,SESS_000324,2024-04-03 17:54:57,/home,page_view,,73,Desktop,Direct
+WEB_001295,CUST_S_045,SESS_000324,2024-04-03 17:57:36,/category/home-&-kitchen,search,,97,Desktop,Direct
+WEB_001296,CUST_S_045,SESS_000324,2024-04-03 17:59:42,/product/prod_105,add_to_cart,PROD_105,50,Desktop,Direct
+WEB_001297,CUST_S_045,SESS_000324,2024-04-03 18:01:53,/product/prod_109,product_view,PROD_109,294,Desktop,Direct
+WEB_001298,CUST_S_045,SESS_000324,2024-04-03 18:02:13,/product/prod_101,wishlist,PROD_101,261,Desktop,Direct
+WEB_001299,CUST_S_045,SESS_000324,2024-04-03 18:03:01,/product/prod_110,add_to_cart,PROD_110,110,Desktop,Direct
+WEB_000769,CUST_S_027,SESS_000193,2024-04-04 08:16:12,/home,page_view,,167,Tablet,Referral
+WEB_000770,CUST_S_027,SESS_000193,2024-04-04 08:18:50,/category/home-&-kitchen,search,,91,Tablet,Referral
+WEB_001041,CUST_S_037,SESS_000261,2024-04-04 11:22:16,/home,page_view,,264,Mobile,Email Newsletter
+WEB_001042,CUST_S_037,SESS_000261,2024-04-04 11:24:45,/category/sports-&-fitness,search,,121,Mobile,Email Newsletter
+WEB_001043,CUST_S_037,SESS_000261,2024-04-04 11:27:20,/product/prod_118,product_view,PROD_118,165,Mobile,Email Newsletter
+WEB_001044,CUST_S_037,SESS_000261,2024-04-04 11:29:57,/product/prod_118,product_view,PROD_118,143,Mobile,Email Newsletter
+WEB_001045,CUST_S_037,SESS_000261,2024-04-04 11:31:11,/product/prod_114,wishlist,PROD_114,285,Mobile,Email Newsletter
+WEB_001046,CUST_S_037,SESS_000261,2024-04-04 11:34:06,/product/prod_116,product_view,PROD_116,111,Mobile,Email Newsletter
+WEB_000258,CUST_S_013,SESS_000065,2024-04-04 22:28:59,/home,page_view,,72,Tablet,Social Media
+WEB_000259,CUST_S_013,SESS_000065,2024-04-04 22:30:47,/category/books-&-media,search,,61,Tablet,Social Media
+WEB_000260,CUST_S_013,SESS_000065,2024-04-04 22:31:38,/product/prod_128,product_view,PROD_128,265,Tablet,Social Media
+WEB_000261,CUST_S_013,SESS_000065,2024-04-04 22:32:18,/product/prod_125,product_view,PROD_125,169,Tablet,Social Media
+WEB_000262,CUST_S_013,SESS_000065,2024-04-04 22:33:31,/product/prod_113,product_view,PROD_113,88,Tablet,Social Media
+WEB_000263,CUST_S_013,SESS_000065,2024-04-04 22:34:07,/product/prod_122,product_view,PROD_122,217,Tablet,Social Media
+WEB_001064,CUST_S_037,SESS_000267,2024-04-05 04:15:50,/home,page_view,,186,Mobile,Direct
+WEB_001065,CUST_S_037,SESS_000267,2024-04-05 04:17:44,/category/health-&-beauty,search,,143,Mobile,Direct
+WEB_001066,CUST_S_037,SESS_000267,2024-04-05 04:20:18,/product/prod_123,add_to_cart,PROD_123,154,Mobile,Direct
+WEB_000757,CUST_S_027,SESS_000190,2024-04-05 18:15:40,/home,page_view,,147,Tablet,Email Newsletter
+WEB_000758,CUST_S_027,SESS_000190,2024-04-05 18:18:06,/category/electronics,search,,276,Tablet,Email Newsletter
+WEB_000759,CUST_S_027,SESS_000190,2024-04-05 18:20:41,/product/prod_106,product_view,PROD_106,136,Tablet,Email Newsletter
+WEB_000760,CUST_S_027,SESS_000190,2024-04-05 18:23:08,/product/prod_103,checkout_start,PROD_103,249,Tablet,Email Newsletter
+WEB_000761,CUST_S_027,SESS_000190,2024-04-05 18:24:51,/product/prod_107,add_to_cart,PROD_107,126,Tablet,Email Newsletter
+WEB_000046,CUST_S_003,SESS_000012,2024-04-07 12:59:29,/home,page_view,,46,Desktop,Direct
+WEB_000047,CUST_S_003,SESS_000012,2024-04-07 13:02:11,/category/books-&-media,search,,201,Desktop,Direct
+WEB_000048,CUST_S_003,SESS_000012,2024-04-07 13:02:38,/product/prod_128,product_view,PROD_128,94,Desktop,Direct
+WEB_000049,CUST_S_003,SESS_000012,2024-04-07 13:03:04,/product/prod_129,product_view,PROD_129,65,Desktop,Direct
+WEB_000050,CUST_S_003,SESS_000012,2024-04-07 13:04:42,/product/prod_127,product_view,PROD_127,152,Desktop,Direct
+WEB_000573,CUST_S_020,SESS_000144,2024-04-07 17:39:04,/home,page_view,,285,Desktop,Referral
+WEB_000574,CUST_S_020,SESS_000144,2024-04-07 17:39:24,/category/sports-&-fitness,search,,25,Desktop,Referral
+WEB_001401,CUST_S_048,SESS_000351,2024-04-07 23:55:57,/home,page_view,,31,Tablet,Email Newsletter
+WEB_001402,CUST_S_048,SESS_000351,2024-04-07 23:56:56,/category/electronics,search,,16,Tablet,Email Newsletter
+WEB_001403,CUST_S_048,SESS_000351,2024-04-07 23:58:29,/product/prod_102,product_view,PROD_102,29,Tablet,Email Newsletter
+WEB_001404,CUST_S_048,SESS_000351,2024-04-08 00:01:09,/product/prod_108,product_view,PROD_108,12,Tablet,Email Newsletter
+WEB_000904,CUST_S_031,SESS_000227,2024-04-10 05:50:47,/home,page_view,,110,Tablet,Email Newsletter
+WEB_000905,CUST_S_031,SESS_000227,2024-04-10 05:51:29,/category/apparel,search,,113,Tablet,Email Newsletter
+WEB_000906,CUST_S_031,SESS_000227,2024-04-10 05:53:32,/product/prod_105,product_view,PROD_105,44,Tablet,Email Newsletter
+WEB_000907,CUST_S_031,SESS_000227,2024-04-10 05:56:28,/product/prod_106,product_view,PROD_106,78,Tablet,Email Newsletter
+WEB_000908,CUST_S_031,SESS_000227,2024-04-10 05:58:12,/product/prod_106,product_view,PROD_106,159,Tablet,Email Newsletter
+WEB_000359,CUST_S_014,SESS_000090,2024-04-10 05:59:36,/home,page_view,,155,Mobile,Organic Search
+WEB_000360,CUST_S_014,SESS_000090,2024-04-10 06:01:36,/category/electronics,search,,26,Mobile,Organic Search
+WEB_000361,CUST_S_014,SESS_000090,2024-04-10 06:03:09,/product/prod_111,product_view,PROD_111,156,Mobile,Organic Search
+WEB_001173,CUST_S_040,SESS_000294,2024-04-10 08:58:53,/home,page_view,,182,Desktop,Social Media
+WEB_001174,CUST_S_040,SESS_000294,2024-04-10 09:00:22,/category/books-&-media,search,,43,Desktop,Social Media
+WEB_001175,CUST_S_040,SESS_000294,2024-04-10 09:02:53,/product/prod_114,wishlist,PROD_114,33,Desktop,Social Media
+WEB_001176,CUST_S_040,SESS_000294,2024-04-10 09:04:11,/product/prod_124,add_to_cart,PROD_124,202,Desktop,Social Media
+WEB_001177,CUST_S_040,SESS_000294,2024-04-10 09:07:07,/product/prod_129,add_to_cart,PROD_129,195,Desktop,Social Media
+WEB_001178,CUST_S_040,SESS_000294,2024-04-10 09:07:55,/product/prod_113,add_to_cart,PROD_113,46,Desktop,Social Media
+WEB_001150,CUST_S_040,SESS_000288,2024-04-10 10:48:07,/home,page_view,,265,Mobile,Email Newsletter
+WEB_001151,CUST_S_040,SESS_000288,2024-04-10 10:50:11,/category/apparel,search,,136,Mobile,Email Newsletter
+WEB_001152,CUST_S_040,SESS_000288,2024-04-10 10:51:44,/product/prod_123,product_view,PROD_123,190,Mobile,Email Newsletter
+WEB_001349,CUST_S_046,SESS_000338,2024-04-10 11:16:31,/home,page_view,,106,Desktop,Email Newsletter
+WEB_001350,CUST_S_046,SESS_000338,2024-04-10 11:16:48,/category/books-&-media,search,,158,Desktop,Email Newsletter
+WEB_001351,CUST_S_046,SESS_000338,2024-04-10 11:19:26,/product/prod_129,product_view,PROD_129,177,Desktop,Email Newsletter
+WEB_001352,CUST_S_046,SESS_000338,2024-04-10 11:21:27,/product/prod_122,wishlist,PROD_122,86,Desktop,Email Newsletter
+WEB_001353,CUST_S_046,SESS_000338,2024-04-10 11:24:13,/product/prod_123,product_view,PROD_123,17,Desktop,Email Newsletter
+WEB_000662,CUST_S_023,SESS_000166,2024-04-10 13:04:40,/home,page_view,,181,Tablet,Direct
+WEB_000663,CUST_S_023,SESS_000166,2024-04-10 13:07:22,/category/home-&-kitchen,search,,118,Tablet,Direct
+WEB_000674,CUST_S_023,SESS_000169,2024-04-10 17:39:31,/home,page_view,,103,Desktop,Organic Search
+WEB_000675,CUST_S_023,SESS_000169,2024-04-10 17:39:52,/category/home-&-kitchen,search,,77,Desktop,Organic Search
+WEB_000676,CUST_S_023,SESS_000169,2024-04-10 17:42:32,/product/prod_103,checkout_start,PROD_103,7,Desktop,Organic Search
+WEB_000677,CUST_S_023,SESS_000169,2024-04-10 17:45:14,/product/prod_107,product_view,PROD_107,212,Desktop,Organic Search
+WEB_000678,CUST_S_023,SESS_000169,2024-04-10 17:46:47,/product/prod_103,product_view,PROD_103,137,Desktop,Organic Search
+WEB_000679,CUST_S_023,SESS_000169,2024-04-10 17:47:35,/product/prod_104,wishlist,PROD_104,11,Desktop,Organic Search
+WEB_000991,CUST_S_036,SESS_000248,2024-04-11 19:17:37,/home,page_view,,230,Mobile,Organic Search
+WEB_000992,CUST_S_036,SESS_000248,2024-04-11 19:19:09,/category/books-&-media,search,,15,Mobile,Organic Search
+WEB_000081,CUST_S_005,SESS_000021,2024-04-12 13:11:26,/home,page_view,,59,Desktop,Referral
+WEB_000082,CUST_S_005,SESS_000021,2024-04-12 13:12:30,/category/books-&-media,search,,50,Desktop,Referral
+WEB_000083,CUST_S_005,SESS_000021,2024-04-12 13:13:12,/product/prod_124,product_view,PROD_124,162,Desktop,Referral
+WEB_000084,CUST_S_005,SESS_000021,2024-04-12 13:14:45,/product/prod_129,wishlist,PROD_129,66,Desktop,Referral
+WEB_000085,CUST_S_005,SESS_000021,2024-04-12 13:16:13,/product/prod_123,product_view,PROD_123,69,Desktop,Referral
+WEB_000086,CUST_S_005,SESS_000021,2024-04-12 13:17:00,/product/prod_125,product_view,PROD_125,218,Desktop,Referral
+WEB_000587,CUST_S_020,SESS_000147,2024-04-14 04:41:44,/home,page_view,,283,Mobile,Organic Search
+WEB_000588,CUST_S_020,SESS_000147,2024-04-14 04:44:38,/category/apparel,search,,261,Mobile,Organic Search
+WEB_000407,CUST_S_015,SESS_000102,2024-04-14 23:28:18,/home,page_view,,227,Mobile,Organic Search
+WEB_000408,CUST_S_015,SESS_000102,2024-04-14 23:30:02,/category/sports-&-fitness,search,,277,Mobile,Organic Search
+WEB_000409,CUST_S_015,SESS_000102,2024-04-14 23:31:45,/product/prod_126,add_to_cart,PROD_126,272,Mobile,Organic Search
+WEB_000410,CUST_S_015,SESS_000102,2024-04-14 23:33:40,/product/prod_115,add_to_cart,PROD_115,28,Mobile,Organic Search
+WEB_000411,CUST_S_015,SESS_000102,2024-04-14 23:35:27,/product/prod_129,add_to_cart,PROD_129,149,Mobile,Organic Search
+WEB_000412,CUST_S_015,SESS_000102,2024-04-14 23:38:22,/product/prod_121,product_view,PROD_121,207,Mobile,Organic Search
+WEB_000855,CUST_S_029,SESS_000214,2024-04-15 08:02:58,/home,page_view,,250,Tablet,Organic Search
+WEB_000856,CUST_S_029,SESS_000214,2024-04-15 08:05:57,/category/sports-&-fitness,search,,290,Tablet,Organic Search
+WEB_000174,CUST_S_010,SESS_000044,2024-04-15 15:46:42,/home,page_view,,158,Mobile,Organic Search
+WEB_000175,CUST_S_010,SESS_000044,2024-04-15 15:47:08,/category/electronics,search,,99,Mobile,Organic Search
+WEB_000176,CUST_S_010,SESS_000044,2024-04-15 15:48:11,/product/prod_112,product_view,PROD_112,249,Mobile,Organic Search
+WEB_000531,CUST_S_019,SESS_000133,2024-04-15 15:57:49,/home,page_view,,46,Desktop,Email Newsletter
+WEB_000532,CUST_S_019,SESS_000133,2024-04-15 15:58:12,/category/apparel,search,,82,Desktop,Email Newsletter
+WEB_000533,CUST_S_019,SESS_000133,2024-04-15 16:00:55,/product/prod_112,wishlist,PROD_112,222,Desktop,Email Newsletter
+WEB_001039,CUST_S_037,SESS_000260,2024-04-18 17:23:44,/home,page_view,,61,Desktop,Social Media
+WEB_001040,CUST_S_037,SESS_000260,2024-04-18 17:26:28,/category/apparel,search,,8,Desktop,Social Media
+WEB_000993,CUST_S_036,SESS_000249,2024-04-20 13:09:16,/home,page_view,,147,Desktop,Referral
+WEB_000994,CUST_S_036,SESS_000249,2024-04-20 13:11:28,/category/books-&-media,search,,280,Desktop,Referral
+WEB_000995,CUST_S_036,SESS_000249,2024-04-20 13:12:34,/product/prod_130,add_to_cart,PROD_130,59,Desktop,Referral
+WEB_000996,CUST_S_036,SESS_000249,2024-04-20 13:15:12,/product/prod_116,product_view,PROD_116,190,Desktop,Referral
+WEB_000997,CUST_S_036,SESS_000249,2024-04-20 13:17:39,/product/prod_126,product_view,PROD_126,78,Desktop,Referral
+WEB_000998,CUST_S_036,SESS_000249,2024-04-20 13:19:27,/product/prod_122,add_to_cart,PROD_122,135,Desktop,Referral
+WEB_001432,CUST_S_050,SESS_000359,2024-04-23 12:42:02,/home,page_view,,180,Mobile,Referral
+WEB_001433,CUST_S_050,SESS_000359,2024-04-23 12:44:49,/category/electronics,search,,230,Mobile,Referral
+WEB_001434,CUST_S_050,SESS_000359,2024-04-23 12:45:41,/product/prod_101,add_to_cart,PROD_101,141,Mobile,Referral
+WEB_000738,CUST_S_027,SESS_000185,2024-04-24 12:20:06,/home,page_view,,169,Tablet,Referral
+WEB_000739,CUST_S_027,SESS_000185,2024-04-24 12:22:24,/category/home-&-kitchen,search,,50,Tablet,Referral
+WEB_000740,CUST_S_027,SESS_000185,2024-04-24 12:23:00,/product/prod_110,wishlist,PROD_110,118,Tablet,Referral
+WEB_000741,CUST_S_027,SESS_000185,2024-04-24 12:23:36,/product/prod_104,product_view,PROD_104,237,Tablet,Referral
+WEB_000519,CUST_S_019,SESS_000130,2024-04-25 04:46:52,/home,page_view,,61,Tablet,Direct
+WEB_000520,CUST_S_019,SESS_000130,2024-04-25 04:48:04,/category/apparel,search,,296,Tablet,Direct
+WEB_000521,CUST_S_019,SESS_000130,2024-04-25 04:48:57,/product/prod_112,product_view,PROD_112,155,Tablet,Direct
+WEB_000626,CUST_S_021,SESS_000157,2024-04-25 10:23:01,/home,page_view,,126,Mobile,Organic Search
+WEB_000627,CUST_S_021,SESS_000157,2024-04-25 10:25:23,/category/home-&-kitchen,search,,9,Mobile,Organic Search
+WEB_000628,CUST_S_021,SESS_000157,2024-04-25 10:27:07,/product/prod_101,product_view,PROD_101,52,Mobile,Organic Search
+WEB_000629,CUST_S_021,SESS_000157,2024-04-25 10:27:22,/product/prod_104,product_view,PROD_104,216,Mobile,Organic Search
+WEB_000630,CUST_S_021,SESS_000157,2024-04-25 10:28:41,/product/prod_105,wishlist,PROD_105,105,Mobile,Organic Search
+WEB_000631,CUST_S_021,SESS_000157,2024-04-25 10:30:12,/product/prod_108,product_view,PROD_108,117,Mobile,Organic Search
+WEB_001311,CUST_S_046,SESS_000328,2024-04-25 13:08:41,/home,page_view,,49,Mobile,Social Media
+WEB_001312,CUST_S_046,SESS_000328,2024-04-25 13:11:28,/category/apparel,search,,131,Mobile,Social Media
+WEB_001313,CUST_S_046,SESS_000328,2024-04-25 13:12:56,/product/prod_116,product_view,PROD_116,140,Mobile,Social Media
+WEB_001314,CUST_S_046,SESS_000328,2024-04-25 13:14:26,/product/prod_121,product_view,PROD_121,118,Mobile,Social Media
+WEB_001315,CUST_S_046,SESS_000328,2024-04-25 13:17:09,/product/prod_128,wishlist,PROD_128,73,Mobile,Social Media
+WEB_001316,CUST_S_046,SESS_000328,2024-04-25 13:19:13,/product/prod_114,product_view,PROD_114,155,Mobile,Social Media
+WEB_000374,CUST_S_015,SESS_000094,2024-04-27 00:43:09,/home,page_view,,143,Mobile,Direct
+WEB_000375,CUST_S_015,SESS_000094,2024-04-27 00:45:42,/category/apparel,search,,38,Mobile,Direct
+WEB_000376,CUST_S_015,SESS_000094,2024-04-27 00:46:38,/product/prod_121,product_view,PROD_121,36,Mobile,Direct
+WEB_001257,CUST_S_044,SESS_000315,2024-04-27 07:04:33,/home,page_view,,23,Tablet,Social Media
+WEB_001258,CUST_S_044,SESS_000315,2024-04-27 07:06:26,/category/health-&-beauty,search,,202,Tablet,Social Media
+WEB_001259,CUST_S_044,SESS_000315,2024-04-27 07:08:26,/product/prod_120,wishlist,PROD_120,111,Tablet,Social Media
+WEB_001260,CUST_S_044,SESS_000315,2024-04-27 07:09:33,/product/prod_125,wishlist,PROD_125,225,Tablet,Social Media
+WEB_001261,CUST_S_044,SESS_000315,2024-04-27 07:10:13,/product/prod_118,product_view,PROD_118,40,Tablet,Social Media
+WEB_001140,CUST_S_040,SESS_000286,2024-05-04 09:50:11,/home,page_view,,214,Mobile,Direct
+WEB_001141,CUST_S_040,SESS_000286,2024-05-04 09:52:59,/category/apparel,search,,236,Mobile,Direct
+WEB_001142,CUST_S_040,SESS_000286,2024-05-04 09:53:39,/product/prod_121,add_to_cart,PROD_121,172,Mobile,Direct
+WEB_000401,CUST_S_015,SESS_000101,2024-05-07 17:27:24,/home,page_view,,80,Desktop,Email Newsletter
+WEB_000402,CUST_S_015,SESS_000101,2024-05-07 17:29:08,/category/apparel,search,,271,Desktop,Email Newsletter
+WEB_000403,CUST_S_015,SESS_000101,2024-05-07 17:31:40,/product/prod_124,product_view,PROD_124,36,Desktop,Email Newsletter
+WEB_000404,CUST_S_015,SESS_000101,2024-05-07 17:31:56,/product/prod_125,add_to_cart,PROD_125,141,Desktop,Email Newsletter
+WEB_001211,CUST_S_042,SESS_000303,2024-05-08 11:47:37,/home,page_view,,298,Mobile,Referral
+WEB_001212,CUST_S_042,SESS_000303,2024-05-08 11:48:47,/category/sports-&-fitness,search,,248,Mobile,Referral
+WEB_001213,CUST_S_042,SESS_000303,2024-05-08 11:50:02,/product/prod_113,product_view,PROD_113,203,Mobile,Referral
+WEB_001214,CUST_S_042,SESS_000303,2024-05-08 11:50:41,/product/prod_121,product_view,PROD_121,196,Mobile,Referral
+WEB_001215,CUST_S_042,SESS_000303,2024-05-08 11:51:25,/product/prod_115,add_to_cart,PROD_115,37,Mobile,Referral
+WEB_000251,CUST_S_013,SESS_000063,2024-05-09 02:20:41,/home,page_view,,161,Tablet,Email Newsletter
+WEB_000252,CUST_S_013,SESS_000063,2024-05-09 02:22:40,/category/sports-&-fitness,search,,60,Tablet,Email Newsletter
+WEB_000253,CUST_S_013,SESS_000063,2024-05-09 02:25:30,/product/prod_122,add_to_cart,PROD_122,173,Tablet,Email Newsletter
+WEB_000254,CUST_S_013,SESS_000063,2024-05-09 02:27:21,/product/prod_122,product_view,PROD_122,266,Tablet,Email Newsletter
+WEB_000255,CUST_S_013,SESS_000063,2024-05-09 02:27:59,/product/prod_122,add_to_cart,PROD_122,6,Tablet,Email Newsletter
+WEB_000810,CUST_S_029,SESS_000203,2024-05-09 13:46:50,/home,page_view,,112,Desktop,Referral
+WEB_000811,CUST_S_029,SESS_000203,2024-05-09 13:49:36,/category/sports-&-fitness,search,,253,Desktop,Referral
+WEB_000812,CUST_S_029,SESS_000203,2024-05-09 13:50:02,/product/prod_129,product_view,PROD_129,170,Desktop,Referral
+WEB_000813,CUST_S_029,SESS_000203,2024-05-09 13:50:52,/product/prod_125,wishlist,PROD_125,269,Desktop,Referral
+WEB_000814,CUST_S_029,SESS_000203,2024-05-09 13:52:04,/product/prod_123,product_view,PROD_123,254,Desktop,Referral
+WEB_000815,CUST_S_029,SESS_000203,2024-05-09 13:53:42,/product/prod_114,add_to_cart,PROD_114,139,Desktop,Referral
+WEB_000051,CUST_S_003,SESS_000013,2024-05-11 12:54:35,/home,page_view,,245,Desktop,Direct
+WEB_000052,CUST_S_003,SESS_000013,2024-05-11 12:56:06,/category/home-&-kitchen,search,,219,Desktop,Direct
+WEB_000053,CUST_S_003,SESS_000013,2024-05-11 12:57:32,/product/prod_128,product_view,PROD_128,23,Desktop,Direct
+WEB_000054,CUST_S_003,SESS_000013,2024-05-11 12:59:37,/product/prod_126,product_view,PROD_126,176,Desktop,Direct
+WEB_000055,CUST_S_003,SESS_000013,2024-05-11 13:01:02,/product/prod_118,checkout_start,PROD_118,32,Desktop,Direct
+WEB_000169,CUST_S_009,SESS_000043,2024-05-12 03:59:38,/home,page_view,,255,Desktop,Email Newsletter
+WEB_000170,CUST_S_009,SESS_000043,2024-05-12 04:01:44,/category/electronics,search,,30,Desktop,Email Newsletter
+WEB_000171,CUST_S_009,SESS_000043,2024-05-12 04:04:38,/product/prod_104,product_view,PROD_104,47,Desktop,Email Newsletter
+WEB_000461,CUST_S_018,SESS_000116,2024-05-12 07:01:32,/home,page_view,,133,Mobile,Direct
+WEB_000462,CUST_S_018,SESS_000116,2024-05-12 07:03:18,/category/apparel,search,,179,Mobile,Direct
+WEB_000463,CUST_S_018,SESS_000116,2024-05-12 07:05:47,/product/prod_113,product_view,PROD_113,264,Mobile,Direct
+WEB_000464,CUST_S_018,SESS_000116,2024-05-12 07:08:15,/product/prod_122,add_to_cart,PROD_122,52,Mobile,Direct
+WEB_001216,CUST_S_042,SESS_000305,2024-05-17 06:38:09,/home,page_view,,263,Mobile,Email Newsletter
+WEB_001217,CUST_S_042,SESS_000305,2024-05-17 06:38:58,/category/apparel,search,,129,Mobile,Email Newsletter
+WEB_000801,CUST_S_029,SESS_000201,2024-05-17 23:07:45,/home,page_view,,300,Mobile,Email Newsletter
+WEB_000802,CUST_S_029,SESS_000201,2024-05-17 23:10:12,/category/books-&-media,search,,82,Mobile,Email Newsletter
+WEB_000803,CUST_S_029,SESS_000201,2024-05-17 23:11:59,/product/prod_113,product_view,PROD_113,259,Mobile,Email Newsletter
+WEB_000804,CUST_S_029,SESS_000201,2024-05-17 23:12:43,/product/prod_128,product_view,PROD_128,81,Mobile,Email Newsletter
+WEB_000805,CUST_S_029,SESS_000201,2024-05-17 23:14:53,/product/prod_129,add_to_cart,PROD_129,213,Mobile,Email Newsletter
+WEB_000788,CUST_S_028,SESS_000198,2024-05-18 09:10:31,/home,page_view,,289,Desktop,Direct
+WEB_000789,CUST_S_028,SESS_000198,2024-05-18 09:13:16,/category/books-&-media,search,,289,Desktop,Direct
+WEB_000790,CUST_S_028,SESS_000198,2024-05-18 09:14:10,/product/prod_111,product_view,PROD_111,184,Desktop,Direct
+WEB_000791,CUST_S_028,SESS_000198,2024-05-18 09:15:46,/product/prod_128,product_view,PROD_128,60,Desktop,Direct
+WEB_000657,CUST_S_023,SESS_000165,2024-05-20 03:02:00,/home,page_view,,201,Tablet,Organic Search
+WEB_000658,CUST_S_023,SESS_000165,2024-05-20 03:03:40,/category/home-&-kitchen,search,,256,Tablet,Organic Search
+WEB_000659,CUST_S_023,SESS_000165,2024-05-20 03:04:36,/product/prod_107,product_view,PROD_107,103,Tablet,Organic Search
+WEB_000660,CUST_S_023,SESS_000165,2024-05-20 03:05:02,/product/prod_109,wishlist,PROD_109,15,Tablet,Organic Search
+WEB_000661,CUST_S_023,SESS_000165,2024-05-20 03:05:57,/product/prod_106,add_to_cart,PROD_106,237,Tablet,Organic Search
+WEB_001052,CUST_S_037,SESS_000264,2024-05-21 00:45:52,/home,page_view,,235,Tablet,Social Media
+WEB_001053,CUST_S_037,SESS_000264,2024-05-21 00:47:46,/category/apparel,search,,209,Tablet,Social Media
+WEB_001054,CUST_S_037,SESS_000264,2024-05-21 00:49:05,/product/prod_119,add_to_cart,PROD_119,159,Tablet,Social Media
+WEB_001055,CUST_S_037,SESS_000264,2024-05-21 00:50:45,/product/prod_116,product_view,PROD_116,171,Tablet,Social Media
+WEB_001056,CUST_S_037,SESS_000264,2024-05-21 00:52:01,/product/prod_124,product_view,PROD_124,144,Tablet,Social Media
+WEB_000547,CUST_S_020,SESS_000137,2024-05-24 07:42:32,/home,page_view,,285,Desktop,Email Newsletter
+WEB_000548,CUST_S_020,SESS_000137,2024-05-24 07:45:17,/category/apparel,search,,122,Desktop,Email Newsletter
+WEB_000292,CUST_S_013,SESS_000074,2024-05-24 14:36:35,/home,page_view,,96,Mobile,Organic Search
+WEB_000293,CUST_S_013,SESS_000074,2024-05-24 14:36:52,/category/apparel,search,,256,Mobile,Organic Search
+WEB_000294,CUST_S_013,SESS_000074,2024-05-24 14:39:39,/product/prod_129,product_view,PROD_129,135,Mobile,Organic Search
+WEB_000295,CUST_S_013,SESS_000074,2024-05-24 14:40:08,/product/prod_123,wishlist,PROD_123,179,Mobile,Organic Search
+WEB_000296,CUST_S_013,SESS_000074,2024-05-24 14:40:50,/product/prod_112,wishlist,PROD_112,112,Mobile,Organic Search
+WEB_000297,CUST_S_013,SESS_000074,2024-05-24 14:42:27,/product/prod_127,product_view,PROD_127,89,Mobile,Organic Search
+WEB_000371,CUST_S_015,SESS_000093,2024-05-26 09:38:01,/home,page_view,,63,Desktop,Social Media
+WEB_000372,CUST_S_015,SESS_000093,2024-05-26 09:39:30,/category/apparel,search,,65,Desktop,Social Media
+WEB_000373,CUST_S_015,SESS_000093,2024-05-26 09:41:49,/product/prod_121,product_view,PROD_121,254,Desktop,Social Media
+WEB_001374,CUST_S_046,SESS_000344,2024-05-27 18:56:27,/home,page_view,,86,Desktop,Social Media
+WEB_001375,CUST_S_046,SESS_000344,2024-05-27 18:56:46,/category/sports-&-fitness,search,,131,Desktop,Social Media
+WEB_001376,CUST_S_046,SESS_000344,2024-05-27 18:58:11,/product/prod_113,product_view,PROD_113,35,Desktop,Social Media
+WEB_001207,CUST_S_042,SESS_000302,2024-05-30 04:31:18,/home,page_view,,192,Desktop,Social Media
+WEB_001208,CUST_S_042,SESS_000302,2024-05-30 04:32:20,/category/sports-&-fitness,search,,183,Desktop,Social Media
+WEB_001209,CUST_S_042,SESS_000302,2024-05-30 04:34:49,/product/prod_119,product_view,PROD_119,12,Desktop,Social Media
+WEB_001210,CUST_S_042,SESS_000302,2024-05-30 04:37:12,/product/prod_122,checkout_start,PROD_122,133,Desktop,Social Media
+WEB_000326,CUST_S_014,SESS_000082,2024-05-31 11:57:08,/home,page_view,,257,Tablet,Social Media
+WEB_000327,CUST_S_014,SESS_000082,2024-05-31 11:57:45,/category/electronics,search,,150,Tablet,Social Media
+WEB_000328,CUST_S_014,SESS_000082,2024-05-31 11:58:09,/product/prod_105,product_view,PROD_105,288,Tablet,Social Media
+WEB_000329,CUST_S_014,SESS_000082,2024-05-31 11:59:20,/product/prod_102,checkout_start,PROD_102,189,Tablet,Social Media
+WEB_000330,CUST_S_014,SESS_000082,2024-05-31 12:01:19,/product/prod_108,product_view,PROD_108,157,Tablet,Social Media
+WEB_000863,CUST_S_029,SESS_000216,2024-05-31 20:24:53,/home,page_view,,65,Mobile,Email Newsletter
+WEB_000864,CUST_S_029,SESS_000216,2024-05-31 20:27:18,/category/books-&-media,search,,27,Mobile,Email Newsletter
+WEB_000865,CUST_S_029,SESS_000216,2024-05-31 20:28:43,/product/prod_114,product_view,PROD_114,48,Mobile,Email Newsletter
+WEB_001305,CUST_S_046,SESS_000327,2024-06-03 11:47:28,/home,page_view,,196,Desktop,Social Media
+WEB_001306,CUST_S_046,SESS_000327,2024-06-03 11:48:24,/category/apparel,search,,162,Desktop,Social Media
+WEB_001307,CUST_S_046,SESS_000327,2024-06-03 11:50:04,/product/prod_128,product_view,PROD_128,229,Desktop,Social Media
+WEB_001308,CUST_S_046,SESS_000327,2024-06-03 11:52:14,/product/prod_116,product_view,PROD_116,167,Desktop,Social Media
+WEB_001309,CUST_S_046,SESS_000327,2024-06-03 11:54:56,/product/prod_128,add_to_cart,PROD_128,98,Desktop,Social Media
+WEB_001310,CUST_S_046,SESS_000327,2024-06-03 11:56:35,/product/prod_124,product_view,PROD_124,253,Desktop,Social Media
+WEB_000909,CUST_S_032,SESS_000228,2024-06-04 09:24:22,/home,page_view,,263,Desktop,Organic Search
+WEB_000910,CUST_S_032,SESS_000228,2024-06-04 09:26:49,/category/electronics,search,,124,Desktop,Organic Search
+WEB_000962,CUST_S_035,SESS_000241,2024-06-04 14:51:53,/home,page_view,,62,Desktop,Social Media
+WEB_000963,CUST_S_035,SESS_000241,2024-06-04 14:53:06,/category/electronics,search,,32,Desktop,Social Media
+WEB_000964,CUST_S_035,SESS_000241,2024-06-04 14:54:53,/product/prod_106,add_to_cart,PROD_106,252,Desktop,Social Media
+WEB_000965,CUST_S_035,SESS_000241,2024-06-04 14:57:37,/product/prod_105,product_view,PROD_105,192,Desktop,Social Media
+WEB_000966,CUST_S_035,SESS_000241,2024-06-04 15:00:02,/product/prod_102,product_view,PROD_102,10,Desktop,Social Media
+WEB_000967,CUST_S_035,SESS_000241,2024-06-04 15:00:38,/product/prod_102,product_view,PROD_102,280,Desktop,Social Media
+WEB_000396,CUST_S_015,SESS_000100,2024-06-05 13:56:44,/home,page_view,,169,Tablet,Direct
+WEB_000397,CUST_S_015,SESS_000100,2024-06-05 13:58:37,/category/books-&-media,search,,12,Tablet,Direct
+WEB_000398,CUST_S_015,SESS_000100,2024-06-05 13:59:33,/product/prod_112,product_view,PROD_112,74,Tablet,Direct
+WEB_000399,CUST_S_015,SESS_000100,2024-06-05 14:00:15,/product/prod_121,product_view,PROD_121,92,Tablet,Direct
+WEB_000400,CUST_S_015,SESS_000100,2024-06-05 14:01:55,/product/prod_123,product_view,PROD_123,44,Tablet,Direct
+WEB_001273,CUST_S_045,SESS_000319,2024-06-06 20:42:48,/home,page_view,,300,Desktop,Referral
+WEB_001274,CUST_S_045,SESS_000319,2024-06-06 20:44:05,/category/home-&-kitchen,search,,63,Desktop,Referral
+WEB_001275,CUST_S_045,SESS_000319,2024-06-06 20:44:57,/product/prod_107,product_view,PROD_107,248,Desktop,Referral
+WEB_001276,CUST_S_045,SESS_000319,2024-06-06 20:47:49,/product/prod_103,wishlist,PROD_103,288,Desktop,Referral
+WEB_001277,CUST_S_045,SESS_000319,2024-06-06 20:48:48,/product/prod_101,product_view,PROD_101,180,Desktop,Referral
+WEB_001278,CUST_S_045,SESS_000319,2024-06-06 20:50:20,/product/prod_102,add_to_cart,PROD_102,149,Desktop,Referral
+WEB_000664,CUST_S_023,SESS_000167,2024-06-07 02:06:00,/home,page_view,,29,Tablet,Organic Search
+WEB_000665,CUST_S_023,SESS_000167,2024-06-07 02:07:00,/category/home-&-kitchen,search,,110,Tablet,Organic Search
+WEB_000666,CUST_S_023,SESS_000167,2024-06-07 02:09:40,/product/prod_102,product_view,PROD_102,205,Tablet,Organic Search
+WEB_000667,CUST_S_023,SESS_000167,2024-06-07 02:12:03,/product/prod_107,product_view,PROD_107,76,Tablet,Organic Search
+WEB_000668,CUST_S_023,SESS_000167,2024-06-07 02:14:17,/product/prod_102,product_view,PROD_102,100,Tablet,Organic Search
+WEB_000986,CUST_S_036,SESS_000247,2024-06-08 00:06:27,/home,page_view,,130,Desktop,Social Media
+WEB_000987,CUST_S_036,SESS_000247,2024-06-08 00:07:43,/category/books-&-media,search,,242,Desktop,Social Media
+WEB_000988,CUST_S_036,SESS_000247,2024-06-08 00:08:57,/product/prod_116,wishlist,PROD_116,238,Desktop,Social Media
+WEB_000989,CUST_S_036,SESS_000247,2024-06-08 00:10:03,/product/prod_115,wishlist,PROD_115,72,Desktop,Social Media
+WEB_000990,CUST_S_036,SESS_000247,2024-06-08 00:12:39,/product/prod_128,wishlist,PROD_128,86,Desktop,Social Media
+WEB_000366,CUST_S_014,SESS_000092,2024-06-08 02:06:36,/home,page_view,,80,Tablet,Email Newsletter
+WEB_000367,CUST_S_014,SESS_000092,2024-06-08 02:07:21,/category/home-&-kitchen,search,,95,Tablet,Email Newsletter
+WEB_000368,CUST_S_014,SESS_000092,2024-06-08 02:10:13,/product/prod_109,checkout_start,PROD_109,232,Tablet,Email Newsletter
+WEB_000369,CUST_S_014,SESS_000092,2024-06-08 02:10:29,/product/prod_106,product_view,PROD_106,149,Tablet,Email Newsletter
+WEB_000370,CUST_S_014,SESS_000092,2024-06-08 02:12:53,/product/prod_103,add_to_cart,PROD_103,268,Tablet,Email Newsletter
+WEB_001288,CUST_S_045,SESS_000323,2024-06-08 08:34:47,/home,page_view,,46,Tablet,Email Newsletter
+WEB_001289,CUST_S_045,SESS_000323,2024-06-08 08:37:20,/category/electronics,search,,72,Tablet,Email Newsletter
+WEB_001290,CUST_S_045,SESS_000323,2024-06-08 08:38:00,/product/prod_105,product_view,PROD_105,165,Tablet,Email Newsletter
+WEB_001291,CUST_S_045,SESS_000323,2024-06-08 08:38:34,/product/prod_109,product_view,PROD_109,104,Tablet,Email Newsletter
+WEB_001292,CUST_S_045,SESS_000323,2024-06-08 08:40:43,/product/prod_105,checkout_start,PROD_105,227,Tablet,Email Newsletter
+WEB_001293,CUST_S_045,SESS_000323,2024-06-08 08:43:24,/product/prod_109,product_view,PROD_109,43,Tablet,Email Newsletter
+WEB_000022,CUST_S_002,SESS_000006,2024-06-09 08:56:25,/home,page_view,,164,Desktop,Email Newsletter
+WEB_000023,CUST_S_002,SESS_000006,2024-06-09 08:56:41,/category/health-&-beauty,search,,154,Desktop,Email Newsletter
+WEB_000024,CUST_S_002,SESS_000006,2024-06-09 08:59:29,/product/prod_110,product_view,PROD_110,93,Desktop,Email Newsletter
+WEB_000025,CUST_S_002,SESS_000006,2024-06-09 09:01:13,/product/prod_127,product_view,PROD_127,34,Desktop,Email Newsletter
+WEB_000377,CUST_S_015,SESS_000095,2024-06-12 19:50:03,/home,page_view,,22,Tablet,Social Media
+WEB_000378,CUST_S_015,SESS_000095,2024-06-12 19:51:57,/category/apparel,search,,231,Tablet,Social Media
+WEB_000669,CUST_S_023,SESS_000168,2024-06-13 01:36:11,/home,page_view,,206,Desktop,Referral
+WEB_000670,CUST_S_023,SESS_000168,2024-06-13 01:38:11,/category/electronics,search,,287,Desktop,Referral
+WEB_000671,CUST_S_023,SESS_000168,2024-06-13 01:39:14,/product/prod_108,product_view,PROD_108,49,Desktop,Referral
+WEB_000672,CUST_S_023,SESS_000168,2024-06-13 01:40:54,/product/prod_110,checkout_start,PROD_110,203,Desktop,Referral
+WEB_000673,CUST_S_023,SESS_000168,2024-06-13 01:41:41,/product/prod_102,product_view,PROD_102,37,Desktop,Referral
+WEB_000534,CUST_S_019,SESS_000134,2024-06-13 06:25:35,/home,page_view,,87,Tablet,Email Newsletter
+WEB_000535,CUST_S_019,SESS_000134,2024-06-13 06:27:00,/category/books-&-media,search,,182,Tablet,Email Newsletter
+WEB_000536,CUST_S_019,SESS_000134,2024-06-13 06:29:06,/product/prod_128,product_view,PROD_128,192,Tablet,Email Newsletter
+WEB_000651,CUST_S_023,SESS_000163,2024-06-13 08:08:39,/home,page_view,,5,Desktop,Organic Search
+WEB_000652,CUST_S_023,SESS_000163,2024-06-13 08:10:19,/category/electronics,search,,57,Desktop,Organic Search
+WEB_000653,CUST_S_023,SESS_000163,2024-06-13 08:12:05,/product/prod_105,product_view,PROD_105,173,Desktop,Organic Search
+WEB_000654,CUST_S_023,SESS_000163,2024-06-13 08:13:45,/product/prod_101,product_view,PROD_101,131,Desktop,Organic Search
+WEB_000655,CUST_S_023,SESS_000163,2024-06-13 08:14:11,/product/prod_108,wishlist,PROD_108,82,Desktop,Organic Search
+WEB_000656,CUST_S_023,SESS_000163,2024-06-13 08:15:36,/product/prod_106,add_to_cart,PROD_106,281,Desktop,Organic Search
+WEB_000456,CUST_S_018,SESS_000115,2024-06-15 01:19:39,/home,page_view,,135,Tablet,Email Newsletter
+WEB_000457,CUST_S_018,SESS_000115,2024-06-15 01:22:08,/category/health-&-beauty,search,,80,Tablet,Email Newsletter
+WEB_000458,CUST_S_018,SESS_000115,2024-06-15 01:24:58,/product/prod_120,checkout_start,PROD_120,124,Tablet,Email Newsletter
+WEB_000459,CUST_S_018,SESS_000115,2024-06-15 01:26:00,/product/prod_116,add_to_cart,PROD_116,247,Tablet,Email Newsletter
+WEB_000460,CUST_S_018,SESS_000115,2024-06-15 01:27:20,/product/prod_118,checkout_start,PROD_118,151,Tablet,Email Newsletter
+WEB_000694,CUST_S_024,SESS_000174,2024-06-15 03:50:45,/home,page_view,,144,Mobile,Organic Search
+WEB_000695,CUST_S_024,SESS_000174,2024-06-15 03:52:28,/category/books-&-media,search,,261,Mobile,Organic Search
+WEB_000696,CUST_S_024,SESS_000174,2024-06-15 03:52:51,/product/prod_126,product_view,PROD_126,280,Mobile,Organic Search
+WEB_000697,CUST_S_024,SESS_000174,2024-06-15 03:53:17,/product/prod_130,product_view,PROD_130,252,Mobile,Organic Search
+WEB_000698,CUST_S_024,SESS_000174,2024-06-15 03:54:45,/product/prod_129,product_view,PROD_129,285,Mobile,Organic Search
+WEB_000690,CUST_S_023,SESS_000173,2024-06-15 16:56:12,/home,page_view,,167,Tablet,Organic Search
+WEB_000691,CUST_S_023,SESS_000173,2024-06-15 16:58:11,/category/home-&-kitchen,search,,152,Tablet,Organic Search
+WEB_000692,CUST_S_023,SESS_000173,2024-06-15 17:00:20,/product/prod_107,add_to_cart,PROD_107,115,Tablet,Organic Search
+WEB_000693,CUST_S_023,SESS_000173,2024-06-15 17:01:58,/product/prod_110,product_view,PROD_110,172,Tablet,Organic Search
+WEB_000754,CUST_S_027,SESS_000189,2024-06-18 01:34:08,/home,page_view,,117,Tablet,Direct
+WEB_000755,CUST_S_027,SESS_000189,2024-06-18 01:34:23,/category/electronics,search,,138,Tablet,Direct
+WEB_000756,CUST_S_027,SESS_000189,2024-06-18 01:35:11,/product/prod_110,product_view,PROD_110,257,Tablet,Direct
+WEB_000480,CUST_S_019,SESS_000121,2024-06-18 15:28:25,/home,page_view,,125,Tablet,Organic Search
+WEB_000481,CUST_S_019,SESS_000121,2024-06-18 15:30:41,/category/apparel,search,,186,Tablet,Organic Search
+WEB_000482,CUST_S_019,SESS_000121,2024-06-18 15:33:27,/product/prod_114,product_view,PROD_114,151,Tablet,Organic Search
+WEB_000483,CUST_S_019,SESS_000121,2024-06-18 15:33:44,/product/prod_126,product_view,PROD_126,186,Tablet,Organic Search
+WEB_000484,CUST_S_019,SESS_000121,2024-06-18 15:36:27,/product/prod_122,add_to_cart,PROD_122,232,Tablet,Organic Search
+WEB_000885,CUST_S_030,SESS_000222,2024-06-19 20:05:24,/home,page_view,,207,Desktop,Referral
+WEB_000886,CUST_S_030,SESS_000222,2024-06-19 20:06:32,/category/home-&-kitchen,search,,11,Desktop,Referral
+WEB_000887,CUST_S_030,SESS_000222,2024-06-19 20:07:21,/product/prod_103,wishlist,PROD_103,11,Desktop,Referral
+WEB_000097,CUST_S_005,SESS_000025,2024-06-20 21:15:01,/home,page_view,,93,Tablet,Email Newsletter
+WEB_000098,CUST_S_005,SESS_000025,2024-06-20 21:17:36,/category/apparel,search,,126,Tablet,Email Newsletter
+WEB_000099,CUST_S_005,SESS_000025,2024-06-20 21:18:23,/product/prod_128,add_to_cart,PROD_128,39,Tablet,Email Newsletter
+WEB_001234,CUST_S_042,SESS_000309,2024-06-22 19:12:54,/home,page_view,,206,Mobile,Organic Search
+WEB_001235,CUST_S_042,SESS_000309,2024-06-22 19:14:22,/category/apparel,search,,50,Mobile,Organic Search
+WEB_001236,CUST_S_042,SESS_000309,2024-06-22 19:16:28,/product/prod_116,wishlist,PROD_116,21,Mobile,Organic Search
+WEB_001237,CUST_S_042,SESS_000309,2024-06-22 19:19:16,/product/prod_122,wishlist,PROD_122,259,Mobile,Organic Search
+WEB_001238,CUST_S_042,SESS_000309,2024-06-22 19:21:11,/product/prod_115,product_view,PROD_115,138,Mobile,Organic Search
+WEB_000508,CUST_S_019,SESS_000128,2024-06-23 07:16:08,/home,page_view,,38,Tablet,Organic Search
+WEB_000509,CUST_S_019,SESS_000128,2024-06-23 07:19:00,/category/apparel,search,,108,Tablet,Organic Search
+WEB_000680,CUST_S_023,SESS_000171,2024-06-24 23:33:34,/home,page_view,,281,Mobile,Email Newsletter
+WEB_000681,CUST_S_023,SESS_000171,2024-06-24 23:36:30,/category/home-&-kitchen,search,,51,Mobile,Email Newsletter
+WEB_001405,CUST_S_048,SESS_000352,2024-06-26 23:14:24,/home,page_view,,236,Desktop,Referral
+WEB_001406,CUST_S_048,SESS_000352,2024-06-26 23:17:06,/category/electronics,search,,117,Desktop,Referral
+WEB_001407,CUST_S_048,SESS_000352,2024-06-26 23:18:06,/product/prod_101,wishlist,PROD_101,297,Desktop,Referral
+WEB_001408,CUST_S_048,SESS_000352,2024-06-26 23:20:08,/product/prod_105,product_view,PROD_105,279,Desktop,Referral
+WEB_000871,CUST_S_030,SESS_000218,2024-06-27 01:16:19,/home,page_view,,34,Tablet,Referral
+WEB_000872,CUST_S_030,SESS_000218,2024-06-27 01:17:53,/category/electronics,search,,121,Tablet,Referral
+WEB_000091,CUST_S_005,SESS_000023,2024-06-28 22:15:35,/home,page_view,,17,Tablet,Social Media
+WEB_000092,CUST_S_005,SESS_000023,2024-06-28 22:16:04,/category/books-&-media,search,,29,Tablet,Social Media
+WEB_000093,CUST_S_005,SESS_000023,2024-06-28 22:18:01,/product/prod_123,product_view,PROD_123,235,Tablet,Social Media
+WEB_000866,CUST_S_030,SESS_000217,2024-06-29 09:36:52,/home,page_view,,189,Tablet,Organic Search
+WEB_000867,CUST_S_030,SESS_000217,2024-06-29 09:39:43,/category/home-&-kitchen,search,,178,Tablet,Organic Search
+WEB_000868,CUST_S_030,SESS_000217,2024-06-29 09:42:16,/product/prod_104,product_view,PROD_104,299,Tablet,Organic Search
+WEB_000062,CUST_S_004,SESS_000016,2024-07-01 19:31:33,/home,page_view,,160,Desktop,Email Newsletter
+WEB_000063,CUST_S_004,SESS_000016,2024-07-01 19:33:37,/category/home-&-kitchen,search,,290,Desktop,Email Newsletter
+WEB_000064,CUST_S_004,SESS_000016,2024-07-01 19:33:56,/product/prod_109,product_view,PROD_109,103,Desktop,Email Newsletter
+WEB_000065,CUST_S_004,SESS_000016,2024-07-01 19:35:49,/product/prod_110,product_view,PROD_110,178,Desktop,Email Newsletter
+WEB_000066,CUST_S_004,SESS_000016,2024-07-01 19:36:55,/product/prod_129,product_view,PROD_129,77,Desktop,Email Newsletter
+WEB_000067,CUST_S_004,SESS_000016,2024-07-01 19:39:52,/product/prod_118,product_view,PROD_118,206,Desktop,Email Newsletter
+WEB_000165,CUST_S_009,SESS_000042,2024-07-03 09:22:10,/home,page_view,,51,Mobile,Referral
+WEB_000166,CUST_S_009,SESS_000042,2024-07-03 09:23:42,/category/apparel,search,,42,Mobile,Referral
+WEB_000167,CUST_S_009,SESS_000042,2024-07-03 09:26:07,/product/prod_116,add_to_cart,PROD_116,44,Mobile,Referral
+WEB_000168,CUST_S_009,SESS_000042,2024-07-03 09:26:59,/product/prod_103,product_view,PROD_103,280,Mobile,Referral
+WEB_001161,CUST_S_040,SESS_000291,2024-07-03 18:30:02,/home,page_view,,282,Mobile,Organic Search
+WEB_001162,CUST_S_040,SESS_000291,2024-07-03 18:31:16,/category/books-&-media,search,,95,Mobile,Organic Search
+WEB_000465,CUST_S_018,SESS_000117,2024-07-03 23:27:58,/home,page_view,,228,Desktop,Social Media
+WEB_000466,CUST_S_018,SESS_000117,2024-07-03 23:28:57,/category/apparel,search,,250,Desktop,Social Media
+WEB_000009,CUST_S_001,SESS_000003,2024-07-04 00:52:40,/home,page_view,,227,Mobile,Social Media
+WEB_000010,CUST_S_001,SESS_000003,2024-07-04 00:53:35,/category/health-&-beauty,search,,262,Mobile,Social Media
+WEB_000011,CUST_S_001,SESS_000003,2024-07-04 00:56:04,/product/prod_118,add_to_cart,PROD_118,108,Mobile,Social Media
+WEB_000823,CUST_S_029,SESS_000206,2024-07-04 20:03:34,/home,page_view,,257,Desktop,Organic Search
+WEB_000824,CUST_S_029,SESS_000206,2024-07-04 20:06:03,/category/sports-&-fitness,search,,289,Desktop,Organic Search
+WEB_000825,CUST_S_029,SESS_000206,2024-07-04 20:06:38,/product/prod_125,add_to_cart,PROD_125,87,Desktop,Organic Search
+WEB_000826,CUST_S_029,SESS_000206,2024-07-04 20:09:33,/product/prod_124,product_view,PROD_124,258,Desktop,Organic Search
+WEB_000827,CUST_S_029,SESS_000206,2024-07-04 20:11:59,/product/prod_116,product_view,PROD_116,203,Desktop,Organic Search
+WEB_000589,CUST_S_021,SESS_000148,2024-07-06 09:08:46,/home,page_view,,199,Desktop,Email Newsletter
+WEB_000590,CUST_S_021,SESS_000148,2024-07-06 09:10:21,/category/electronics,search,,102,Desktop,Email Newsletter
+WEB_000591,CUST_S_021,SESS_000148,2024-07-06 09:12:34,/product/prod_106,product_view,PROD_106,53,Desktop,Email Newsletter
+WEB_000140,CUST_S_006,SESS_000036,2024-07-07 15:24:01,/home,page_view,,152,Desktop,Organic Search
+WEB_000141,CUST_S_006,SESS_000036,2024-07-07 15:25:06,/category/electronics,search,,152,Desktop,Organic Search
+WEB_000142,CUST_S_006,SESS_000036,2024-07-07 15:26:41,/product/prod_106,product_view,PROD_106,27,Desktop,Organic Search
+WEB_001414,CUST_S_048,SESS_000354,2024-07-07 21:00:38,/home,page_view,,30,Tablet,Organic Search
+WEB_001415,CUST_S_048,SESS_000354,2024-07-07 21:02:50,/category/home-&-kitchen,search,,25,Tablet,Organic Search
+WEB_001416,CUST_S_048,SESS_000354,2024-07-07 21:03:55,/product/prod_106,product_view,PROD_106,94,Tablet,Organic Search
+WEB_000160,CUST_S_008,SESS_000041,2024-07-09 14:19:57,/home,page_view,,137,Desktop,Direct
+WEB_000161,CUST_S_008,SESS_000041,2024-07-09 14:22:22,/category/home-&-kitchen,search,,33,Desktop,Direct
+WEB_000162,CUST_S_008,SESS_000041,2024-07-09 14:24:04,/product/prod_119,add_to_cart,PROD_119,289,Desktop,Direct
+WEB_000163,CUST_S_008,SESS_000041,2024-07-09 14:26:13,/product/prod_125,product_view,PROD_125,104,Desktop,Direct
+WEB_000164,CUST_S_008,SESS_000041,2024-07-09 14:26:44,/product/prod_117,product_view,PROD_117,246,Desktop,Direct
+WEB_001099,CUST_S_039,SESS_000275,2024-07-09 21:08:16,/home,page_view,,286,Desktop,Direct
+WEB_001100,CUST_S_039,SESS_000275,2024-07-09 21:10:59,/category/apparel,search,,140,Desktop,Direct
+WEB_001101,CUST_S_039,SESS_000275,2024-07-09 21:11:39,/product/prod_125,wishlist,PROD_125,229,Desktop,Direct
+WEB_001102,CUST_S_039,SESS_000275,2024-07-09 21:13:40,/product/prod_126,checkout_start,PROD_126,105,Desktop,Direct
+WEB_000236,CUST_S_012,SESS_000060,2024-07-10 23:19:59,/home,page_view,,242,Desktop,Organic Search
+WEB_000237,CUST_S_012,SESS_000060,2024-07-10 23:20:29,/category/books-&-media,search,,114,Desktop,Organic Search
+WEB_000238,CUST_S_012,SESS_000060,2024-07-10 23:22:07,/product/prod_108,wishlist,PROD_108,75,Desktop,Organic Search
+WEB_000239,CUST_S_012,SESS_000060,2024-07-10 23:23:50,/product/prod_107,product_view,PROD_107,48,Desktop,Organic Search
+WEB_000240,CUST_S_012,SESS_000060,2024-07-10 23:26:34,/product/prod_130,wishlist,PROD_130,95,Desktop,Organic Search
+WEB_001130,CUST_S_040,SESS_000283,2024-07-12 23:06:56,/home,page_view,,108,Tablet,Email Newsletter
+WEB_001131,CUST_S_040,SESS_000283,2024-07-12 23:08:32,/category/apparel,search,,14,Tablet,Email Newsletter
+WEB_001132,CUST_S_040,SESS_000283,2024-07-12 23:09:56,/product/prod_113,product_view,PROD_113,277,Tablet,Email Newsletter
+WEB_001133,CUST_S_040,SESS_000283,2024-07-12 23:11:50,/product/prod_116,product_view,PROD_116,135,Tablet,Email Newsletter
+WEB_000712,CUST_S_025,SESS_000179,2024-07-14 06:09:50,/home,page_view,,271,Desktop,Direct
+WEB_000713,CUST_S_025,SESS_000179,2024-07-14 06:10:24,/category/home-&-kitchen,search,,182,Desktop,Direct
+WEB_000714,CUST_S_025,SESS_000179,2024-07-14 06:11:34,/product/prod_118,product_view,PROD_118,28,Desktop,Direct
+WEB_000715,CUST_S_025,SESS_000179,2024-07-14 06:14:24,/product/prod_125,add_to_cart,PROD_125,151,Desktop,Direct
+WEB_000716,CUST_S_025,SESS_000179,2024-07-14 06:16:22,/product/prod_107,add_to_cart,PROD_107,296,Desktop,Direct
+WEB_000717,CUST_S_025,SESS_000179,2024-07-14 06:18:36,/product/prod_108,product_view,PROD_108,14,Desktop,Direct
+WEB_000288,CUST_S_013,SESS_000073,2024-07-15 11:11:47,/home,page_view,,266,Desktop,Organic Search
+WEB_000289,CUST_S_013,SESS_000073,2024-07-15 11:12:22,/category/sports-&-fitness,search,,241,Desktop,Organic Search
+WEB_001331,CUST_S_046,SESS_000333,2024-07-15 16:01:19,/home,page_view,,12,Tablet,Organic Search
+WEB_001332,CUST_S_046,SESS_000333,2024-07-15 16:03:13,/category/sports-&-fitness,search,,287,Tablet,Organic Search
+WEB_001333,CUST_S_046,SESS_000333,2024-07-15 16:03:53,/product/prod_129,product_view,PROD_129,6,Tablet,Organic Search
+WEB_000441,CUST_S_016,SESS_000111,2024-07-17 14:23:39,/home,page_view,,156,Tablet,Organic Search
+WEB_000442,CUST_S_016,SESS_000111,2024-07-17 14:25:03,/category/apparel,search,,151,Tablet,Organic Search
+WEB_000443,CUST_S_016,SESS_000111,2024-07-17 14:26:20,/product/prod_104,wishlist,PROD_104,238,Tablet,Organic Search
+WEB_000444,CUST_S_016,SESS_000111,2024-07-17 14:28:19,/product/prod_116,product_view,PROD_116,96,Tablet,Organic Search
+WEB_000445,CUST_S_016,SESS_000111,2024-07-17 14:30:17,/product/prod_116,product_view,PROD_116,160,Tablet,Organic Search
+WEB_000446,CUST_S_017,SESS_000112,2024-07-18 17:28:34,/home,page_view,,61,Desktop,Organic Search
+WEB_000447,CUST_S_017,SESS_000112,2024-07-18 17:30:56,/category/books-&-media,search,,83,Desktop,Organic Search
+WEB_000448,CUST_S_017,SESS_000112,2024-07-18 17:31:31,/product/prod_118,wishlist,PROD_118,217,Desktop,Organic Search
+WEB_000449,CUST_S_017,SESS_000112,2024-07-18 17:32:46,/product/prod_110,add_to_cart,PROD_110,275,Desktop,Organic Search
+WEB_000450,CUST_S_017,SESS_000112,2024-07-18 17:35:14,/product/prod_125,product_view,PROD_125,8,Desktop,Organic Search
+WEB_000333,CUST_S_014,SESS_000084,2024-07-19 11:40:14,/home,page_view,,69,Desktop,Referral
+WEB_000334,CUST_S_014,SESS_000084,2024-07-19 11:43:12,/category/home-&-kitchen,search,,224,Desktop,Referral
+WEB_000335,CUST_S_014,SESS_000084,2024-07-19 11:43:43,/product/prod_109,product_view,PROD_109,290,Desktop,Referral
+WEB_000336,CUST_S_014,SESS_000084,2024-07-19 11:44:51,/product/prod_108,add_to_cart,PROD_108,11,Desktop,Referral
+WEB_000337,CUST_S_014,SESS_000084,2024-07-19 11:46:15,/product/prod_101,add_to_cart,PROD_101,18,Desktop,Referral
+WEB_000338,CUST_S_014,SESS_000084,2024-07-19 11:47:12,/product/prod_111,product_view,PROD_111,12,Desktop,Referral
+WEB_000575,CUST_S_020,SESS_000144,2024-07-20 09:14:19,/home,page_view,,254,Desktop,Social Media
+WEB_000576,CUST_S_020,SESS_000144,2024-07-20 09:17:08,/category/apparel,search,,114,Desktop,Social Media
+WEB_000577,CUST_S_020,SESS_000144,2024-07-20 09:19:05,/product/prod_128,add_to_cart,PROD_128,201,Desktop,Social Media
+WEB_000578,CUST_S_020,SESS_000144,2024-07-20 09:20:25,/product/prod_126,product_view,PROD_126,60,Desktop,Social Media
+WEB_000510,CUST_S_019,SESS_000128,2024-07-21 17:05:26,/home,page_view,,111,Mobile,Organic Search
+WEB_000511,CUST_S_019,SESS_000128,2024-07-21 17:07:03,/category/books-&-media,search,,28,Mobile,Organic Search
+WEB_000512,CUST_S_019,SESS_000128,2024-07-21 17:09:26,/product/prod_122,product_view,PROD_122,5,Mobile,Organic Search
+WEB_000513,CUST_S_019,SESS_000128,2024-07-21 17:12:04,/product/prod_123,wishlist,PROD_123,296,Mobile,Organic Search
+WEB_000514,CUST_S_019,SESS_000128,2024-07-21 17:12:53,/product/prod_126,add_to_cart,PROD_126,286,Mobile,Organic Search
+WEB_000316,CUST_S_013,SESS_000080,2024-07-24 09:55:32,/home,page_view,,12,Tablet,Email Newsletter
+WEB_000317,CUST_S_013,SESS_000080,2024-07-24 09:58:02,/category/sports-&-fitness,search,,223,Tablet,Email Newsletter
+WEB_000318,CUST_S_013,SESS_000080,2024-07-24 10:00:43,/product/prod_112,add_to_cart,PROD_112,75,Tablet,Email Newsletter
+WEB_001417,CUST_S_048,SESS_000355,2024-07-24 14:30:01,/home,page_view,,165,Mobile,Email Newsletter
+WEB_001418,CUST_S_048,SESS_000355,2024-07-24 14:30:42,/category/home-&-kitchen,search,,225,Mobile,Email Newsletter
+WEB_000204,CUST_S_011,SESS_000052,2024-07-24 21:19:04,/home,page_view,,6,Desktop,Direct
+WEB_000205,CUST_S_011,SESS_000052,2024-07-24 21:20:34,/category/electronics,search,,132,Desktop,Direct
+WEB_000206,CUST_S_011,SESS_000052,2024-07-24 21:21:53,/product/prod_103,product_view,PROD_103,161,Desktop,Direct
+WEB_000207,CUST_S_011,SESS_000052,2024-07-24 21:22:25,/product/prod_103,product_view,PROD_103,212,Desktop,Direct
+WEB_000208,CUST_S_011,SESS_000052,2024-07-24 21:23:01,/product/prod_107,product_view,PROD_107,76,Desktop,Direct
+WEB_000209,CUST_S_011,SESS_000052,2024-07-24 21:24:05,/product/prod_107,product_view,PROD_107,23,Desktop,Direct
+WEB_000602,CUST_S_021,SESS_000151,2024-07-25 00:20:13,/home,page_view,,222,Desktop,Referral
+WEB_000603,CUST_S_021,SESS_000151,2024-07-25 00:21:16,/category/electronics,search,,68,Desktop,Referral
+WEB_000604,CUST_S_021,SESS_000151,2024-07-25 00:23:01,/product/prod_104,wishlist,PROD_104,299,Desktop,Referral
+WEB_000605,CUST_S_021,SESS_000151,2024-07-25 00:24:35,/product/prod_110,checkout_start,PROD_110,139,Desktop,Referral
+WEB_000606,CUST_S_021,SESS_000151,2024-07-25 00:26:05,/product/prod_107,product_view,PROD_107,94,Desktop,Referral
+WEB_000607,CUST_S_021,SESS_000151,2024-07-25 00:27:34,/product/prod_102,product_view,PROD_102,280,Desktop,Referral
+WEB_000734,CUST_S_026,SESS_000184,2024-07-25 01:38:49,/home,page_view,,62,Mobile,Email Newsletter
+WEB_000735,CUST_S_026,SESS_000184,2024-07-25 01:40:17,/category/apparel,search,,230,Mobile,Email Newsletter
+WEB_000736,CUST_S_026,SESS_000184,2024-07-25 01:41:05,/product/prod_106,checkout_start,PROD_106,57,Mobile,Email Newsletter
+WEB_000737,CUST_S_026,SESS_000184,2024-07-25 01:42:53,/product/prod_114,product_view,PROD_114,201,Mobile,Email Newsletter
+WEB_000268,CUST_S_013,SESS_000068,2024-07-27 07:39:53,/home,page_view,,101,Tablet,Referral
+WEB_000269,CUST_S_013,SESS_000068,2024-07-27 07:40:54,/category/sports-&-fitness,search,,32,Tablet,Referral
+WEB_000270,CUST_S_013,SESS_000068,2024-07-27 07:41:20,/product/prod_124,product_view,PROD_124,286,Tablet,Referral
+WEB_001023,CUST_S_036,SESS_000256,2024-07-27 10:26:41,/home,page_view,,8,Tablet,Direct
+WEB_001024,CUST_S_036,SESS_000256,2024-07-27 10:29:36,/category/apparel,search,,277,Tablet,Direct
+WEB_001025,CUST_S_036,SESS_000256,2024-07-27 10:31:08,/product/prod_113,product_view,PROD_113,196,Tablet,Direct
+WEB_001026,CUST_S_036,SESS_000256,2024-07-27 10:32:40,/product/prod_128,product_view,PROD_128,206,Tablet,Direct
+WEB_001027,CUST_S_036,SESS_000256,2024-07-27 10:34:03,/product/prod_125,product_view,PROD_125,44,Tablet,Direct
+WEB_001028,CUST_S_036,SESS_000256,2024-07-27 10:34:24,/product/prod_114,product_view,PROD_114,203,Tablet,Direct
+WEB_000750,CUST_S_027,SESS_000188,2024-07-27 18:11:36,/home,page_view,,251,Tablet,Organic Search
+WEB_000751,CUST_S_027,SESS_000188,2024-07-27 18:13:56,/category/home-&-kitchen,search,,227,Tablet,Organic Search
+WEB_000752,CUST_S_027,SESS_000188,2024-07-27 18:16:16,/product/prod_109,product_view,PROD_109,12,Tablet,Organic Search
+WEB_000753,CUST_S_027,SESS_000188,2024-07-27 18:17:01,/product/prod_105,product_view,PROD_105,223,Tablet,Organic Search
+WEB_000467,CUST_S_018,SESS_000117,2024-07-27 18:38:37,/home,page_view,,300,Tablet,Organic Search
+WEB_000468,CUST_S_018,SESS_000117,2024-07-27 18:40:45,/category/health-&-beauty,search,,169,Tablet,Organic Search
+WEB_000469,CUST_S_018,SESS_000117,2024-07-27 18:41:51,/product/prod_113,checkout_start,PROD_113,201,Tablet,Organic Search
+WEB_000470,CUST_S_018,SESS_000117,2024-07-27 18:42:16,/product/prod_123,add_to_cart,PROD_123,13,Tablet,Organic Search
+WEB_000471,CUST_S_018,SESS_000117,2024-07-27 18:45:00,/product/prod_121,product_view,PROD_121,119,Tablet,Organic Search
+WEB_001143,CUST_S_040,SESS_000286,2024-07-28 01:57:44,/home,page_view,,34,Desktop,Direct
+WEB_001144,CUST_S_040,SESS_000286,2024-07-28 01:59:59,/category/sports-&-fitness,search,,53,Desktop,Direct
+WEB_001145,CUST_S_040,SESS_000286,2024-07-28 02:01:26,/product/prod_115,add_to_cart,PROD_115,257,Desktop,Direct
+WEB_001146,CUST_S_040,SESS_000286,2024-07-28 02:03:13,/product/prod_130,product_view,PROD_130,118,Desktop,Direct
+WEB_001147,CUST_S_040,SESS_000286,2024-07-28 02:03:37,/product/prod_112,wishlist,PROD_112,193,Desktop,Direct
+WEB_001076,CUST_S_039,SESS_000270,2024-07-29 06:05:04,/home,page_view,,163,Tablet,Email Newsletter
+WEB_001077,CUST_S_039,SESS_000270,2024-07-29 06:05:30,/category/apparel,search,,125,Tablet,Email Newsletter
+WEB_001078,CUST_S_039,SESS_000270,2024-07-29 06:07:34,/product/prod_127,product_view,PROD_127,239,Tablet,Email Newsletter
+WEB_001079,CUST_S_039,SESS_000270,2024-07-29 06:09:31,/product/prod_126,product_view,PROD_126,142,Tablet,Email Newsletter
+WEB_001080,CUST_S_039,SESS_000270,2024-07-29 06:09:49,/product/prod_114,wishlist,PROD_114,68,Tablet,Email Newsletter
+WEB_001081,CUST_S_039,SESS_000270,2024-07-29 06:11:51,/product/prod_113,product_view,PROD_113,243,Tablet,Email Newsletter
+WEB_000343,CUST_S_014,SESS_000086,2024-07-31 02:23:04,/home,page_view,,176,Tablet,Organic Search
+WEB_000344,CUST_S_014,SESS_000086,2024-07-31 02:24:57,/category/electronics,search,,180,Tablet,Organic Search
+WEB_000345,CUST_S_014,SESS_000086,2024-07-31 02:25:12,/product/prod_107,product_view,PROD_107,289,Tablet,Organic Search
+WEB_000346,CUST_S_014,SESS_000086,2024-07-31 02:25:29,/product/prod_108,product_view,PROD_108,257,Tablet,Organic Search
+WEB_000347,CUST_S_014,SESS_000086,2024-07-31 02:28:12,/product/prod_106,product_view,PROD_106,188,Tablet,Organic Search
+WEB_000348,CUST_S_014,SESS_000086,2024-07-31 02:31:03,/product/prod_102,product_view,PROD_102,154,Tablet,Organic Search
+WEB_000190,CUST_S_011,SESS_000048,2024-07-31 03:50:24,/home,page_view,,131,Desktop,Organic Search
+WEB_000191,CUST_S_011,SESS_000048,2024-07-31 03:53:12,/category/home-&-kitchen,search,,46,Desktop,Organic Search
+WEB_000192,CUST_S_011,SESS_000048,2024-07-31 03:55:53,/product/prod_101,product_view,PROD_101,26,Desktop,Organic Search
+WEB_000193,CUST_S_011,SESS_000048,2024-07-31 03:57:10,/product/prod_103,product_view,PROD_103,74,Desktop,Organic Search
+WEB_000194,CUST_S_011,SESS_000048,2024-07-31 03:57:47,/product/prod_104,checkout_start,PROD_104,161,Desktop,Organic Search
+WEB_000195,CUST_S_011,SESS_000048,2024-07-31 03:59:41,/product/prod_109,product_view,PROD_109,262,Desktop,Organic Search
+WEB_000721,CUST_S_025,SESS_000181,2024-07-31 11:00:18,/home,page_view,,215,Mobile,Referral
+WEB_000722,CUST_S_025,SESS_000181,2024-07-31 11:02:54,/category/health-&-beauty,search,,294,Mobile,Referral
+WEB_000723,CUST_S_025,SESS_000181,2024-07-31 11:04:28,/product/prod_125,product_view,PROD_125,17,Mobile,Referral
+WEB_000724,CUST_S_025,SESS_000181,2024-07-31 11:07:15,/product/prod_129,add_to_cart,PROD_129,111,Mobile,Referral
+WEB_000725,CUST_S_025,SESS_000181,2024-07-31 11:07:57,/product/prod_107,product_view,PROD_107,233,Mobile,Referral
+WEB_000726,CUST_S_025,SESS_000181,2024-07-31 11:09:36,/product/prod_110,product_view,PROD_110,50,Mobile,Referral
+WEB_000147,CUST_S_007,SESS_000037,2024-07-31 21:19:26,/home,page_view,,92,Desktop,Referral
+WEB_000148,CUST_S_007,SESS_000037,2024-07-31 21:21:14,/category/home-&-kitchen,search,,197,Desktop,Referral
+WEB_000149,CUST_S_007,SESS_000037,2024-07-31 21:23:16,/product/prod_129,product_view,PROD_129,13,Desktop,Referral
+WEB_000150,CUST_S_007,SESS_000037,2024-07-31 21:25:00,/product/prod_118,product_view,PROD_118,116,Desktop,Referral
+WEB_000585,CUST_S_020,SESS_000147,2024-07-31 23:32:39,/home,page_view,,131,Tablet,Social Media
+WEB_000586,CUST_S_020,SESS_000147,2024-07-31 23:35:11,/category/apparel,search,,296,Tablet,Social Media
+WEB_000134,CUST_S_006,SESS_000034,2024-08-01 03:06:07,/home,page_view,,220,Tablet,Social Media
+WEB_000135,CUST_S_006,SESS_000034,2024-08-01 03:07:36,/category/apparel,search,,69,Tablet,Social Media
+WEB_000136,CUST_S_006,SESS_000034,2024-08-01 03:08:02,/product/prod_113,checkout_start,PROD_113,247,Tablet,Social Media
+WEB_000137,CUST_S_006,SESS_000034,2024-08-01 03:10:14,/product/prod_101,checkout_start,PROD_101,205,Tablet,Social Media
+WEB_000138,CUST_S_006,SESS_000034,2024-08-01 03:10:51,/product/prod_101,product_view,PROD_101,268,Tablet,Social Media
+WEB_000139,CUST_S_006,SESS_000034,2024-08-01 03:13:17,/product/prod_113,product_view,PROD_113,267,Tablet,Social Media
+WEB_001339,CUST_S_046,SESS_000335,2024-08-01 18:04:08,/home,page_view,,151,Desktop,Referral
+WEB_001340,CUST_S_046,SESS_000335,2024-08-01 18:05:51,/category/sports-&-fitness,search,,180,Desktop,Referral
+WEB_001341,CUST_S_046,SESS_000335,2024-08-01 18:06:53,/product/prod_112,product_view,PROD_112,131,Desktop,Referral
+WEB_001342,CUST_S_046,SESS_000335,2024-08-01 18:08:06,/product/prod_128,product_view,PROD_128,53,Desktop,Referral
+WEB_001343,CUST_S_046,SESS_000335,2024-08-01 18:09:16,/product/prod_129,add_to_cart,PROD_129,47,Desktop,Referral
+WEB_000879,CUST_S_030,SESS_000220,2024-08-03 23:34:05,/home,page_view,,287,Mobile,Organic Search
+WEB_000880,CUST_S_030,SESS_000220,2024-08-03 23:37:01,/category/home-&-kitchen,search,,91,Mobile,Organic Search
+WEB_001155,CUST_S_040,SESS_000289,2024-08-04 00:56:55,/home,page_view,,8,Desktop,Direct
+WEB_001156,CUST_S_040,SESS_000289,2024-08-04 00:58:47,/category/books-&-media,search,,188,Desktop,Direct
+WEB_001157,CUST_S_040,SESS_000289,2024-08-04 00:59:33,/product/prod_127,wishlist,PROD_127,247,Desktop,Direct
+WEB_001158,CUST_S_040,SESS_000289,2024-08-04 01:02:23,/product/prod_127,add_to_cart,PROD_127,219,Desktop,Direct
+WEB_001159,CUST_S_040,SESS_000289,2024-08-04 01:03:32,/product/prod_125,checkout_start,PROD_125,217,Desktop,Direct
+WEB_001160,CUST_S_040,SESS_000289,2024-08-04 01:06:17,/product/prod_127,product_view,PROD_127,288,Desktop,Direct
+WEB_000362,CUST_S_014,SESS_000091,2024-08-04 11:12:38,/home,page_view,,124,Mobile,Social Media
+WEB_000363,CUST_S_014,SESS_000091,2024-08-04 11:15:01,/category/electronics,search,,18,Mobile,Social Media
+WEB_001366,CUST_S_046,SESS_000342,2024-08-04 19:12:34,/home,page_view,,263,Mobile,Social Media
+WEB_001367,CUST_S_046,SESS_000342,2024-08-04 19:14:35,/category/sports-&-fitness,search,,203,Mobile,Social Media
+WEB_001368,CUST_S_046,SESS_000342,2024-08-04 19:16:42,/product/prod_113,product_view,PROD_113,116,Mobile,Social Media
+WEB_001369,CUST_S_046,SESS_000342,2024-08-04 19:18:57,/product/prod_112,product_view,PROD_112,79,Mobile,Social Media
+WEB_001370,CUST_S_046,SESS_000342,2024-08-04 19:21:34,/product/prod_126,product_view,PROD_126,166,Mobile,Social Media
+WEB_001371,CUST_S_046,SESS_000342,2024-08-04 19:22:05,/product/prod_115,product_view,PROD_115,57,Mobile,Social Media
+WEB_000762,CUST_S_027,SESS_000191,2024-08-05 08:57:26,/home,page_view,,31,Mobile,Direct
+WEB_000763,CUST_S_027,SESS_000191,2024-08-05 08:58:31,/category/electronics,search,,160,Mobile,Direct
+WEB_000764,CUST_S_027,SESS_000191,2024-08-05 08:59:11,/product/prod_110,wishlist,PROD_110,267,Mobile,Direct
+WEB_000765,CUST_S_027,SESS_000191,2024-08-05 09:02:03,/product/prod_101,wishlist,PROD_101,70,Mobile,Direct
+WEB_000766,CUST_S_027,SESS_000191,2024-08-05 09:03:49,/product/prod_102,product_view,PROD_102,96,Mobile,Direct
+WEB_001085,CUST_S_039,SESS_000272,2024-08-05 20:38:10,/home,page_view,,242,Desktop,Social Media
+WEB_001086,CUST_S_039,SESS_000272,2024-08-05 20:38:41,/category/apparel,search,,151,Desktop,Social Media
+WEB_001087,CUST_S_039,SESS_000272,2024-08-05 20:41:00,/product/prod_114,wishlist,PROD_114,187,Desktop,Social Media
+WEB_000040,CUST_S_003,SESS_000011,2024-08-07 22:30:20,/home,page_view,,291,Tablet,Direct
+WEB_000041,CUST_S_003,SESS_000011,2024-08-07 22:32:51,/category/health-&-beauty,search,,236,Tablet,Direct
+WEB_000042,CUST_S_003,SESS_000011,2024-08-07 22:34:24,/product/prod_118,product_view,PROD_118,223,Tablet,Direct
+WEB_000043,CUST_S_003,SESS_000011,2024-08-07 22:34:40,/product/prod_130,product_view,PROD_130,50,Tablet,Direct
+WEB_000044,CUST_S_003,SESS_000011,2024-08-07 22:35:44,/product/prod_109,product_view,PROD_109,110,Tablet,Direct
+WEB_000045,CUST_S_003,SESS_000011,2024-08-07 22:38:38,/product/prod_111,product_view,PROD_111,260,Tablet,Direct
+WEB_000283,CUST_S_013,SESS_000071,2024-08-08 22:57:54,/home,page_view,,49,Desktop,Email Newsletter
+WEB_000284,CUST_S_013,SESS_000071,2024-08-08 22:58:24,/category/apparel,search,,238,Desktop,Email Newsletter
+WEB_000285,CUST_S_013,SESS_000071,2024-08-08 23:00:24,/product/prod_130,product_view,PROD_130,222,Desktop,Email Newsletter
+WEB_000286,CUST_S_013,SESS_000071,2024-08-08 23:03:03,/product/prod_125,product_view,PROD_125,153,Desktop,Email Newsletter
+WEB_000287,CUST_S_013,SESS_000071,2024-08-08 23:05:51,/product/prod_126,wishlist,PROD_126,69,Desktop,Email Newsletter
+WEB_001253,CUST_S_044,SESS_000314,2024-08-09 21:39:22,/home,page_view,,242,Tablet,Direct
+WEB_001254,CUST_S_044,SESS_000314,2024-08-09 21:40:21,/category/books-&-media,search,,291,Tablet,Direct
+WEB_001255,CUST_S_044,SESS_000314,2024-08-09 21:41:30,/product/prod_127,product_view,PROD_127,165,Tablet,Direct
+WEB_001256,CUST_S_044,SESS_000314,2024-08-09 21:42:52,/product/prod_125,product_view,PROD_125,13,Tablet,Direct
+WEB_000682,CUST_S_023,SESS_000171,2024-08-11 03:00:13,/home,page_view,,151,Mobile,Email Newsletter
+WEB_000683,CUST_S_023,SESS_000171,2024-08-11 03:01:00,/category/home-&-kitchen,search,,50,Mobile,Email Newsletter
+WEB_000472,CUST_S_018,SESS_000119,2024-08-12 16:16:41,/home,page_view,,38,Tablet,Direct
+WEB_000473,CUST_S_018,SESS_000119,2024-08-12 16:17:00,/category/apparel,search,,52,Tablet,Direct
+WEB_000620,CUST_S_021,SESS_000156,2024-08-12 23:15:40,/home,page_view,,167,Tablet,Organic Search
+WEB_000621,CUST_S_021,SESS_000156,2024-08-12 23:17:48,/category/electronics,search,,217,Tablet,Organic Search
+WEB_000622,CUST_S_021,SESS_000156,2024-08-12 23:19:12,/product/prod_110,add_to_cart,PROD_110,117,Tablet,Organic Search
+WEB_000623,CUST_S_021,SESS_000156,2024-08-12 23:21:21,/product/prod_111,product_view,PROD_111,139,Tablet,Organic Search
+WEB_000624,CUST_S_021,SESS_000156,2024-08-12 23:24:11,/product/prod_104,add_to_cart,PROD_104,182,Tablet,Organic Search
+WEB_000625,CUST_S_021,SESS_000156,2024-08-12 23:26:12,/product/prod_102,add_to_cart,PROD_102,282,Tablet,Organic Search
+WEB_001016,CUST_S_036,SESS_000255,2024-08-13 18:52:15,/home,page_view,,72,Mobile,Direct
+WEB_001017,CUST_S_036,SESS_000255,2024-08-13 18:52:37,/category/sports-&-fitness,search,,244,Mobile,Direct
+WEB_001018,CUST_S_036,SESS_000255,2024-08-13 18:54:33,/product/prod_129,product_view,PROD_129,139,Mobile,Direct
+WEB_000979,CUST_S_036,SESS_000245,2024-08-14 09:58:39,/home,page_view,,47,Tablet,Direct
+WEB_000980,CUST_S_036,SESS_000245,2024-08-14 09:59:26,/category/sports-&-fitness,search,,154,Tablet,Direct
+WEB_000981,CUST_S_036,SESS_000245,2024-08-14 10:00:15,/product/prod_113,wishlist,PROD_113,207,Tablet,Direct
+WEB_000982,CUST_S_036,SESS_000245,2024-08-14 10:02:21,/product/prod_112,product_view,PROD_112,283,Tablet,Direct
+WEB_000699,CUST_S_024,SESS_000175,2024-08-14 20:35:17,/home,page_view,,181,Tablet,Referral
+WEB_000700,CUST_S_024,SESS_000175,2024-08-14 20:36:36,/category/home-&-kitchen,search,,206,Tablet,Referral
+WEB_000701,CUST_S_024,SESS_000175,2024-08-14 20:38:45,/product/prod_109,product_view,PROD_109,272,Tablet,Referral
+WEB_000702,CUST_S_024,SESS_000175,2024-08-14 20:40:06,/product/prod_110,product_view,PROD_110,187,Tablet,Referral
+WEB_000703,CUST_S_024,SESS_000175,2024-08-14 20:42:25,/product/prod_125,wishlist,PROD_125,74,Tablet,Referral
+WEB_000684,CUST_S_023,SESS_000172,2024-08-14 21:46:34,/home,page_view,,276,Mobile,Referral
+WEB_000685,CUST_S_023,SESS_000172,2024-08-14 21:47:12,/category/electronics,search,,32,Mobile,Referral
+WEB_000686,CUST_S_023,SESS_000172,2024-08-14 21:47:43,/product/prod_101,product_view,PROD_101,163,Mobile,Referral
+WEB_000687,CUST_S_023,SESS_000172,2024-08-14 21:49:49,/product/prod_103,add_to_cart,PROD_103,35,Mobile,Referral
+WEB_000688,CUST_S_023,SESS_000172,2024-08-14 21:51:44,/product/prod_111,add_to_cart,PROD_111,268,Mobile,Referral
+WEB_000689,CUST_S_023,SESS_000172,2024-08-14 21:54:07,/product/prod_105,product_view,PROD_105,13,Mobile,Referral
+WEB_000568,CUST_S_020,SESS_000143,2024-08-15 09:05:02,/home,page_view,,164,Tablet,Referral
+WEB_000569,CUST_S_020,SESS_000143,2024-08-15 09:05:42,/category/sports-&-fitness,search,,195,Tablet,Referral
+WEB_000570,CUST_S_020,SESS_000143,2024-08-15 09:06:33,/product/prod_112,product_view,PROD_112,251,Tablet,Referral
+WEB_000571,CUST_S_020,SESS_000143,2024-08-15 09:07:59,/product/prod_126,product_view,PROD_126,56,Tablet,Referral
+WEB_000572,CUST_S_020,SESS_000143,2024-08-15 09:08:30,/product/prod_130,checkout_start,PROD_130,89,Tablet,Referral
+WEB_000032,CUST_S_002,SESS_000009,2024-08-16 02:54:41,/home,page_view,,62,Tablet,Email Newsletter
+WEB_000033,CUST_S_002,SESS_000009,2024-08-16 02:55:02,/category/health-&-beauty,search,,290,Tablet,Email Newsletter
+WEB_000034,CUST_S_002,SESS_000009,2024-08-16 02:56:22,/product/prod_108,product_view,PROD_108,25,Tablet,Email Newsletter
+WEB_000035,CUST_S_002,SESS_000009,2024-08-16 02:57:13,/product/prod_118,product_view,PROD_118,122,Tablet,Email Newsletter
+WEB_000036,CUST_S_002,SESS_000009,2024-08-16 02:58:55,/product/prod_120,product_view,PROD_120,22,Tablet,Email Newsletter
+WEB_000121,CUST_S_005,SESS_000031,2024-08-17 06:17:21,/home,page_view,,102,Mobile,Direct
+WEB_000122,CUST_S_005,SESS_000031,2024-08-17 06:17:50,/category/books-&-media,search,,229,Mobile,Direct
+WEB_000123,CUST_S_005,SESS_000031,2024-08-17 06:20:49,/product/prod_124,product_view,PROD_124,239,Mobile,Direct
+WEB_000124,CUST_S_005,SESS_000031,2024-08-17 06:23:38,/product/prod_122,wishlist,PROD_122,218,Mobile,Direct
+WEB_000125,CUST_S_005,SESS_000031,2024-08-17 06:25:46,/product/prod_114,product_view,PROD_114,189,Mobile,Direct
+WEB_000126,CUST_S_005,SESS_000031,2024-08-17 06:27:04,/product/prod_122,add_to_cart,PROD_122,19,Mobile,Direct
+WEB_000515,CUST_S_019,SESS_000129,2024-08-17 13:02:04,/home,page_view,,130,Tablet,Email Newsletter
+WEB_000516,CUST_S_019,SESS_000129,2024-08-17 13:03:46,/category/sports-&-fitness,search,,250,Tablet,Email Newsletter
+WEB_000517,CUST_S_019,SESS_000129,2024-08-17 13:05:16,/product/prod_130,product_view,PROD_130,163,Tablet,Email Newsletter
+WEB_000518,CUST_S_019,SESS_000129,2024-08-17 13:06:02,/product/prod_112,product_view,PROD_112,43,Tablet,Email Newsletter
+WEB_000322,CUST_S_014,SESS_000081,2024-08-17 21:30:33,/home,page_view,,154,Tablet,Organic Search
+WEB_000323,CUST_S_014,SESS_000081,2024-08-17 21:33:07,/category/home-&-kitchen,search,,254,Tablet,Organic Search
+WEB_001354,CUST_S_046,SESS_000339,2024-08-18 11:52:15,/home,page_view,,49,Desktop,Direct
+WEB_001355,CUST_S_046,SESS_000339,2024-08-18 11:52:35,/category/apparel,search,,294,Desktop,Direct
+WEB_000549,CUST_S_020,SESS_000138,2024-08-19 03:50:24,/home,page_view,,139,Desktop,Referral
+WEB_000550,CUST_S_020,SESS_000138,2024-08-19 03:51:52,/category/apparel,search,,138,Desktop,Referral
+WEB_000551,CUST_S_020,SESS_000138,2024-08-19 03:52:48,/product/prod_122,product_view,PROD_122,104,Desktop,Referral
+WEB_000552,CUST_S_020,SESS_000138,2024-08-19 03:55:34,/product/prod_122,product_view,PROD_122,271,Desktop,Referral
+WEB_000553,CUST_S_020,SESS_000138,2024-08-19 03:58:05,/product/prod_113,checkout_start,PROD_113,116,Desktop,Referral
+WEB_000554,CUST_S_020,SESS_000138,2024-08-19 03:59:31,/product/prod_124,product_view,PROD_124,20,Desktop,Referral
+WEB_000947,CUST_S_034,SESS_000237,2024-08-19 12:40:31,/home,page_view,,211,Desktop,Referral
+WEB_000948,CUST_S_034,SESS_000237,2024-08-19 12:41:09,/category/apparel,search,,27,Desktop,Referral
+WEB_000949,CUST_S_034,SESS_000237,2024-08-19 12:43:38,/product/prod_119,product_view,PROD_119,284,Desktop,Referral
+WEB_000950,CUST_S_034,SESS_000237,2024-08-19 12:45:20,/product/prod_122,product_view,PROD_122,110,Desktop,Referral
+WEB_001057,CUST_S_037,SESS_000265,2024-08-19 15:46:14,/home,page_view,,86,Mobile,Organic Search
+WEB_001058,CUST_S_037,SESS_000265,2024-08-19 15:47:00,/category/apparel,search,,21,Mobile,Organic Search
+WEB_000386,CUST_S_015,SESS_000097,2024-08-20 15:04:04,/home,page_view,,106,Tablet,Organic Search
+WEB_000387,CUST_S_015,SESS_000097,2024-08-20 15:06:20,/category/books-&-media,search,,182,Tablet,Organic Search
+WEB_000388,CUST_S_015,SESS_000097,2024-08-20 15:09:17,/product/prod_122,product_view,PROD_122,87,Tablet,Organic Search
+WEB_001168,CUST_S_040,SESS_000293,2024-08-22 03:49:11,/home,page_view,,19,Tablet,Direct
+WEB_001169,CUST_S_040,SESS_000293,2024-08-22 03:50:07,/category/apparel,search,,80,Tablet,Direct
+WEB_001170,CUST_S_040,SESS_000293,2024-08-22 03:51:17,/product/prod_124,add_to_cart,PROD_124,65,Tablet,Direct
+WEB_000968,CUST_S_036,SESS_000243,2024-08-22 09:13:52,/home,page_view,,120,Mobile,Social Media
+WEB_000969,CUST_S_036,SESS_000243,2024-08-22 09:15:23,/category/sports-&-fitness,search,,235,Mobile,Social Media
+WEB_000970,CUST_S_036,SESS_000243,2024-08-22 09:18:22,/product/prod_128,product_view,PROD_128,166,Mobile,Social Media
+WEB_000971,CUST_S_036,SESS_000243,2024-08-22 09:18:38,/product/prod_126,checkout_start,PROD_126,187,Mobile,Social Media
+WEB_000972,CUST_S_036,SESS_000243,2024-08-22 09:19:48,/product/prod_114,product_view,PROD_114,130,Mobile,Social Media
+WEB_000973,CUST_S_036,SESS_000243,2024-08-22 09:21:38,/product/prod_116,product_view,PROD_116,59,Mobile,Social Media
+WEB_001082,CUST_S_039,SESS_000271,2024-08-22 17:34:24,/home,page_view,,137,Mobile,Referral
+WEB_001083,CUST_S_039,SESS_000271,2024-08-22 17:35:07,/category/apparel,search,,121,Mobile,Referral
+WEB_001084,CUST_S_039,SESS_000271,2024-08-22 17:37:02,/product/prod_115,checkout_start,PROD_115,57,Mobile,Referral
+WEB_000384,CUST_S_015,SESS_000097,2024-08-23 20:46:03,/home,page_view,,300,Desktop,Organic Search
+WEB_000385,CUST_S_015,SESS_000097,2024-08-23 20:47:39,/category/sports-&-fitness,search,,238,Desktop,Organic Search
+WEB_001088,CUST_S_039,SESS_000273,2024-08-24 16:08:23,/home,page_view,,111,Tablet,Social Media
+WEB_001089,CUST_S_039,SESS_000273,2024-08-24 16:11:04,/category/sports-&-fitness,search,,183,Tablet,Social Media
+WEB_001090,CUST_S_039,SESS_000273,2024-08-24 16:11:40,/product/prod_115,add_to_cart,PROD_115,100,Tablet,Social Media
+WEB_001091,CUST_S_039,SESS_000273,2024-08-24 16:12:04,/product/prod_121,product_view,PROD_121,280,Tablet,Social Media
+WEB_001092,CUST_S_039,SESS_000273,2024-08-24 16:13:28,/product/prod_124,product_view,PROD_124,59,Tablet,Social Media
+WEB_001093,CUST_S_039,SESS_000273,2024-08-24 16:16:27,/product/prod_125,add_to_cart,PROD_125,13,Tablet,Social Media
+WEB_000911,CUST_S_032,SESS_000228,2024-08-24 23:59:35,/home,page_view,,246,Tablet,Direct
+WEB_000912,CUST_S_032,SESS_000228,2024-08-25 00:02:01,/category/electronics,search,,116,Tablet,Direct
+WEB_000913,CUST_S_032,SESS_000228,2024-08-25 00:02:34,/product/prod_115,add_to_cart,PROD_115,287,Tablet,Direct
+WEB_000914,CUST_S_032,SESS_000228,2024-08-25 00:04:23,/product/prod_101,product_view,PROD_101,35,Tablet,Direct
+WEB_000915,CUST_S_032,SESS_000228,2024-08-25 00:05:54,/product/prod_102,product_view,PROD_102,36,Tablet,Direct
+WEB_000916,CUST_S_032,SESS_000228,2024-08-25 00:08:11,/product/prod_102,product_view,PROD_102,225,Tablet,Direct
+WEB_001010,CUST_S_036,SESS_000253,2024-08-25 02:40:38,/home,page_view,,58,Desktop,Direct
+WEB_001011,CUST_S_036,SESS_000253,2024-08-25 02:41:06,/category/books-&-media,search,,8,Desktop,Direct
+WEB_001012,CUST_S_036,SESS_000253,2024-08-25 02:41:27,/product/prod_122,add_to_cart,PROD_122,7,Desktop,Direct
+WEB_000389,CUST_S_015,SESS_000098,2024-08-25 04:56:36,/home,page_view,,228,Mobile,Organic Search
+WEB_000390,CUST_S_015,SESS_000098,2024-08-25 04:58:46,/category/books-&-media,search,,53,Mobile,Organic Search
+WEB_000939,CUST_S_034,SESS_000235,2024-08-25 06:16:19,/home,page_view,,170,Mobile,Email Newsletter
+WEB_000940,CUST_S_034,SESS_000235,2024-08-25 06:18:37,/category/apparel,search,,191,Mobile,Email Newsletter
+WEB_000941,CUST_S_034,SESS_000235,2024-08-25 06:20:30,/product/prod_118,product_view,PROD_118,298,Mobile,Email Newsletter
+WEB_000942,CUST_S_034,SESS_000235,2024-08-25 06:22:34,/product/prod_123,product_view,PROD_123,295,Mobile,Email Newsletter
+WEB_000943,CUST_S_034,SESS_000235,2024-08-25 06:23:59,/product/prod_120,product_view,PROD_120,22,Mobile,Email Newsletter
+WEB_000210,CUST_S_011,SESS_000053,2024-08-25 07:07:37,/home,page_view,,246,Mobile,Referral
+WEB_000211,CUST_S_011,SESS_000053,2024-08-25 07:09:39,/category/home-&-kitchen,search,,204,Mobile,Referral
+WEB_000212,CUST_S_011,SESS_000053,2024-08-25 07:10:12,/product/prod_107,add_to_cart,PROD_107,65,Mobile,Referral
+WEB_001096,CUST_S_039,SESS_000275,2024-08-27 20:05:25,/home,page_view,,220,Tablet,Referral
+WEB_001097,CUST_S_039,SESS_000275,2024-08-27 20:08:20,/category/apparel,search,,216,Tablet,Referral
+WEB_001098,CUST_S_039,SESS_000275,2024-08-27 20:09:27,/product/prod_128,product_view,PROD_128,207,Tablet,Referral
+WEB_000158,CUST_S_008,SESS_000040,2024-08-28 01:48:56,/home,page_view,,287,Tablet,Social Media
+WEB_000159,CUST_S_008,SESS_000040,2024-08-28 01:51:34,/category/home-&-kitchen,search,,190,Tablet,Social Media
+WEB_001115,CUST_S_039,SESS_000279,2024-08-28 15:07:52,/home,page_view,,210,Desktop,Social Media
+WEB_001116,CUST_S_039,SESS_000279,2024-08-28 15:10:45,/category/sports-&-fitness,search,,242,Desktop,Social Media
+WEB_000614,CUST_S_021,SESS_000154,2024-08-29 11:57:40,/home,page_view,,89,Mobile,Email Newsletter
+WEB_000615,CUST_S_021,SESS_000154,2024-08-29 11:59:07,/category/electronics,search,,88,Mobile,Email Newsletter
+WEB_000926,CUST_S_033,SESS_000232,2024-08-30 13:00:09,/home,page_view,,268,Tablet,Email Newsletter
+WEB_000927,CUST_S_033,SESS_000232,2024-08-30 13:01:32,/category/apparel,search,,160,Tablet,Email Newsletter
+WEB_000928,CUST_S_033,SESS_000232,2024-08-30 13:02:45,/product/prod_114,wishlist,PROD_114,163,Tablet,Email Newsletter
+WEB_000929,CUST_S_033,SESS_000232,2024-08-30 13:04:26,/product/prod_105,wishlist,PROD_105,281,Tablet,Email Newsletter
+WEB_000930,CUST_S_033,SESS_000232,2024-08-30 13:06:37,/product/prod_112,product_view,PROD_112,142,Tablet,Email Newsletter
+WEB_000220,CUST_S_011,SESS_000056,2024-08-30 19:32:11,/home,page_view,,50,Desktop,Social Media
+WEB_000221,CUST_S_011,SESS_000056,2024-08-30 19:34:42,/category/electronics,search,,102,Desktop,Social Media
+WEB_000222,CUST_S_011,SESS_000056,2024-08-30 19:35:25,/product/prod_106,product_view,PROD_106,247,Desktop,Social Media
+WEB_000223,CUST_S_011,SESS_000056,2024-08-30 19:36:02,/product/prod_106,add_to_cart,PROD_106,24,Desktop,Social Media
+WEB_000224,CUST_S_011,SESS_000056,2024-08-30 19:36:44,/product/prod_103,product_view,PROD_103,108,Desktop,Social Media
+WEB_000225,CUST_S_011,SESS_000056,2024-08-30 19:37:52,/product/prod_103,add_to_cart,PROD_103,146,Desktop,Social Media
+WEB_000127,CUST_S_005,SESS_000032,2024-09-01 12:34:34,/home,page_view,,296,Tablet,Referral
+WEB_000128,CUST_S_005,SESS_000032,2024-09-01 12:36:01,/category/sports-&-fitness,search,,63,Tablet,Referral
+WEB_000129,CUST_S_005,SESS_000032,2024-09-01 12:38:02,/product/prod_126,product_view,PROD_126,118,Tablet,Referral
+WEB_000130,CUST_S_005,SESS_000032,2024-09-01 12:38:57,/product/prod_124,add_to_cart,PROD_124,124,Tablet,Referral
+WEB_000131,CUST_S_005,SESS_000032,2024-09-01 12:40:09,/product/prod_127,product_view,PROD_127,193,Tablet,Referral
+WEB_000718,CUST_S_025,SESS_000180,2024-09-01 16:31:44,/home,page_view,,24,Tablet,Social Media
+WEB_000719,CUST_S_025,SESS_000180,2024-09-01 16:34:41,/category/health-&-beauty,search,,180,Tablet,Social Media
+WEB_000720,CUST_S_025,SESS_000180,2024-09-01 16:35:56,/product/prod_108,product_view,PROD_108,45,Tablet,Social Media
+WEB_000405,CUST_S_015,SESS_000102,2024-09-01 22:00:41,/home,page_view,,262,Mobile,Referral
+WEB_000406,CUST_S_015,SESS_000102,2024-09-01 22:03:16,/category/books-&-media,search,,126,Mobile,Referral
+WEB_000132,CUST_S_006,SESS_000034,2024-09-02 02:32:12,/home,page_view,,94,Desktop,Direct
+WEB_000133,CUST_S_006,SESS_000034,2024-09-02 02:34:26,/category/electronics,search,,95,Desktop,Direct
+WEB_000075,CUST_S_004,SESS_000019,2024-09-03 11:24:58,/home,page_view,,183,Mobile,Social Media
+WEB_000076,CUST_S_004,SESS_000019,2024-09-03 11:26:27,/category/home-&-kitchen,search,,54,Mobile,Social Media
+WEB_000077,CUST_S_004,SESS_000019,2024-09-03 11:27:03,/product/prod_107,product_view,PROD_107,171,Mobile,Social Media
+WEB_000078,CUST_S_004,SESS_000019,2024-09-03 11:28:34,/product/prod_119,product_view,PROD_119,276,Mobile,Social Media
+WEB_000079,CUST_S_004,SESS_000019,2024-09-03 11:30:48,/product/prod_117,wishlist,PROD_117,100,Mobile,Social Media
+WEB_000080,CUST_S_004,SESS_000019,2024-09-03 11:33:18,/product/prod_127,product_view,PROD_127,79,Mobile,Social Media
+WEB_000869,CUST_S_030,SESS_000218,2024-09-11 00:21:33,/home,page_view,,170,Desktop,Email Newsletter
+WEB_000870,CUST_S_030,SESS_000218,2024-09-11 00:22:45,/category/electronics,search,,265,Desktop,Email Newsletter
+WEB_000215,CUST_S_011,SESS_000054,2024-09-12 00:47:54,/home,page_view,,131,Desktop,Email Newsletter
+WEB_000216,CUST_S_011,SESS_000054,2024-09-12 00:48:47,/category/electronics,search,,246,Desktop,Email Newsletter
+WEB_000217,CUST_S_011,SESS_000054,2024-09-12 00:49:38,/product/prod_106,product_view,PROD_106,145,Desktop,Email Newsletter
+WEB_000218,CUST_S_011,SESS_000054,2024-09-12 00:50:13,/product/prod_101,wishlist,PROD_101,21,Desktop,Email Newsletter
+WEB_000219,CUST_S_011,SESS_000054,2024-09-12 00:50:29,/product/prod_105,add_to_cart,PROD_105,118,Desktop,Email Newsletter
+WEB_001049,CUST_S_037,SESS_000263,2024-09-14 13:45:59,/home,page_view,,296,Desktop,Referral
+WEB_001050,CUST_S_037,SESS_000263,2024-09-14 13:48:38,/category/sports-&-fitness,search,,112,Desktop,Referral
+WEB_001051,CUST_S_037,SESS_000263,2024-09-14 13:50:26,/product/prod_116,product_view,PROD_116,241,Desktop,Referral
+WEB_001148,CUST_S_040,SESS_000288,2024-09-15 22:18:02,/home,page_view,,178,Desktop,Organic Search
+WEB_001149,CUST_S_040,SESS_000288,2024-09-15 22:19:54,/category/sports-&-fitness,search,,76,Desktop,Organic Search
+WEB_000307,CUST_S_013,SESS_000077,2024-09-17 14:42:52,/home,page_view,,124,Desktop,Social Media
+WEB_000308,CUST_S_013,SESS_000077,2024-09-17 14:43:13,/category/sports-&-fitness,search,,65,Desktop,Social Media
+WEB_000309,CUST_S_013,SESS_000077,2024-09-17 14:45:16,/product/prod_113,product_view,PROD_113,233,Desktop,Social Media
+WEB_000310,CUST_S_013,SESS_000077,2024-09-17 14:45:45,/product/prod_125,add_to_cart,PROD_125,77,Desktop,Social Media
+WEB_000311,CUST_S_013,SESS_000077,2024-09-17 14:46:39,/product/prod_126,product_view,PROD_126,15,Desktop,Social Media
+WEB_001239,CUST_S_043,SESS_000310,2024-09-18 02:50:36,/home,page_view,,230,Tablet,Social Media
+WEB_001240,CUST_S_043,SESS_000310,2024-09-18 02:51:12,/category/home-&-kitchen,search,,223,Tablet,Social Media
+WEB_001241,CUST_S_043,SESS_000310,2024-09-18 02:53:23,/product/prod_126,add_to_cart,PROD_126,201,Tablet,Social Media
+WEB_001242,CUST_S_043,SESS_000310,2024-09-18 02:55:53,/product/prod_110,product_view,PROD_110,16,Tablet,Social Media
+WEB_001243,CUST_S_043,SESS_000310,2024-09-18 02:57:48,/product/prod_110,product_view,PROD_110,135,Tablet,Social Media
+WEB_000710,CUST_S_025,SESS_000178,2024-09-18 12:23:06,/home,page_view,,21,Tablet,Organic Search
+WEB_000711,CUST_S_025,SESS_000178,2024-09-18 12:25:58,/category/books-&-media,search,,69,Tablet,Organic Search
+WEB_001324,CUST_S_046,SESS_000332,2024-09-20 00:53:13,/home,page_view,,192,Mobile,Social Media
+WEB_001325,CUST_S_046,SESS_000332,2024-09-20 00:55:07,/category/apparel,search,,227,Mobile,Social Media
+WEB_001326,CUST_S_046,SESS_000332,2024-09-20 00:57:43,/product/prod_129,product_view,PROD_129,167,Mobile,Social Media
+WEB_000072,CUST_S_004,SESS_000019,2024-09-20 23:13:41,/home,page_view,,143,Desktop,Organic Search
+WEB_000073,CUST_S_004,SESS_000019,2024-09-20 23:15:01,/category/health-&-beauty,search,,62,Desktop,Organic Search
+WEB_000074,CUST_S_004,SESS_000019,2024-09-20 23:15:38,/product/prod_110,product_view,PROD_110,198,Desktop,Organic Search
+WEB_001019,CUST_S_036,SESS_000255,2024-09-22 03:47:51,/home,page_view,,230,Tablet,Direct
+WEB_001020,CUST_S_036,SESS_000255,2024-09-22 03:48:45,/category/sports-&-fitness,search,,177,Tablet,Direct
+WEB_001021,CUST_S_036,SESS_000255,2024-09-22 03:50:31,/product/prod_121,add_to_cart,PROD_121,216,Tablet,Direct
+WEB_001022,CUST_S_036,SESS_000255,2024-09-22 03:52:08,/product/prod_123,product_view,PROD_123,248,Tablet,Direct
+WEB_001409,CUST_S_048,SESS_000353,2024-09-23 08:32:42,/home,page_view,,272,Mobile,Organic Search
+WEB_001410,CUST_S_048,SESS_000353,2024-09-23 08:35:15,/category/home-&-kitchen,search,,280,Mobile,Organic Search
+WEB_001411,CUST_S_048,SESS_000353,2024-09-23 08:35:55,/product/prod_111,product_view,PROD_111,5,Mobile,Organic Search
+WEB_000634,CUST_S_022,SESS_000159,2024-09-25 02:46:08,/home,page_view,,289,Mobile,Social Media
+WEB_000635,CUST_S_022,SESS_000159,2024-09-25 02:48:03,/category/health-&-beauty,search,,211,Mobile,Social Media
+WEB_000636,CUST_S_022,SESS_000159,2024-09-25 02:49:51,/product/prod_111,product_view,PROD_111,143,Mobile,Social Media
+WEB_000637,CUST_S_022,SESS_000159,2024-09-25 02:51:33,/product/prod_125,product_view,PROD_125,298,Mobile,Social Media
+WEB_000638,CUST_S_022,SESS_000159,2024-09-25 02:51:50,/product/prod_111,product_view,PROD_111,217,Mobile,Social Media
+WEB_000639,CUST_S_022,SESS_000159,2024-09-25 02:54:47,/product/prod_125,product_view,PROD_125,67,Mobile,Social Media
+WEB_000599,CUST_S_021,SESS_000150,2024-09-25 03:43:13,/home,page_view,,6,Desktop,Social Media
+WEB_000600,CUST_S_021,SESS_000150,2024-09-25 03:46:07,/category/home-&-kitchen,search,,66,Desktop,Social Media
+WEB_000601,CUST_S_021,SESS_000150,2024-09-25 03:47:48,/product/prod_110,add_to_cart,PROD_110,209,Desktop,Social Media
+WEB_000898,CUST_S_031,SESS_000225,2024-09-25 14:20:00,/home,page_view,,182,Desktop,Email Newsletter
+WEB_000899,CUST_S_031,SESS_000225,2024-09-25 14:22:09,/category/apparel,search,,188,Desktop,Email Newsletter
+WEB_000900,CUST_S_031,SESS_000225,2024-09-25 14:23:58,/product/prod_105,product_view,PROD_105,13,Desktop,Email Newsletter
+WEB_000901,CUST_S_031,SESS_000225,2024-09-25 14:25:05,/product/prod_102,product_view,PROD_102,79,Desktop,Email Newsletter
+WEB_000902,CUST_S_031,SESS_000225,2024-09-25 14:27:50,/product/prod_104,add_to_cart,PROD_104,45,Desktop,Email Newsletter
+WEB_000903,CUST_S_031,SESS_000225,2024-09-25 14:29:35,/product/prod_112,product_view,PROD_112,94,Desktop,Email Newsletter
+WEB_001427,CUST_S_050,SESS_000357,2024-09-26 02:03:46,/home,page_view,,186,Mobile,Social Media
+WEB_001428,CUST_S_050,SESS_000357,2024-09-26 02:06:44,/category/apparel,search,,246,Mobile,Social Media
+WEB_001429,CUST_S_050,SESS_000357,2024-09-26 02:08:11,/product/prod_101,product_view,PROD_101,139,Mobile,Social Media
+WEB_001430,CUST_S_050,SESS_000357,2024-09-26 02:10:40,/product/prod_116,add_to_cart,PROD_116,280,Mobile,Social Media
+WEB_001431,CUST_S_050,SESS_000357,2024-09-26 02:11:17,/product/prod_103,product_view,PROD_103,36,Mobile,Social Media
+WEB_000497,CUST_S_019,SESS_000125,2024-09-26 02:44:42,/home,page_view,,44,Desktop,Direct
+WEB_000498,CUST_S_019,SESS_000125,2024-09-26 02:45:34,/category/sports-&-fitness,search,,287,Desktop,Direct
+WEB_000499,CUST_S_019,SESS_000125,2024-09-26 02:47:26,/product/prod_116,add_to_cart,PROD_116,150,Desktop,Direct
+WEB_000500,CUST_S_019,SESS_000125,2024-09-26 02:48:26,/product/prod_121,wishlist,PROD_121,120,Desktop,Direct
+WEB_000501,CUST_S_019,SESS_000125,2024-09-26 02:50:58,/product/prod_114,add_to_cart,PROD_114,261,Desktop,Direct
+WEB_000349,CUST_S_014,SESS_000088,2024-09-26 10:33:55,/home,page_view,,35,Desktop,Organic Search
+WEB_000350,CUST_S_014,SESS_000088,2024-09-26 10:35:35,/category/electronics,search,,98,Desktop,Organic Search
+WEB_000351,CUST_S_014,SESS_000088,2024-09-26 10:35:59,/product/prod_102,checkout_start,PROD_102,233,Desktop,Organic Search
+WEB_000352,CUST_S_014,SESS_000088,2024-09-26 10:36:45,/product/prod_108,wishlist,PROD_108,43,Desktop,Organic Search
+WEB_000247,CUST_S_013,SESS_000062,2024-09-27 05:06:48,/home,page_view,,105,Mobile,Organic Search
+WEB_000248,CUST_S_013,SESS_000062,2024-09-27 05:08:34,/category/sports-&-fitness,search,,39,Mobile,Organic Search
+WEB_000249,CUST_S_013,SESS_000062,2024-09-27 05:11:17,/product/prod_116,checkout_start,PROD_116,208,Mobile,Organic Search
+WEB_000250,CUST_S_013,SESS_000062,2024-09-27 05:12:39,/product/prod_126,product_view,PROD_126,270,Mobile,Organic Search
+WEB_000026,CUST_S_002,SESS_000007,2024-09-27 19:18:20,/home,page_view,,292,Mobile,Referral
+WEB_000027,CUST_S_002,SESS_000007,2024-09-27 19:21:08,/category/home-&-kitchen,search,,10,Mobile,Referral
+WEB_000028,CUST_S_002,SESS_000007,2024-09-27 19:22:27,/product/prod_128,product_view,PROD_128,113,Mobile,Referral
+WEB_000917,CUST_S_032,SESS_000230,2024-09-28 10:38:10,/home,page_view,,185,Desktop,Social Media
+WEB_000918,CUST_S_032,SESS_000230,2024-09-28 10:40:44,/category/electronics,search,,235,Desktop,Social Media
+WEB_000919,CUST_S_032,SESS_000230,2024-09-28 10:43:40,/product/prod_113,product_view,PROD_113,244,Desktop,Social Media
+WEB_000732,CUST_S_026,SESS_000184,2024-09-28 22:16:48,/home,page_view,,242,Tablet,Referral
+WEB_000733,CUST_S_026,SESS_000184,2024-09-28 22:19:19,/category/electronics,search,,114,Tablet,Referral
+WEB_000232,CUST_S_012,SESS_000059,2024-09-29 11:03:33,/home,page_view,,177,Tablet,Direct
+WEB_000233,CUST_S_012,SESS_000059,2024-09-29 11:04:09,/category/home-&-kitchen,search,,196,Tablet,Direct
+WEB_000234,CUST_S_012,SESS_000059,2024-09-29 11:06:33,/product/prod_108,add_to_cart,PROD_108,195,Tablet,Direct
+WEB_000235,CUST_S_012,SESS_000059,2024-09-29 11:09:30,/product/prod_130,add_to_cart,PROD_130,153,Tablet,Direct
+WEB_000180,CUST_S_011,SESS_000046,2024-10-04 04:48:52,/home,page_view,,118,Tablet,Social Media
+WEB_000181,CUST_S_011,SESS_000046,2024-10-04 04:51:42,/category/electronics,search,,36,Tablet,Social Media
+WEB_000182,CUST_S_011,SESS_000046,2024-10-04 04:52:28,/product/prod_105,product_view,PROD_105,255,Tablet,Social Media
+WEB_000775,CUST_S_028,SESS_000194,2024-10-07 10:29:30,/home,page_view,,53,Desktop,Social Media
+WEB_000776,CUST_S_028,SESS_000194,2024-10-07 10:32:10,/category/home-&-kitchen,search,,284,Desktop,Social Media
+WEB_000777,CUST_S_028,SESS_000194,2024-10-07 10:34:35,/product/prod_117,wishlist,PROD_117,67,Desktop,Social Media
+WEB_001203,CUST_S_042,SESS_000301,2024-10-08 03:50:00,/home,page_view,,61,Mobile,Social Media
+WEB_001204,CUST_S_042,SESS_000301,2024-10-08 03:52:24,/category/apparel,search,,76,Mobile,Social Media
+WEB_001205,CUST_S_042,SESS_000301,2024-10-08 03:55:02,/product/prod_124,product_view,PROD_124,57,Mobile,Social Media
+WEB_001206,CUST_S_042,SESS_000301,2024-10-08 03:57:53,/product/prod_113,checkout_start,PROD_113,60,Mobile,Social Media
+WEB_000213,CUST_S_011,SESS_000054,2024-10-09 23:28:35,/home,page_view,,212,Tablet,Social Media
+WEB_000214,CUST_S_011,SESS_000054,2024-10-09 23:30:04,/category/home-&-kitchen,search,,259,Tablet,Social Media
+WEB_001029,CUST_S_036,SESS_000258,2024-10-10 17:26:17,/home,page_view,,108,Desktop,Email Newsletter
+WEB_001030,CUST_S_036,SESS_000258,2024-10-10 17:28:41,/category/sports-&-fitness,search,,284,Desktop,Email Newsletter
+WEB_001031,CUST_S_036,SESS_000258,2024-10-10 17:31:20,/product/prod_130,product_view,PROD_130,5,Desktop,Email Newsletter
+WEB_001032,CUST_S_036,SESS_000258,2024-10-10 17:31:36,/product/prod_123,wishlist,PROD_123,265,Desktop,Email Newsletter
+WEB_001033,CUST_S_036,SESS_000258,2024-10-10 17:34:27,/product/prod_126,product_view,PROD_126,102,Desktop,Email Newsletter
+WEB_001034,CUST_S_036,SESS_000258,2024-10-10 17:35:59,/product/prod_112,wishlist,PROD_112,193,Desktop,Email Newsletter
+WEB_000256,CUST_S_013,SESS_000065,2024-10-14 06:10:38,/home,page_view,,236,Desktop,Referral
+WEB_000257,CUST_S_013,SESS_000065,2024-10-14 06:11:32,/category/books-&-media,search,,62,Desktop,Referral
+WEB_000419,CUST_S_015,SESS_000105,2024-10-14 11:05:20,/home,page_view,,71,Mobile,Direct
+WEB_000420,CUST_S_015,SESS_000105,2024-10-14 11:07:32,/category/apparel,search,,6,Mobile,Direct
+WEB_000421,CUST_S_015,SESS_000105,2024-10-14 11:09:42,/product/prod_127,product_view,PROD_127,69,Mobile,Direct
+WEB_000422,CUST_S_015,SESS_000105,2024-10-14 11:10:27,/product/prod_125,product_view,PROD_125,200,Mobile,Direct
+WEB_000423,CUST_S_015,SESS_000105,2024-10-14 11:11:43,/product/prod_124,product_view,PROD_124,160,Mobile,Direct
+WEB_000424,CUST_S_015,SESS_000105,2024-10-14 11:12:42,/product/prod_127,product_view,PROD_127,109,Mobile,Direct
+WEB_000944,CUST_S_034,SESS_000237,2024-10-16 07:09:49,/home,page_view,,73,Desktop,Email Newsletter
+WEB_000945,CUST_S_034,SESS_000237,2024-10-16 07:11:09,/category/apparel,search,,67,Desktop,Email Newsletter
+WEB_000946,CUST_S_034,SESS_000237,2024-10-16 07:12:30,/product/prod_112,add_to_cart,PROD_112,163,Desktop,Email Newsletter
+WEB_001377,CUST_S_047,SESS_000345,2024-10-16 16:39:21,/home,page_view,,70,Desktop,Organic Search
+WEB_001378,CUST_S_047,SESS_000345,2024-10-16 16:41:00,/category/home-&-kitchen,search,,163,Desktop,Organic Search
+WEB_001379,CUST_S_047,SESS_000345,2024-10-16 16:41:52,/product/prod_111,wishlist,PROD_111,262,Desktop,Organic Search
+WEB_001380,CUST_S_047,SESS_000345,2024-10-16 16:42:57,/product/prod_125,add_to_cart,PROD_125,113,Desktop,Organic Search
+WEB_001381,CUST_S_047,SESS_000345,2024-10-16 16:44:42,/product/prod_118,wishlist,PROD_118,223,Desktop,Organic Search
+WEB_001382,CUST_S_047,SESS_000345,2024-10-16 16:45:49,/product/prod_120,product_view,PROD_120,94,Desktop,Organic Search
+WEB_000833,CUST_S_029,SESS_000209,2024-10-17 21:07:27,/home,page_view,,26,Tablet,Email Newsletter
+WEB_000834,CUST_S_029,SESS_000209,2024-10-17 21:09:20,/category/sports-&-fitness,search,,261,Tablet,Email Newsletter
+WEB_000835,CUST_S_029,SESS_000209,2024-10-17 21:09:36,/product/prod_123,product_view,PROD_123,259,Tablet,Email Newsletter
+WEB_000836,CUST_S_029,SESS_000209,2024-10-17 21:12:34,/product/prod_115,product_view,PROD_115,246,Tablet,Email Newsletter
+WEB_000837,CUST_S_029,SESS_000209,2024-10-17 21:13:38,/product/prod_121,product_view,PROD_121,263,Tablet,Email Newsletter
+WEB_000838,CUST_S_029,SESS_000209,2024-10-17 21:14:13,/product/prod_115,product_view,PROD_115,119,Tablet,Email Newsletter
+WEB_000860,CUST_S_029,SESS_000216,2024-10-18 23:35:17,/home,page_view,,133,Tablet,Social Media
+WEB_000861,CUST_S_029,SESS_000216,2024-10-18 23:36:35,/category/sports-&-fitness,search,,193,Tablet,Social Media
+WEB_000862,CUST_S_029,SESS_000216,2024-10-18 23:37:14,/product/prod_121,wishlist,PROD_121,172,Tablet,Social Media
+WEB_000851,CUST_S_029,SESS_000213,2024-10-20 12:43:38,/home,page_view,,212,Mobile,Social Media
+WEB_000852,CUST_S_029,SESS_000213,2024-10-20 12:45:11,/category/books-&-media,search,,260,Mobile,Social Media
+WEB_000853,CUST_S_029,SESS_000213,2024-10-20 12:47:23,/product/prod_114,product_view,PROD_114,165,Mobile,Social Media
+WEB_000854,CUST_S_029,SESS_000213,2024-10-20 12:48:43,/product/prod_122,product_view,PROD_122,96,Mobile,Social Media
+WEB_000029,CUST_S_002,SESS_000008,2024-10-22 09:56:25,/home,page_view,,13,Desktop,Social Media
+WEB_000030,CUST_S_002,SESS_000008,2024-10-22 09:58:51,/category/health-&-beauty,search,,145,Desktop,Social Media
+WEB_000031,CUST_S_002,SESS_000008,2024-10-22 10:00:38,/product/prod_128,product_view,PROD_128,19,Desktop,Social Media
+WEB_001392,CUST_S_048,SESS_000349,2024-10-24 16:35:57,/home,page_view,,133,Tablet,Referral
+WEB_001393,CUST_S_048,SESS_000349,2024-10-24 16:37:37,/category/electronics,search,,273,Tablet,Referral
+WEB_001394,CUST_S_048,SESS_000349,2024-10-24 16:39:37,/product/prod_103,product_view,PROD_103,220,Tablet,Referral
+WEB_000290,CUST_S_013,SESS_000073,2024-10-25 05:10:26,/home,page_view,,272,Desktop,Organic Search
+WEB_000291,CUST_S_013,SESS_000073,2024-10-25 05:10:53,/category/apparel,search,,83,Desktop,Organic Search
+WEB_001001,CUST_S_036,SESS_000251,2024-10-29 00:19:11,/home,page_view,,7,Mobile,Referral
+WEB_001002,CUST_S_036,SESS_000251,2024-10-29 00:20:19,/category/sports-&-fitness,search,,75,Mobile,Referral
+WEB_001003,CUST_S_036,SESS_000251,2024-10-29 00:21:02,/product/prod_116,product_view,PROD_116,109,Mobile,Referral
+WEB_001004,CUST_S_036,SESS_000251,2024-10-29 00:21:24,/product/prod_122,product_view,PROD_122,266,Mobile,Referral
+WEB_001285,CUST_S_045,SESS_000322,2024-10-29 18:18:19,/home,page_view,,106,Desktop,Organic Search
+WEB_001286,CUST_S_045,SESS_000322,2024-10-29 18:19:37,/category/home-&-kitchen,search,,98,Desktop,Organic Search
+WEB_001287,CUST_S_045,SESS_000322,2024-10-29 18:21:45,/product/prod_101,product_view,PROD_101,101,Desktop,Organic Search
+WEB_000936,CUST_S_034,SESS_000235,2024-10-30 01:47:15,/home,page_view,,220,Desktop,Email Newsletter
+WEB_000937,CUST_S_034,SESS_000235,2024-10-30 01:48:57,/category/sports-&-fitness,search,,108,Desktop,Email Newsletter
+WEB_000938,CUST_S_034,SESS_000235,2024-10-30 01:49:13,/product/prod_115,product_view,PROD_115,153,Desktop,Email Newsletter
+WEB_000845,CUST_S_029,SESS_000212,2024-10-30 19:07:09,/home,page_view,,97,Desktop,Email Newsletter
+WEB_000846,CUST_S_029,SESS_000212,2024-10-30 19:07:51,/category/sports-&-fitness,search,,235,Desktop,Email Newsletter
+WEB_000847,CUST_S_029,SESS_000212,2024-10-30 19:09:57,/product/prod_121,product_view,PROD_121,88,Desktop,Email Newsletter
+WEB_000848,CUST_S_029,SESS_000212,2024-10-30 19:12:23,/product/prod_121,product_view,PROD_121,155,Desktop,Email Newsletter
+WEB_000849,CUST_S_029,SESS_000212,2024-10-30 19:13:53,/product/prod_129,product_view,PROD_129,34,Desktop,Email Newsletter
+WEB_000850,CUST_S_029,SESS_000212,2024-10-30 19:14:40,/product/prod_126,add_to_cart,PROD_126,42,Desktop,Email Newsletter
+WEB_001005,CUST_S_036,SESS_000252,2024-10-30 23:02:05,/home,page_view,,139,Desktop,Email Newsletter
+WEB_001006,CUST_S_036,SESS_000252,2024-10-30 23:02:35,/category/sports-&-fitness,search,,117,Desktop,Email Newsletter
+WEB_001007,CUST_S_036,SESS_000252,2024-10-30 23:04:27,/product/prod_126,product_view,PROD_126,267,Desktop,Email Newsletter
+WEB_001008,CUST_S_036,SESS_000252,2024-10-30 23:05:54,/product/prod_116,product_view,PROD_116,116,Desktop,Email Newsletter
+WEB_001009,CUST_S_036,SESS_000252,2024-10-30 23:06:25,/product/prod_128,product_view,PROD_128,36,Desktop,Email Newsletter
+WEB_000808,CUST_S_029,SESS_000203,2024-10-31 19:40:13,/home,page_view,,248,Tablet,Social Media
+WEB_000809,CUST_S_029,SESS_000203,2024-10-31 19:42:53,/category/apparel,search,,268,Tablet,Social Media
+WEB_000559,CUST_S_020,SESS_000140,2024-11-01 06:22:01,/home,page_view,,46,Tablet,Referral
+WEB_000560,CUST_S_020,SESS_000140,2024-11-01 06:23:37,/category/sports-&-fitness,search,,161,Tablet,Referral
+WEB_000561,CUST_S_020,SESS_000140,2024-11-01 06:26:07,/product/prod_128,add_to_cart,PROD_128,156,Tablet,Referral
+WEB_000562,CUST_S_020,SESS_000140,2024-11-01 06:26:40,/product/prod_124,wishlist,PROD_124,277,Tablet,Referral
+WEB_000896,CUST_S_030,SESS_000225,2024-11-03 00:00:03,/home,page_view,,90,Desktop,Organic Search
+WEB_000897,CUST_S_030,SESS_000225,2024-11-03 00:02:55,/category/home-&-kitchen,search,,154,Desktop,Organic Search
+WEB_001134,CUST_S_040,SESS_000284,2024-11-03 00:31:28,/home,page_view,,144,Desktop,Direct
+WEB_001135,CUST_S_040,SESS_000284,2024-11-03 00:33:10,/category/books-&-media,search,,144,Desktop,Direct
+WEB_001136,CUST_S_040,SESS_000284,2024-11-03 00:35:42,/product/prod_126,product_view,PROD_126,173,Desktop,Direct
+WEB_001137,CUST_S_040,SESS_000284,2024-11-03 00:38:19,/product/prod_113,product_view,PROD_113,75,Desktop,Direct
+WEB_001138,CUST_S_040,SESS_000284,2024-11-03 00:41:18,/product/prod_124,checkout_start,PROD_124,267,Desktop,Direct
+WEB_001139,CUST_S_040,SESS_000284,2024-11-03 00:43:41,/product/prod_123,product_view,PROD_123,32,Desktop,Direct
+WEB_000303,CUST_S_013,SESS_000076,2024-11-03 22:35:12,/home,page_view,,150,Mobile,Organic Search
+WEB_000304,CUST_S_013,SESS_000076,2024-11-03 22:37:36,/category/apparel,search,,218,Mobile,Organic Search
+WEB_000305,CUST_S_013,SESS_000076,2024-11-03 22:39:46,/product/prod_122,wishlist,PROD_122,54,Mobile,Organic Search
+WEB_000306,CUST_S_013,SESS_000076,2024-11-03 22:40:12,/product/prod_128,product_view,PROD_128,183,Mobile,Organic Search
+WEB_001334,CUST_S_046,SESS_000334,2024-11-04 18:40:27,/home,page_view,,18,Tablet,Organic Search
+WEB_001335,CUST_S_046,SESS_000334,2024-11-04 18:42:04,/category/sports-&-fitness,search,,53,Tablet,Organic Search
+WEB_001336,CUST_S_046,SESS_000334,2024-11-04 18:42:23,/product/prod_112,product_view,PROD_112,132,Tablet,Organic Search
+WEB_001337,CUST_S_046,SESS_000334,2024-11-04 18:44:56,/product/prod_116,wishlist,PROD_116,256,Tablet,Organic Search
+WEB_001338,CUST_S_046,SESS_000334,2024-11-04 18:46:27,/product/prod_121,add_to_cart,PROD_121,57,Tablet,Organic Search
+WEB_000931,CUST_S_033,SESS_000233,2024-11-06 08:46:20,/home,page_view,,41,Desktop,Organic Search
+WEB_000932,CUST_S_033,SESS_000233,2024-11-06 08:48:21,/category/electronics,search,,208,Desktop,Organic Search
+WEB_000280,CUST_S_013,SESS_000071,2024-11-07 23:16:47,/home,page_view,,37,Mobile,Direct
+WEB_000281,CUST_S_013,SESS_000071,2024-11-07 23:18:50,/category/books-&-media,search,,59,Mobile,Direct
+WEB_000282,CUST_S_013,SESS_000071,2024-11-07 23:21:16,/product/prod_112,product_view,PROD_112,72,Mobile,Direct
+WEB_000196,CUST_S_011,SESS_000050,2024-11-09 13:40:27,/home,page_view,,119,Tablet,Social Media
+WEB_000197,CUST_S_011,SESS_000050,2024-11-09 13:42:39,/category/home-&-kitchen,search,,95,Tablet,Social Media
+WEB_000198,CUST_S_011,SESS_000050,2024-11-09 13:44:35,/product/prod_108,wishlist,PROD_108,165,Tablet,Social Media
+WEB_000199,CUST_S_011,SESS_000050,2024-11-09 13:45:05,/product/prod_102,wishlist,PROD_102,83,Tablet,Social Media
+WEB_001067,CUST_S_038,SESS_000267,2024-11-09 21:08:06,/home,page_view,,148,Desktop,Social Media
+WEB_001068,CUST_S_038,SESS_000267,2024-11-09 21:08:21,/category/apparel,search,,67,Desktop,Social Media
+WEB_001069,CUST_S_038,SESS_000267,2024-11-09 21:10:21,/product/prod_114,product_view,PROD_114,108,Desktop,Social Media
+WEB_001070,CUST_S_038,SESS_000267,2024-11-09 21:12:53,/product/prod_101,product_view,PROD_101,84,Desktop,Social Media
+WEB_000177,CUST_S_011,SESS_000045,2024-11-11 08:04:46,/home,page_view,,30,Mobile,Social Media
+WEB_000178,CUST_S_011,SESS_000045,2024-11-11 08:07:33,/category/electronics,search,,265,Mobile,Social Media
+WEB_000179,CUST_S_011,SESS_000045,2024-11-11 08:08:00,/product/prod_111,product_view,PROD_111,236,Mobile,Social Media
+WEB_000592,CUST_S_021,SESS_000149,2024-11-12 02:57:52,/home,page_view,,186,Desktop,Organic Search
+WEB_000593,CUST_S_021,SESS_000149,2024-11-12 03:00:06,/category/home-&-kitchen,search,,106,Desktop,Organic Search
+WEB_000100,CUST_S_005,SESS_000026,2024-11-12 16:24:57,/home,page_view,,273,Tablet,Direct
+WEB_000101,CUST_S_005,SESS_000026,2024-11-12 16:25:12,/category/apparel,search,,121,Tablet,Direct
+WEB_000102,CUST_S_005,SESS_000026,2024-11-12 16:26:00,/product/prod_122,product_view,PROD_122,129,Tablet,Direct
+WEB_000645,CUST_S_023,SESS_000162,2024-11-16 03:16:04,/home,page_view,,258,Mobile,Referral
+WEB_000646,CUST_S_023,SESS_000162,2024-11-16 03:17:41,/category/home-&-kitchen,search,,217,Mobile,Referral
+WEB_000647,CUST_S_023,SESS_000162,2024-11-16 03:19:00,/product/prod_101,add_to_cart,PROD_101,91,Mobile,Referral
+WEB_000648,CUST_S_023,SESS_000162,2024-11-16 03:20:40,/product/prod_107,product_view,PROD_107,161,Mobile,Referral
+WEB_000649,CUST_S_023,SESS_000162,2024-11-16 03:22:03,/product/prod_102,checkout_start,PROD_102,53,Mobile,Referral
+WEB_000650,CUST_S_023,SESS_000162,2024-11-16 03:22:47,/product/prod_110,checkout_start,PROD_110,288,Mobile,Referral
+WEB_000012,CUST_S_001,SESS_000004,2024-11-18 00:32:30,/home,page_view,,102,Mobile,Referral
+WEB_000013,CUST_S_001,SESS_000004,2024-11-18 00:35:21,/category/apparel,search,,245,Mobile,Referral
+WEB_000014,CUST_S_001,SESS_000004,2024-11-18 00:36:49,/product/prod_112,product_view,PROD_112,222,Mobile,Referral
+WEB_000015,CUST_S_001,SESS_000004,2024-11-18 00:38:24,/product/prod_118,product_view,PROD_118,173,Mobile,Referral
+WEB_000016,CUST_S_001,SESS_000004,2024-11-18 00:40:45,/product/prod_117,product_view,PROD_117,300,Mobile,Referral
+WEB_000017,CUST_S_001,SESS_000004,2024-11-18 00:41:14,/product/prod_120,product_view,PROD_120,198,Mobile,Referral
+WEB_001399,CUST_S_048,SESS_000350,2024-11-20 07:46:25,/home,page_view,,227,Desktop,Social Media
+WEB_001400,CUST_S_048,SESS_000350,2024-11-20 07:49:01,/category/electronics,search,,213,Desktop,Social Media
+WEB_000278,CUST_S_013,SESS_000070,2024-11-21 04:57:46,/home,page_view,,69,Mobile,Social Media
+WEB_000279,CUST_S_013,SESS_000070,2024-11-21 04:59:39,/category/books-&-media,search,,188,Mobile,Social Media
+WEB_001321,CUST_S_046,SESS_000331,2024-11-21 19:31:28,/home,page_view,,205,Tablet,Social Media
+WEB_001322,CUST_S_046,SESS_000331,2024-11-21 19:34:00,/category/books-&-media,search,,236,Tablet,Social Media
+WEB_001323,CUST_S_046,SESS_000331,2024-11-21 19:36:40,/product/prod_112,add_to_cart,PROD_112,175,Tablet,Social Media
+WEB_000888,CUST_S_030,SESS_000223,2024-11-22 09:04:29,/home,page_view,,290,Tablet,Social Media
+WEB_000889,CUST_S_030,SESS_000223,2024-11-22 09:07:27,/category/home-&-kitchen,search,,152,Tablet,Social Media
+WEB_000319,CUST_S_014,SESS_000080,2024-11-23 02:11:54,/home,page_view,,217,Mobile,Email Newsletter
+WEB_000320,CUST_S_014,SESS_000080,2024-11-23 02:14:19,/category/electronics,search,,130,Mobile,Email Newsletter
+WEB_000321,CUST_S_014,SESS_000080,2024-11-23 02:16:35,/product/prod_103,product_view,PROD_103,99,Mobile,Email Newsletter
+WEB_000353,CUST_S_014,SESS_000089,2024-11-23 08:11:32,/home,page_view,,217,Mobile,Social Media
+WEB_000354,CUST_S_014,SESS_000089,2024-11-23 08:13:32,/category/home-&-kitchen,search,,99,Mobile,Social Media
+WEB_000355,CUST_S_014,SESS_000089,2024-11-23 08:15:59,/product/prod_106,wishlist,PROD_106,32,Mobile,Social Media
+WEB_000356,CUST_S_014,SESS_000089,2024-11-23 08:18:03,/product/prod_103,product_view,PROD_103,277,Mobile,Social Media
+WEB_000357,CUST_S_014,SESS_000089,2024-11-23 08:20:09,/product/prod_101,add_to_cart,PROD_101,35,Mobile,Social Media
+WEB_000358,CUST_S_014,SESS_000089,2024-11-23 08:21:27,/product/prod_106,product_view,PROD_106,211,Mobile,Social Media
+WEB_000579,CUST_S_020,SESS_000145,2024-11-24 11:47:45,/home,page_view,,162,Mobile,Email Newsletter
+WEB_000580,CUST_S_020,SESS_000145,2024-11-24 11:49:59,/category/sports-&-fitness,search,,73,Mobile,Email Newsletter
+WEB_000379,CUST_S_015,SESS_000095,2024-11-25 14:58:47,/home,page_view,,29,Tablet,Organic Search
+WEB_000380,CUST_S_015,SESS_000095,2024-11-25 15:01:09,/category/sports-&-fitness,search,,117,Tablet,Organic Search
+WEB_000381,CUST_S_015,SESS_000095,2024-11-25 15:03:59,/product/prod_122,add_to_cart,PROD_122,82,Tablet,Organic Search
+WEB_000382,CUST_S_015,SESS_000095,2024-11-25 15:04:28,/product/prod_116,product_view,PROD_116,48,Tablet,Organic Search
+WEB_000383,CUST_S_015,SESS_000095,2024-11-25 15:05:02,/product/prod_116,product_view,PROD_116,54,Tablet,Organic Search
+WEB_001013,CUST_S_036,SESS_000254,2024-11-27 11:38:08,/home,page_view,,299,Desktop,Social Media
+WEB_001014,CUST_S_036,SESS_000254,2024-11-27 11:40:06,/category/sports-&-fitness,search,,113,Desktop,Social Media
+WEB_001015,CUST_S_036,SESS_000254,2024-11-27 11:41:05,/product/prod_121,add_to_cart,PROD_121,263,Desktop,Social Media
+WEB_000151,CUST_S_007,SESS_000038,2024-11-28 21:31:02,/home,page_view,,162,Tablet,Direct
+WEB_000152,CUST_S_007,SESS_000038,2024-11-28 21:33:16,/category/books-&-media,search,,165,Tablet,Direct
+WEB_000153,CUST_S_007,SESS_000038,2024-11-28 21:34:42,/product/prod_108,product_view,PROD_108,72,Tablet,Direct
+WEB_000154,CUST_S_007,SESS_000038,2024-11-28 21:36:04,/product/prod_110,add_to_cart,PROD_110,144,Tablet,Direct
+WEB_000608,CUST_S_021,SESS_000153,2024-11-30 01:56:21,/home,page_view,,168,Desktop,Direct
+WEB_000609,CUST_S_021,SESS_000153,2024-11-30 01:56:38,/category/home-&-kitchen,search,,211,Desktop,Direct
+WEB_000610,CUST_S_021,SESS_000153,2024-11-30 01:57:39,/product/prod_102,add_to_cart,PROD_102,168,Desktop,Direct
+WEB_000611,CUST_S_021,SESS_000153,2024-11-30 01:58:20,/product/prod_107,add_to_cart,PROD_107,94,Desktop,Direct
+WEB_000612,CUST_S_021,SESS_000153,2024-11-30 02:01:16,/product/prod_111,add_to_cart,PROD_111,119,Desktop,Direct
+WEB_000613,CUST_S_021,SESS_000153,2024-11-30 02:01:31,/product/prod_111,add_to_cart,PROD_111,294,Desktop,Direct
+WEB_000103,CUST_S_005,SESS_000026,2024-11-30 19:57:56,/home,page_view,,171,Mobile,Email Newsletter
+WEB_000104,CUST_S_005,SESS_000026,2024-11-30 19:58:56,/category/apparel,search,,294,Mobile,Email Newsletter
+WEB_000105,CUST_S_005,SESS_000026,2024-11-30 19:59:50,/product/prod_116,wishlist,PROD_116,134,Mobile,Email Newsletter
+WEB_000106,CUST_S_005,SESS_000026,2024-11-30 20:01:03,/product/prod_125,add_to_cart,PROD_125,67,Mobile,Email Newsletter
+WEB_001109,CUST_S_039,SESS_000278,2024-12-01 02:57:09,/home,page_view,,13,Mobile,Referral
+WEB_001110,CUST_S_039,SESS_000278,2024-12-01 02:59:16,/category/books-&-media,search,,127,Mobile,Referral
+WEB_001111,CUST_S_039,SESS_000278,2024-12-01 03:01:33,/product/prod_125,product_view,PROD_125,247,Mobile,Referral
+WEB_001112,CUST_S_039,SESS_000278,2024-12-01 03:03:42,/product/prod_125,add_to_cart,PROD_125,120,Mobile,Referral
+WEB_001113,CUST_S_039,SESS_000278,2024-12-01 03:04:12,/product/prod_124,product_view,PROD_124,245,Mobile,Referral
+WEB_001114,CUST_S_039,SESS_000278,2024-12-01 03:04:56,/product/prod_130,product_view,PROD_130,247,Mobile,Referral
+WEB_000890,CUST_S_030,SESS_000223,2024-12-01 07:35:05,/home,page_view,,37,Tablet,Organic Search
+WEB_000891,CUST_S_030,SESS_000223,2024-12-01 07:38:03,/category/electronics,search,,120,Tablet,Organic Search
+WEB_000892,CUST_S_030,SESS_000223,2024-12-01 07:39:41,/product/prod_102,add_to_cart,PROD_102,60,Tablet,Organic Search
+WEB_000893,CUST_S_030,SESS_000223,2024-12-01 07:41:54,/product/prod_111,product_view,PROD_111,76,Tablet,Organic Search
+WEB_000894,CUST_S_030,SESS_000223,2024-12-01 07:42:15,/product/prod_102,product_view,PROD_102,219,Tablet,Organic Search
+WEB_000895,CUST_S_030,SESS_000223,2024-12-01 07:44:42,/product/prod_108,wishlist,PROD_108,9,Tablet,Organic Search
+WEB_001356,CUST_S_046,SESS_000340,2024-12-01 18:11:41,/home,page_view,,31,Desktop,Social Media
+WEB_001357,CUST_S_046,SESS_000340,2024-12-01 18:12:59,/category/sports-&-fitness,search,,175,Desktop,Social Media
+WEB_001358,CUST_S_046,SESS_000340,2024-12-01 18:13:36,/product/prod_116,product_view,PROD_116,209,Desktop,Social Media
+WEB_001359,CUST_S_046,SESS_000340,2024-12-01 18:14:29,/product/prod_129,product_view,PROD_129,118,Desktop,Social Media
+WEB_001360,CUST_S_046,SESS_000340,2024-12-01 18:14:44,/product/prod_123,product_view,PROD_123,64,Desktop,Social Media
+WEB_001361,CUST_S_046,SESS_000340,2024-12-01 18:15:46,/product/prod_114,checkout_start,PROD_114,97,Desktop,Social Media
+WEB_000200,CUST_S_011,SESS_000051,2024-12-04 09:13:36,/home,page_view,,75,Tablet,Social Media
+WEB_000201,CUST_S_011,SESS_000051,2024-12-04 09:15:35,/category/electronics,search,,179,Tablet,Social Media
+WEB_000202,CUST_S_011,SESS_000051,2024-12-04 09:17:31,/product/prod_107,add_to_cart,PROD_107,91,Tablet,Social Media
+WEB_000203,CUST_S_011,SESS_000051,2024-12-04 09:18:56,/product/prod_111,product_view,PROD_111,244,Tablet,Social Media
+WEB_001424,CUST_S_049,SESS_000357,2024-12-07 15:04:58,/home,page_view,,197,Tablet,Referral
+WEB_001425,CUST_S_049,SESS_000357,2024-12-07 15:05:21,/category/electronics,search,,184,Tablet,Referral
+WEB_001426,CUST_S_049,SESS_000357,2024-12-07 15:07:46,/product/prod_116,product_view,PROD_116,57,Tablet,Referral
+WEB_001282,CUST_S_045,SESS_000321,2024-12-08 01:36:28,/home,page_view,,167,Tablet,Referral
+WEB_001283,CUST_S_045,SESS_000321,2024-12-08 01:38:38,/category/home-&-kitchen,search,,210,Tablet,Referral
+WEB_001284,CUST_S_045,SESS_000321,2024-12-08 01:39:45,/product/prod_105,product_view,PROD_105,170,Tablet,Referral
+WEB_001279,CUST_S_045,SESS_000320,2024-12-08 14:55:45,/home,page_view,,190,Tablet,Social Media
+WEB_001280,CUST_S_045,SESS_000320,2024-12-08 14:56:50,/category/electronics,search,,82,Tablet,Social Media
+WEB_001281,CUST_S_045,SESS_000320,2024-12-08 14:59:25,/product/prod_102,product_view,PROD_102,72,Tablet,Social Media
+WEB_000143,CUST_S_006,SESS_000036,2024-12-08 18:30:04,/home,page_view,,109,Tablet,Social Media
+WEB_000144,CUST_S_006,SESS_000036,2024-12-08 18:33:02,/category/apparel,search,,158,Tablet,Social Media
+WEB_000145,CUST_S_006,SESS_000036,2024-12-08 18:33:55,/product/prod_104,product_view,PROD_104,241,Tablet,Social Media
+WEB_000146,CUST_S_006,SESS_000036,2024-12-08 18:34:18,/product/prod_101,checkout_start,PROD_101,136,Tablet,Social Media
+WEB_000983,CUST_S_036,SESS_000246,2024-12-09 09:01:50,/home,page_view,,235,Mobile,Referral
+WEB_000984,CUST_S_036,SESS_000246,2024-12-09 09:04:11,/category/sports-&-fitness,search,,106,Mobile,Referral
+WEB_000985,CUST_S_036,SESS_000246,2024-12-09 09:04:38,/product/prod_128,add_to_cart,PROD_128,125,Mobile,Referral
+WEB_001249,CUST_S_044,SESS_000313,2024-12-09 10:31:59,/home,page_view,,267,Desktop,Social Media
+WEB_001250,CUST_S_044,SESS_000313,2024-12-09 10:34:10,/category/home-&-kitchen,search,,98,Desktop,Social Media
+WEB_001251,CUST_S_044,SESS_000313,2024-12-09 10:37:10,/product/prod_129,checkout_start,PROD_129,184,Desktop,Social Media
+WEB_001252,CUST_S_044,SESS_000313,2024-12-09 10:40:04,/product/prod_111,product_view,PROD_111,170,Desktop,Social Media
+WEB_000816,CUST_S_029,SESS_000205,2024-12-09 18:59:32,/home,page_view,,127,Tablet,Email Newsletter
+WEB_000817,CUST_S_029,SESS_000205,2024-12-09 19:00:05,/category/sports-&-fitness,search,,125,Tablet,Email Newsletter
+WEB_000818,CUST_S_029,SESS_000205,2024-12-09 19:02:17,/product/prod_130,product_view,PROD_130,283,Tablet,Email Newsletter
+WEB_000819,CUST_S_029,SESS_000205,2024-12-09 19:03:50,/product/prod_115,wishlist,PROD_115,32,Tablet,Email Newsletter
+WEB_000820,CUST_S_029,SESS_000205,2024-12-09 19:06:17,/product/prod_113,checkout_start,PROD_113,135,Tablet,Email Newsletter
+WEB_000792,CUST_S_029,SESS_000199,2024-12-12 15:24:38,/home,page_view,,222,Tablet,Referral
+WEB_000793,CUST_S_029,SESS_000199,2024-12-12 15:26:12,/category/books-&-media,search,,174,Tablet,Referral
+WEB_000794,CUST_S_029,SESS_000199,2024-12-12 15:27:28,/product/prod_114,product_view,PROD_114,212,Tablet,Referral
+WEB_000795,CUST_S_029,SESS_000199,2024-12-12 15:29:15,/product/prod_116,wishlist,PROD_116,106,Tablet,Referral
+WEB_000796,CUST_S_029,SESS_000199,2024-12-12 15:32:02,/product/prod_128,product_view,PROD_128,193,Tablet,Referral
+WEB_000797,CUST_S_029,SESS_000199,2024-12-12 15:34:20,/product/prod_126,add_to_cart,PROD_126,131,Tablet,Referral
+WEB_001094,CUST_S_039,SESS_000274,2024-12-12 21:30:39,/home,page_view,,80,Desktop,Social Media
+WEB_001095,CUST_S_039,SESS_000274,2024-12-12 21:32:57,/category/apparel,search,,263,Desktop,Social Media
+WEB_000524,CUST_S_019,SESS_000132,2024-12-16 01:07:50,/home,page_view,,188,Desktop,Email Newsletter
+WEB_000525,CUST_S_019,SESS_000132,2024-12-16 01:08:06,/category/apparel,search,,277,Desktop,Email Newsletter
+WEB_000526,CUST_S_019,SESS_000132,2024-12-16 01:11:01,/product/prod_112,product_view,PROD_112,192,Desktop,Email Newsletter
+WEB_000527,CUST_S_019,SESS_000132,2024-12-16 01:12:00,/product/prod_129,product_view,PROD_129,185,Desktop,Email Newsletter
+WEB_000528,CUST_S_019,SESS_000132,2024-12-16 01:13:24,/product/prod_124,add_to_cart,PROD_124,87,Desktop,Email Newsletter
+WEB_000436,CUST_S_016,SESS_000110,2024-12-17 04:55:10,/home,page_view,,291,Mobile,Email Newsletter
+WEB_000437,CUST_S_016,SESS_000110,2024-12-17 04:57:44,/category/electronics,search,,193,Mobile,Email Newsletter
+WEB_000425,CUST_S_015,SESS_000107,2024-12-18 23:06:48,/home,page_view,,168,Tablet,Direct
+WEB_000426,CUST_S_015,SESS_000107,2024-12-18 23:09:25,/category/books-&-media,search,,130,Tablet,Direct
+WEB_000427,CUST_S_015,SESS_000107,2024-12-18 23:10:35,/product/prod_114,product_view,PROD_114,156,Tablet,Direct
+WEB_000428,CUST_S_015,SESS_000107,2024-12-18 23:11:35,/product/prod_128,product_view,PROD_128,105,Tablet,Direct
+WEB_000429,CUST_S_015,SESS_000107,2024-12-18 23:11:54,/product/prod_113,product_view,PROD_113,38,Tablet,Direct
+WEB_000430,CUST_S_015,SESS_000107,2024-12-18 23:14:21,/product/prod_127,add_to_cart,PROD_127,37,Tablet,Direct
+WEB_000783,CUST_S_028,SESS_000196,2024-12-19 02:09:54,/home,page_view,,299,Mobile,Social Media
+WEB_000784,CUST_S_028,SESS_000196,2024-12-19 02:10:17,/category/books-&-media,search,,158,Mobile,Social Media
+WEB_000785,CUST_S_028,SESS_000196,2024-12-19 02:12:07,/product/prod_120,product_view,PROD_120,259,Mobile,Social Media
+WEB_000786,CUST_S_028,SESS_000196,2024-12-19 02:12:38,/product/prod_109,product_view,PROD_109,187,Mobile,Social Media
+WEB_000787,CUST_S_028,SESS_000196,2024-12-19 02:13:49,/product/prod_126,wishlist,PROD_126,292,Mobile,Social Media
+WEB_000522,CUST_S_019,SESS_000131,2024-12-20 21:18:51,/home,page_view,,213,Mobile,Email Newsletter
+WEB_000523,CUST_S_019,SESS_000131,2024-12-20 21:20:06,/category/books-&-media,search,,210,Mobile,Email Newsletter
+WEB_001395,CUST_S_048,SESS_000349,2024-12-21 06:47:21,/home,page_view,,284,Tablet,Social Media
+WEB_001396,CUST_S_048,SESS_000349,2024-12-21 06:47:50,/category/electronics,search,,143,Tablet,Social Media
+WEB_001397,CUST_S_048,SESS_000349,2024-12-21 06:49:00,/product/prod_102,product_view,PROD_102,90,Tablet,Social Media
+WEB_001398,CUST_S_048,SESS_000349,2024-12-21 06:50:27,/product/prod_102,product_view,PROD_102,252,Tablet,Social Media
+WEB_000537,CUST_S_019,SESS_000135,2024-12-21 16:59:46,/home,page_view,,265,Mobile,Direct
+WEB_000538,CUST_S_019,SESS_000135,2024-12-21 17:02:03,/category/sports-&-fitness,search,,47,Mobile,Direct
+WEB_000539,CUST_S_019,SESS_000135,2024-12-21 17:04:23,/product/prod_113,wishlist,PROD_113,168,Mobile,Direct
+WEB_000540,CUST_S_019,SESS_000135,2024-12-21 17:06:25,/product/prod_130,product_view,PROD_130,296,Mobile,Direct
+WEB_000541,CUST_S_019,SESS_000135,2024-12-21 17:07:26,/product/prod_113,product_view,PROD_113,277,Mobile,Direct
+WEB_000542,CUST_S_019,SESS_000135,2024-12-21 17:08:12,/product/prod_112,product_view,PROD_112,93,Mobile,Direct
+WEB_000951,CUST_S_034,SESS_000238,2024-12-22 18:08:08,/home,page_view,,200,Desktop,Email Newsletter
+WEB_000952,CUST_S_034,SESS_000238,2024-12-22 18:10:16,/category/health-&-beauty,search,,274,Desktop,Email Newsletter
+WEB_000953,CUST_S_034,SESS_000238,2024-12-22 18:10:49,/product/prod_112,add_to_cart,PROD_112,253,Desktop,Email Newsletter
+WEB_000954,CUST_S_034,SESS_000238,2024-12-22 18:11:23,/product/prod_112,product_view,PROD_112,20,Desktop,Email Newsletter
+WEB_000955,CUST_S_034,SESS_000238,2024-12-22 18:11:48,/product/prod_114,product_view,PROD_114,300,Desktop,Email Newsletter
+WEB_000956,CUST_S_034,SESS_000238,2024-12-22 18:13:31,/product/prod_119,product_view,PROD_119,158,Desktop,Email Newsletter
+WEB_000094,CUST_S_005,SESS_000024,2024-12-23 20:37:07,/home,page_view,,138,Mobile,Email Newsletter
+WEB_000095,CUST_S_005,SESS_000024,2024-12-23 20:39:08,/category/sports-&-fitness,search,,34,Mobile,Email Newsletter
+WEB_000096,CUST_S_005,SESS_000024,2024-12-23 20:39:35,/product/prod_126,product_view,PROD_126,298,Mobile,Email Newsletter
+WEB_000312,CUST_S_013,SESS_000079,2024-12-26 00:49:09,/home,page_view,,139,Tablet,Direct
+WEB_000313,CUST_S_013,SESS_000079,2024-12-26 00:49:56,/category/apparel,search,,137,Tablet,Direct
+WEB_000314,CUST_S_013,SESS_000079,2024-12-26 00:52:07,/product/prod_116,add_to_cart,PROD_116,266,Tablet,Direct
+WEB_000315,CUST_S_013,SESS_000079,2024-12-26 00:54:26,/product/prod_113,product_view,PROD_113,244,Tablet,Direct
+WEB_000506,CUST_S_019,SESS_000127,2024-12-26 12:33:40,/home,page_view,,209,Tablet,Organic Search
+WEB_000507,CUST_S_019,SESS_000127,2024-12-26 12:34:06,/category/apparel,search,,213,Tablet,Organic Search
+WEB_000116,CUST_S_005,SESS_000030,2024-12-27 01:37:31,/home,page_view,,55,Tablet,Referral
+WEB_000117,CUST_S_005,SESS_000030,2024-12-27 01:38:52,/category/apparel,search,,264,Tablet,Referral
+WEB_000118,CUST_S_005,SESS_000030,2024-12-27 01:39:14,/product/prod_123,product_view,PROD_123,108,Tablet,Referral
+WEB_000119,CUST_S_005,SESS_000030,2024-12-27 01:40:47,/product/prod_127,add_to_cart,PROD_127,295,Tablet,Referral
+WEB_000120,CUST_S_005,SESS_000030,2024-12-27 01:43:39,/product/prod_112,add_to_cart,PROD_112,25,Tablet,Referral
+WEB_000451,CUST_S_017,SESS_000113,2024-12-28 04:22:06,/home,page_view,,211,Mobile,Referral
+WEB_000452,CUST_S_017,SESS_000113,2024-12-28 04:24:04,/category/health-&-beauty,search,,105,Mobile,Referral
+WEB_000453,CUST_S_017,SESS_000113,2024-12-28 04:25:39,/product/prod_118,product_view,PROD_118,202,Mobile,Referral
+WEB_000454,CUST_S_017,SESS_000113,2024-12-28 04:26:03,/product/prod_129,product_view,PROD_129,64,Mobile,Referral
+WEB_000455,CUST_S_017,SESS_000113,2024-12-28 04:27:38,/product/prod_117,add_to_cart,PROD_117,261,Mobile,Referral
+WEB_001153,CUST_S_040,SESS_000289,2024-12-28 06:56:55,/home,page_view,,277,Mobile,Email Newsletter
+WEB_001154,CUST_S_040,SESS_000289,2024-12-28 06:57:29,/category/books-&-media,search,,202,Mobile,Email Newsletter
+WEB_000999,CUST_S_036,SESS_000250,2024-12-29 16:28:29,/home,page_view,,271,Mobile,Email Newsletter
+WEB_001000,CUST_S_036,SESS_000250,2024-12-29 16:29:19,/category/books-&-media,search,,74,Mobile,Email Newsletter
+WEB_001362,CUST_S_046,SESS_000341,2024-12-30 05:42:37,/home,page_view,,157,Tablet,Social Media
+WEB_001363,CUST_S_046,SESS_000341,2024-12-30 05:43:27,/category/sports-&-fitness,search,,232,Tablet,Social Media
+WEB_001364,CUST_S_046,SESS_000341,2024-12-30 05:45:43,/product/prod_114,product_view,PROD_114,54,Tablet,Social Media
+WEB_001365,CUST_S_046,SESS_000341,2024-12-30 05:48:41,/product/prod_122,product_view,PROD_122,99,Tablet,Social Media
+WEB_000727,CUST_S_026,SESS_000182,2024-12-30 19:53:35,/home,page_view,,129,Desktop,Direct
+WEB_000728,CUST_S_026,SESS_000182,2024-12-30 19:55:43,/category/apparel,search,,166,Desktop,Direct
+WEB_000729,CUST_S_026,SESS_000182,2024-12-30 19:57:57,/product/prod_113,product_view,PROD_113,40,Desktop,Direct
+WEB_000730,CUST_S_026,SESS_000182,2024-12-30 19:59:50,/product/prod_104,product_view,PROD_104,71,Desktop,Direct
+WEB_000731,CUST_S_026,SESS_000182,2024-12-30 20:02:20,/product/prod_114,add_to_cart,PROD_114,154,Desktop,Direct

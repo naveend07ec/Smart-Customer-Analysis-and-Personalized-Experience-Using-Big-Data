@@ -1,0 +1,105 @@
+interaction_id,customer_id,timestamp,platform,interaction_type,sentiment,sentiment_score,engagement_score,feedback_content,associated_category
+SOC_000034,CUST_S_018,2024-01-21 02:22:05,Twitter/X,review,Positive,0.963,100,Packaging was pristine and product works flawlessly out of the box.,Sports & Fitness
+SOC_000027,CUST_S_015,2024-01-22 23:45:20,Twitter/X,share,Neutral,-0.053,55,Satisfactory experience overall. Might consider buying again.,Books & Media
+SOC_000056,CUST_S_031,2024-01-25 16:27:28,YouTube,share,Negative,-0.961,16,Encountered unexpected checkout error during payment processing.,Electronics
+SOC_000040,CUST_S_021,2024-01-28 14:19:49,Twitter/X,review,Positive,0.527,70,Customer service quickly answered my query. Very impressed.,Electronics
+SOC_000086,CUST_S_042,2024-02-08 19:38:09,Facebook,review,Positive,0.934,87,Incredible performance for the price point. Highly recommend!,Apparel
+SOC_000058,CUST_S_033,2024-02-13 17:38:56,Instagram,mention,Negative,-0.555,26,Delivery took 4 days longer than estimated. Disappointing delay.,Apparel
+SOC_000103,CUST_S_050,2024-02-20 22:58:19,Facebook,mention,Negative,-0.735,20,Encountered unexpected checkout error during payment processing.,Apparel
+SOC_000075,CUST_S_037,2024-02-21 20:39:01,LinkedIn,share,Positive,0.990,100,Fast dispatch and arrival. Seamless ordering experience.,Sports & Fitness
+SOC_000082,CUST_S_040,2024-02-23 01:25:01,Instagram,mention,Neutral,-0.112,41,Satisfactory experience overall. Might consider buying again.,Apparel
+SOC_000101,CUST_S_049,2024-02-28 13:52:44,YouTube,review,Negative,-0.952,5,Packaging was bent on arrival. Support took over 48 hours to respond.,Electronics
+SOC_000023,CUST_S_013,2024-02-28 20:14:19,LinkedIn,mention,Positive,0.490,71,Packaging was pristine and product works flawlessly out of the box.,Books & Media
+SOC_000102,CUST_S_049,2024-03-03 00:33:59,LinkedIn,comment,Negative,-0.546,25,Delivery took 4 days longer than estimated. Disappointing delay.,Electronics
+SOC_000019,CUST_S_011,2024-03-03 21:53:30,Facebook,share,Positive,1.000,100,Customer service quickly answered my query. Very impressed.,Home & Kitchen
+SOC_000067,CUST_S_035,2024-03-04 09:46:40,YouTube,review,Negative,-0.623,30,Packaging was bent on arrival. Support took over 48 hours to respond.,Apparel
+SOC_000062,CUST_S_034,2024-03-20 10:08:42,LinkedIn,review,Positive,0.690,83,Customer service quickly answered my query. Very impressed.,Sports & Fitness
+SOC_000007,CUST_S_001,2024-03-21 23:50:37,YouTube,review,Positive,0.754,82,Absolutely stellar build quality! Exceeded my expectations.,Apparel
+SOC_000029,CUST_S_016,2024-03-23 16:32:28,Instagram,review,Negative,-0.445,28,Material feels cheaper than advertised in product photos.,Apparel
+SOC_000032,CUST_S_018,2024-03-23 18:51:35,Facebook,comment,Positive,0.755,82,Packaging was pristine and product works flawlessly out of the box.,Sports & Fitness
+SOC_000004,CUST_S_001,2024-03-27 20:37:24,YouTube,review,Positive,0.593,73,Incredible performance for the price point. Highly recommend!,Apparel
+SOC_000006,CUST_S_001,2024-03-31 19:04:18,YouTube,review,Positive,0.966,100,Customer service quickly answered my query. Very impressed.,Sports & Fitness
+SOC_000077,CUST_S_038,2024-04-04 22:08:02,YouTube,comment,Negative,-0.440,25,Delivery took 4 days longer than estimated. Disappointing delay.,Apparel
+SOC_000079,CUST_S_039,2024-04-04 23:22:30,Facebook,review,Positive,0.384,76,Absolutely stellar build quality! Exceeded my expectations.,Apparel
+SOC_000047,CUST_S_026,2024-04-14 10:28:04,Instagram,like,Negative,-0.877,8,Did not fit my specifications properly. Initiated a refund request.,Apparel
+SOC_000066,CUST_S_035,2024-04-14 17:03:07,LinkedIn,review,Negative,-0.864,21,Delivery took 4 days longer than estimated. Disappointing delay.,Electronics
+SOC_000017,CUST_S_009,2024-04-16 07:07:33,Twitter/X,like,Negative,-0.487,38,Did not fit my specifications properly. Initiated a refund request.,Electronics
+SOC_000014,CUST_S_006,2024-04-16 22:05:31,Instagram,comment,Negative,-0.563,28,Delivery took 4 days longer than estimated. Disappointing delay.,Electronics
+SOC_000064,CUST_S_034,2024-04-17 00:47:38,Twitter/X,review,Positive,1.000,91,Incredible performance for the price point. Highly recommend!,Apparel
+SOC_000033,CUST_S_018,2024-05-01 00:43:06,LinkedIn,review,Positive,0.562,81,Absolutely stellar build quality! Exceeded my expectations.,Sports & Fitness
+SOC_000013,CUST_S_005,2024-05-02 06:33:48,YouTube,comment,Neutral,-0.122,52,Decent product for daily use. Nothing spectacular but gets the job done.,Sports & Fitness
+SOC_000094,CUST_S_046,2024-05-03 03:38:58,Instagram,review,Positive,0.212,67,Customer service quickly answered my query. Very impressed.,Books & Media
+SOC_000042,CUST_S_022,2024-05-06 14:37:03,Twitter/X,like,Positive,0.216,55,Packaging was pristine and product works flawlessly out of the box.,Health & Beauty
+SOC_000070,CUST_S_037,2024-05-12 19:31:41,Facebook,review,Positive,0.685,88,Fast dispatch and arrival. Seamless ordering experience.,Sports & Fitness
+SOC_000055,CUST_S_030,2024-05-13 18:40:11,YouTube,direct_message,Positive,0.444,68,Absolutely stellar build quality! Exceeded my expectations.,Home & Kitchen
+SOC_000037,CUST_S_020,2024-05-22 11:18:24,LinkedIn,review,Neutral,-0.042,51,Item arrived as described. Standard delivery timeline.,Sports & Fitness
+SOC_000015,CUST_S_007,2024-05-23 04:58:55,Instagram,like,Positive,0.275,69,Customer service quickly answered my query. Very impressed.,Home & Kitchen
+SOC_000087,CUST_S_042,2024-05-24 16:23:57,Facebook,review,Positive,0.774,91,Customer service quickly answered my query. Very impressed.,Health & Beauty
+SOC_000041,CUST_S_021,2024-05-26 04:53:11,YouTube,review,Positive,0.691,78,Fast dispatch and arrival. Seamless ordering experience.,Electronics
+SOC_000035,CUST_S_019,2024-05-27 18:21:33,Twitter/X,mention,Neutral,-0.139,39,Met basic requirements without any issues.,Sports & Fitness
+SOC_000098,CUST_S_048,2024-05-28 17:51:41,LinkedIn,review,Positive,0.608,80,Packaging was pristine and product works flawlessly out of the box.,Electronics
+SOC_000104,CUST_S_050,2024-05-29 15:06:32,Instagram,like,Negative,-0.423,39,Material feels cheaper than advertised in product photos.,Apparel
+SOC_000072,CUST_S_037,2024-06-03 04:47:22,Instagram,review,Positive,0.658,77,Packaging was pristine and product works flawlessly out of the box.,Apparel
+SOC_000092,CUST_S_045,2024-06-06 04:14:13,Facebook,comment,Positive,0.764,87,Incredible performance for the price point. Highly recommend!,Electronics
+SOC_000071,CUST_S_037,2024-06-06 08:34:21,Facebook,share,Positive,0.592,72,Packaging was pristine and product works flawlessly out of the box.,Apparel
+SOC_000044,CUST_S_023,2024-06-13 20:11:20,LinkedIn,review,Positive,0.882,93,Incredible performance for the price point. Highly recommend!,Electronics
+SOC_000059,CUST_S_034,2024-06-14 04:32:56,Instagram,review,Positive,0.659,76,Fast dispatch and arrival. Seamless ordering experience.,Health & Beauty
+SOC_000090,CUST_S_045,2024-06-14 17:04:34,Instagram,comment,Positive,0.790,82,Fast dispatch and arrival. Seamless ordering experience.,Electronics
+SOC_000088,CUST_S_043,2024-06-19 00:59:42,LinkedIn,review,Positive,0.342,67,Absolutely stellar build quality! Exceeded my expectations.,Home & Kitchen
+SOC_000022,CUST_S_012,2024-06-26 00:23:47,Facebook,mention,Positive,0.468,81,Packaging was pristine and product works flawlessly out of the box.,Health & Beauty
+SOC_000046,CUST_S_025,2024-07-01 00:27:21,Instagram,like,Neutral,0.030,46,Decent product for daily use. Nothing spectacular but gets the job done.,Health & Beauty
+SOC_000002,CUST_S_001,2024-07-02 23:53:01,Facebook,mention,Positive,0.673,78,Customer service quickly answered my query. Very impressed.,Sports & Fitness
+SOC_000073,CUST_S_037,2024-07-03 01:26:09,YouTube,review,Positive,0.682,81,Fast dispatch and arrival. Seamless ordering experience.,Health & Beauty
+SOC_000011,CUST_S_005,2024-07-06 05:10:12,YouTube,review,Positive,0.208,64,Incredible performance for the price point. Highly recommend!,Books & Media
+SOC_000076,CUST_S_038,2024-07-06 23:41:04,Instagram,direct_message,Negative,-0.952,5,Delivery took 4 days longer than estimated. Disappointing delay.,Electronics
+SOC_000028,CUST_S_015,2024-07-07 19:00:56,Twitter/X,comment,Neutral,0.139,65,Fair pricing. Interface could be slightly more intuitive.,Apparel
+SOC_000084,CUST_S_042,2024-07-10 18:29:47,LinkedIn,mention,Positive,1.000,100,Absolutely stellar build quality! Exceeded my expectations.,Apparel
+SOC_000052,CUST_S_029,2024-07-22 10:18:16,YouTube,like,Positive,0.257,61,Fast dispatch and arrival. Seamless ordering experience.,Apparel
+SOC_000018,CUST_S_010,2024-07-23 05:46:55,Facebook,review,Negative,-0.731,20,Encountered unexpected checkout error during payment processing.,Electronics
+SOC_000036,CUST_S_019,2024-07-23 18:19:07,Instagram,direct_message,Neutral,-0.127,51,Met basic requirements without any issues.,Apparel
+SOC_000050,CUST_S_027,2024-08-05 01:06:54,YouTube,review,Positive,0.719,90,Fast dispatch and arrival. Seamless ordering experience.,Home & Kitchen
+SOC_000051,CUST_S_028,2024-08-05 09:34:00,Instagram,review,Positive,0.259,62,Absolutely stellar build quality! Exceeded my expectations.,Books & Media
+SOC_000048,CUST_S_027,2024-08-07 00:22:34,LinkedIn,share,Positive,1.000,95,Customer service quickly answered my query. Very impressed.,Electronics
+SOC_000020,CUST_S_011,2024-08-08 20:02:11,Instagram,review,Positive,0.745,93,Packaging was pristine and product works flawlessly out of the box.,Electronics
+SOC_000063,CUST_S_034,2024-08-10 09:20:23,Instagram,share,Positive,0.558,84,Customer service quickly answered my query. Very impressed.,Health & Beauty
+SOC_000010,CUST_S_004,2024-08-16 22:37:07,Facebook,comment,Positive,0.542,80,Fast dispatch and arrival. Seamless ordering experience.,Health & Beauty
+SOC_000003,CUST_S_001,2024-08-17 07:45:58,YouTube,review,Positive,0.700,88,Packaging was pristine and product works flawlessly out of the box.,Health & Beauty
+SOC_000093,CUST_S_046,2024-08-18 13:22:21,LinkedIn,share,Neutral,0.120,55,Fair pricing. Interface could be slightly more intuitive.,Apparel
+SOC_000069,CUST_S_037,2024-08-27 23:52:31,YouTube,comment,Positive,0.817,92,Fast dispatch and arrival. Seamless ordering experience.,Health & Beauty
+SOC_000096,CUST_S_047,2024-08-30 01:45:57,LinkedIn,like,Neutral,0.000,60,Satisfactory experience overall. Might consider buying again.,Home & Kitchen
+SOC_000068,CUST_S_036,2024-08-31 05:31:48,LinkedIn,share,Positive,0.367,76,Packaging was pristine and product works flawlessly out of the box.,Sports & Fitness
+SOC_000012,CUST_S_005,2024-09-06 01:44:02,YouTube,comment,Neutral,0.120,54,Satisfactory experience overall. Might consider buying again.,Sports & Fitness
+SOC_000026,CUST_S_015,2024-09-08 19:29:54,Instagram,review,Positive,0.200,61,Fast dispatch and arrival. Seamless ordering experience.,Apparel
+SOC_000049,CUST_S_027,2024-09-09 19:03:38,LinkedIn,comment,Positive,0.656,87,Absolutely stellar build quality! Exceeded my expectations.,Home & Kitchen
+SOC_000083,CUST_S_041,2024-09-12 22:43:25,Facebook,review,Neutral,0.120,55,Item arrived as described. Standard delivery timeline.,Books & Media
+SOC_000095,CUST_S_046,2024-09-16 15:01:54,YouTube,review,Neutral,-0.012,52,Fair pricing. Interface could be slightly more intuitive.,Books & Media
+SOC_000039,CUST_S_020,2024-09-17 08:54:23,Twitter/X,comment,Positive,0.544,81,Fast dispatch and arrival. Seamless ordering experience.,Apparel
+SOC_000065,CUST_S_034,2024-09-17 09:07:49,YouTube,review,Positive,0.736,88,Absolutely stellar build quality! Exceeded my expectations.,Apparel
+SOC_000045,CUST_S_024,2024-09-21 21:06:26,YouTube,comment,Neutral,0.075,49,Met basic requirements without any issues.,Health & Beauty
+SOC_000024,CUST_S_014,2024-09-22 01:32:09,LinkedIn,comment,Positive,0.898,90,Fast dispatch and arrival. Seamless ordering experience.,Electronics
+SOC_000001,CUST_S_001,2024-09-23 01:19:17,YouTube,review,Positive,0.576,84,Incredible performance for the price point. Highly recommend!,Health & Beauty
+SOC_000097,CUST_S_048,2024-09-24 09:20:50,Twitter/X,share,Positive,0.749,80,Absolutely stellar build quality! Exceeded my expectations.,Home & Kitchen
+SOC_000021,CUST_S_011,2024-09-26 06:22:22,Twitter/X,comment,Positive,1.000,91,Incredible performance for the price point. Highly recommend!,Home & Kitchen
+SOC_000054,CUST_S_030,2024-09-27 03:36:34,Instagram,mention,Positive,0.599,80,Customer service quickly answered my query. Very impressed.,Home & Kitchen
+SOC_000025,CUST_S_014,2024-09-27 21:33:04,Twitter/X,review,Positive,0.674,81,Incredible performance for the price point. Highly recommend!,Electronics
+SOC_000099,CUST_S_048,2024-10-06 10:12:09,YouTube,review,Positive,0.690,79,Incredible performance for the price point. Highly recommend!,Home & Kitchen
+SOC_000016,CUST_S_008,2024-10-07 00:15:23,LinkedIn,review,Positive,0.595,76,Packaging was pristine and product works flawlessly out of the box.,Books & Media
+SOC_000031,CUST_S_018,2024-10-11 12:17:08,Twitter/X,like,Positive,1.000,93,Incredible performance for the price point. Highly recommend!,Sports & Fitness
+SOC_000053,CUST_S_030,2024-10-13 22:17:21,LinkedIn,comment,Positive,0.957,100,Fast dispatch and arrival. Seamless ordering experience.,Electronics
+SOC_000085,CUST_S_042,2024-10-20 18:05:11,Facebook,review,Positive,0.533,80,Absolutely stellar build quality! Exceeded my expectations.,Health & Beauty
+SOC_000009,CUST_S_003,2024-10-26 03:42:34,LinkedIn,review,Positive,0.384,77,Packaging was pristine and product works flawlessly out of the box.,Health & Beauty
+SOC_000030,CUST_S_017,2024-10-28 23:11:54,LinkedIn,like,Positive,0.204,66,Absolutely stellar build quality! Exceeded my expectations.,Health & Beauty
+SOC_000061,CUST_S_034,2024-11-03 05:37:59,Twitter/X,comment,Positive,0.878,89,Incredible performance for the price point. Highly recommend!,Sports & Fitness
+SOC_000060,CUST_S_034,2024-11-05 04:42:30,Facebook,mention,Positive,0.867,98,Fast dispatch and arrival. Seamless ordering experience.,Apparel
+SOC_000080,CUST_S_039,2024-11-07 19:04:21,Instagram,like,Positive,0.521,73,Packaging was pristine and product works flawlessly out of the box.,Sports & Fitness
+SOC_000091,CUST_S_045,2024-11-13 09:19:33,Instagram,review,Positive,0.704,85,Absolutely stellar build quality! Exceeded my expectations.,Home & Kitchen
+SOC_000038,CUST_S_020,2024-11-14 02:46:34,Twitter/X,mention,Positive,0.349,73,Incredible performance for the price point. Highly recommend!,Apparel
+SOC_000043,CUST_S_023,2024-11-18 04:48:19,Instagram,direct_message,Positive,0.712,80,Fast dispatch and arrival. Seamless ordering experience.,Home & Kitchen
+SOC_000057,CUST_S_032,2024-11-26 14:05:56,Twitter/X,comment,Negative,-0.663,24,Did not fit my specifications properly. Initiated a refund request.,Apparel
+SOC_000078,CUST_S_039,2024-12-05 13:43:14,LinkedIn,like,Neutral,0.045,47,Met basic requirements without any issues.,Apparel
+SOC_000081,CUST_S_040,2024-12-07 05:36:56,Twitter/X,review,Positive,0.493,67,Fast dispatch and arrival. Seamless ordering experience.,Books & Media
+SOC_000005,CUST_S_001,2024-12-09 00:59:50,Twitter/X,like,Positive,0.926,88,Absolutely stellar build quality! Exceeded my expectations.,Apparel
+SOC_000089,CUST_S_044,2024-12-16 03:20:33,Instagram,review,Positive,0.375,69,Packaging was pristine and product works flawlessly out of the box.,Books & Media
+SOC_000008,CUST_S_002,2024-12-16 20:09:41,Instagram,mention,Neutral,0.028,47,Met basic requirements without any issues.,Home & Kitchen
+SOC_000100,CUST_S_048,2024-12-19 13:59:46,Facebook,review,Positive,0.661,84,Fast dispatch and arrival. Seamless ordering experience.,Electronics
+SOC_000074,CUST_S_037,2024-12-22 21:09:02,Twitter/X,comment,Positive,0.653,79,Incredible performance for the price point. Highly recommend!,Health & Beauty
