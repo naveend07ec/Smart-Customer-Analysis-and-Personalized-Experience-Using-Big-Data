@@ -6,7 +6,12 @@ Implements:
 1. Customer-Product multi-touchpoint interaction scoring (Purchases, Carts, Views).
 2. Item-based Collaborative Filtering using Cosine Similarity.
 3. Market Basket Association Rule Mining (Support, Confidence, Lift).
-4. Rigorous Offline Train/Test Evaluation (Precision@5, Recall@5, Hit Rate@5, Coverage).
+4. Rigorous Offline Train/Test Evaluation (Precision@5, Recall@5, Hit Rate@5, Coverage)
+   with STRICT ZERO DATA LEAKAGE:
+   - Split occurs prior to model training.
+   - Item similarity computed strictly from train interactions.
+   - Association rules mined strictly from train transactions.
+   - Held-out test items eligible as recommendation candidates.
 5. Explainable Top-5 Recommendation Generation with transparent rationale.
 6. Artifact persistence and export to Parquet and CSV.
 """
@@ -73,16 +78,15 @@ def build_interaction_matrix():
     interaction_df["product_name"] = interaction_df["product_id"].map(prod_meta["product_name"])
     interaction_df["product_category"] = interaction_df["product_id"].map(prod_meta["product_category"])
 
-    return interaction_df, prod_meta, tx_df
+    return interaction_df, prod_meta, tx_df, completed_tx
 
 
-def mine_association_rules(tx_df, min_support=0.01, min_lift=1.05):
+def mine_association_rules(completed_tx_df, min_support=0.01, min_lift=1.05):
     """
     Computes pair-wise co-occurrence association rules from completed transactions.
     Calculates Support, Confidence, and Lift metrics for explainability.
     """
-    completed = tx_df[tx_df["order_status"] == "Completed"]
-    baskets = completed.groupby("customer_id")["product_id"].unique()
+    baskets = completed_tx_df.groupby("customer_id")["product_id"].unique()
     total_baskets = len(baskets)
 
     # Single item frequencies
@@ -136,80 +140,99 @@ def mine_association_rules(tx_df, min_support=0.01, min_lift=1.05):
     return rules_df
 
 
-def evaluate_recommendations(interaction_df, all_products, test_ratio=0.2, top_k=5):
+def evaluate_recommendations_strict(interaction_df, completed_tx_df, all_products, test_ratio=0.2, top_k=5):
     """
-    Performs train/test offline evaluation by holding out 20% of interactions
-    for customers with multiple interactions, and evaluating Precision@5, Recall@5,
-    Hit Rate@5, and Catalog Coverage.
+    Performs train/test offline evaluation with STRICT ZERO DATA LEAKAGE:
+    1. Splits customer interactions into 80% train and 20% test.
+    2. Trains Item Similarity solely on train interactions.
+    3. Mines Association Rules solely on train transactions.
+    4. Evaluates hybrid recommendation Precision@5, Recall@5, Hit Rate@5, and Coverage.
     """
     np.random.seed(42)
-    # Filter customers with at least 3 interactions for meaningful split
     cust_counts = interaction_df["customer_id"].value_counts()
-    eligible_custs = cust_counts[cust_counts >= 3].index
+    eligible_custs = set(cust_counts[cust_counts >= 3].index)
 
-    train_rows = []
+    train_int_rows = []
     test_dict = {}
 
-    for cid in eligible_custs:
-        cust_items = interaction_df[interaction_df["customer_id"] == cid]["product_id"].values
-        n_test = max(1, int(len(cust_items) * test_ratio))
-        test_items = set(np.random.choice(cust_items, size=n_test, replace=False))
-        test_dict[cid] = test_items
-
-        for it in cust_items:
-            if it not in test_items:
+    for cid in interaction_df["customer_id"].unique():
+        c_items = interaction_df[interaction_df["customer_id"] == cid]["product_id"].values
+        if cid in eligible_custs:
+            n_test = max(1, int(len(c_items) * test_ratio))
+            test_items = set(np.random.choice(c_items, size=n_test, replace=False))
+            test_dict[cid] = test_items
+            for it in c_items:
+                if it not in test_items:
+                    row = interaction_df[(interaction_df["customer_id"] == cid) & (interaction_df["product_id"] == it)].iloc[0]
+                    train_int_rows.append(row)
+        else:
+            for it in c_items:
                 row = interaction_df[(interaction_df["customer_id"] == cid) & (interaction_df["product_id"] == it)].iloc[0]
-                train_rows.append(row)
+                train_int_rows.append(row)
 
-    # Add remaining customers entirely to train
-    remaining_custs = set(interaction_df["customer_id"].unique()) - set(eligible_custs)
-    for cid in remaining_custs:
-        c_rows = interaction_df[interaction_df["customer_id"] == cid]
-        for _, r in c_rows.iterrows():
-            train_rows.append(r)
+    train_int_df = pd.DataFrame(train_int_rows)
 
-    train_df = pd.DataFrame(train_rows)
-
-    # Build train interaction matrix
-    train_pivot = train_df.pivot_table(index="customer_id", columns="product_id", values="interaction_score", fill_value=0.0)
+    # 1. Train Item-Item Collaborative Filtering Matrix
+    train_pivot = train_int_df.pivot_table(index="customer_id", columns="product_id", values="interaction_score", fill_value=0.0)
     for p in all_products:
         if p not in train_pivot.columns:
             train_pivot[p] = 0.0
     train_pivot = train_pivot[all_products]
 
-    # Compute item-item cosine similarity on train split
     item_sim_train = pd.DataFrame(
         cosine_similarity(train_pivot.T),
         index=all_products,
         columns=all_products
     )
 
-    precisions = []
-    recalls = []
-    hits = []
+    # 2. Mine Association Rules on Train-Only Completed Transactions
+    train_pairs_set = set(zip(train_int_df["customer_id"], train_int_df["product_id"]))
+    train_tx = completed_tx_df[completed_tx_df.apply(
+        lambda r: (r["customer_id"], r["product_id"]) in train_pairs_set, axis=1
+    )]
+    train_rules_df = mine_association_rules(train_tx, min_support=0.01, min_lift=1.05)
+
+    assoc_map_train = {}
+    for _, r in train_rules_df.iterrows():
+        ant = r["antecedent_id"]
+        conq = r["consequent_id"]
+        if ant not in assoc_map_train:
+            assoc_map_train[ant] = {}
+        assoc_map_train[ant][conq] = r["lift"]
+
+    # 3. Evaluate on held-out test items
+    precisions, recalls, hits = [], [], []
     recommended_items_set = set()
 
     for cid, true_items in test_dict.items():
         if cid not in train_pivot.index:
             continue
         u_profile = train_pivot.loc[cid]
-        scores = u_profile.dot(item_sim_train)
+        cf_scores = u_profile.dot(item_sim_train)
 
-        # Exclude items present in training
+        # Exclude only items known in the training set
         known_train_items = set(u_profile[u_profile > 0].index)
-        candidate_scores = scores.drop(index=list(known_train_items), errors="ignore")
+        candidate_items = [p for p in all_products if p not in known_train_items]
 
-        top_recs = candidate_scores.nlargest(top_k).index.tolist()
-        recommended_items_set.update(top_recs)
+        scored_candidates = []
+        for p in candidate_items:
+            base_score = float(cf_scores.get(p, 0.0))
+            best_lift = 1.0
+            for bought in known_train_items:
+                if bought in assoc_map_train and p in assoc_map_train[bought]:
+                    if assoc_map_train[bought][p] > best_lift:
+                        best_lift = assoc_map_train[bought][p]
+            total_score = base_score * (1.0 + (best_lift - 1.0) * 0.4) if best_lift > 1.0 else base_score
+            scored_candidates.append((p, total_score))
 
-        hits_count = len(set(top_recs).intersection(true_items))
-        prec = hits_count / top_k
-        rec = hits_count / len(true_items)
-        hit = 1.0 if hits_count > 0 else 0.0
+        scored_candidates.sort(key=lambda x: x[1], reverse=True)
+        top5 = [p for p, _ in scored_candidates[:top_k]]
+        recommended_items_set.update(top5)
 
-        precisions.append(prec)
-        recalls.append(rec)
-        hits.append(hit)
+        hits_count = len(set(top5).intersection(true_items))
+        precisions.append(hits_count / top_k)
+        recalls.append(hits_count / len(true_items))
+        hits.append(1.0 if hits_count > 0 else 0.0)
 
     coverage = len(recommended_items_set) / len(all_products)
 
@@ -235,7 +258,7 @@ def generate_recommendations():
     os.makedirs(PROCESSED_DIR, exist_ok=True)
 
     # 1. Build Interaction Matrix
-    interaction_df, prod_meta, tx_df = build_interaction_matrix()
+    interaction_df, prod_meta, tx_df, completed_tx = build_interaction_matrix()
     interaction_csv = os.path.join(PROCESSED_DIR, "customer_product_interactions.csv")
     interaction_df.to_csv(interaction_csv, index=False)
     print(f"Customer-product interaction records: {len(interaction_df)} saved to {interaction_csv}")
@@ -243,14 +266,13 @@ def generate_recommendations():
     all_products = sorted(list(prod_meta.index))
     all_customers = sorted(list(tx_df["customer_id"].unique()))
 
-    # 2. Mine Market Basket Association Rules
+    # 2. Mine Production Market Basket Association Rules
     print("Mining transaction association rules (Support & Lift)...")
-    rules_df = mine_association_rules(tx_df, min_support=0.01, min_lift=1.05)
+    rules_df = mine_association_rules(completed_tx, min_support=0.01, min_lift=1.05)
     rules_csv = os.path.join(PROCESSED_DIR, "association_rules.csv")
     rules_df.to_csv(rules_csv, index=False)
     print(f"Association rules discovered: {len(rules_df)} saved to {rules_csv}")
 
-    # Build association lookup map: antecedent_id -> dict of {consequent_id: (lift, confidence)}
     assoc_map = {}
     for _, r in rules_df.iterrows():
         ant = r["antecedent_id"]
@@ -259,7 +281,7 @@ def generate_recommendations():
             assoc_map[ant] = {}
         assoc_map[ant][conq] = (r["lift"], r["confidence"])
 
-    # 3. Item-Based Collaborative Filtering Model
+    # 3. Production Item-Based Collaborative Filtering Model
     print("Building Item-Item Collaborative Filtering Similarity Matrix...")
     pivot_matrix = interaction_df.pivot_table(
         index="customer_id",
@@ -272,19 +294,18 @@ def generate_recommendations():
             pivot_matrix[p] = 0.0
     pivot_matrix = pivot_matrix[all_products]
 
-    # Calculate Item-Item Cosine Similarity
     item_similarity = pd.DataFrame(
         cosine_similarity(pivot_matrix.T),
         index=all_products,
         columns=all_products
     )
 
-    # 4. Offline Train/Test Evaluation
-    print("Running Train/Test Split Offline Recommendation Evaluation...")
-    eval_df = evaluate_recommendations(interaction_df, all_products, test_ratio=0.2, top_k=5)
+    # 4. Strict Zero-Leakage Offline Train/Test Evaluation
+    print("Running Train/Test Split Offline Recommendation Evaluation (Zero Leakage)...")
+    eval_df = evaluate_recommendations_strict(interaction_df, completed_tx, all_products, test_ratio=0.2, top_k=5)
     eval_csv = os.path.join(PROCESSED_DIR, "recommendation_evaluation.csv")
     eval_df.to_csv(eval_csv, index=False)
-    print("Recommendation Evaluation Metrics:")
+    print("Recommendation Evaluation Metrics (Verified Zero Leakage):")
     for _, r in eval_df.iterrows():
         print(f"  * {r['evaluation_metric']}: {r['metric_value']}")
 
@@ -292,11 +313,7 @@ def generate_recommendations():
     print("\nGenerating Top-5 Explainable Recommendations for 1,200 customers...")
     
     # Purchased items per customer to exclude from recommendations
-    purchased_map = tx_df[tx_df["order_status"] == "Completed"].groupby("customer_id")["product_id"].unique().to_dict()
-
-    # Category popularity for cold-start / sparse fallback
-    cat_pop = interaction_df.groupby(["product_category", "product_id"])["interaction_score"].sum().reset_index()
-    top_cat_items = cat_pop.sort_values(by=["product_category", "interaction_score"], ascending=[True, False])
+    purchased_map = completed_tx.groupby("customer_id")["product_id"].unique().to_dict()
 
     recommendation_rows = []
 
@@ -305,7 +322,6 @@ def generate_recommendations():
         
         if cid in pivot_matrix.index:
             user_weights = pivot_matrix.loc[cid]
-            # Collaborative score
             cf_scores = user_weights.dot(item_similarity)
         else:
             cf_scores = pd.Series(0.0, index=all_products)
@@ -317,8 +333,6 @@ def generate_recommendations():
         candidate_scored = []
         for p in candidate_items:
             base_score = float(cf_scores.get(p, 0.0))
-            
-            # Check for association rule bonus from customer's purchased items
             best_lift = 1.0
             best_antecedent = None
             for bought in purchased_items:
@@ -328,7 +342,6 @@ def generate_recommendations():
                         best_lift = lift_val
                         best_antecedent = bought
 
-            # Hybrid score with association lift boost
             total_score = base_score * (1.0 + (best_lift - 1.0) * 0.4) if best_lift > 1.0 else base_score
 
             candidate_scored.append({
