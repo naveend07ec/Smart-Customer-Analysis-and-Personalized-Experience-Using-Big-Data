@@ -30,13 +30,20 @@ export const api = {
   getPCAScatter: (limit = 1200) => client.get(`/segmentation/pca-scatter?limit=${limit}`).then(r => r.data),
 
   // Customer Details Page
-  getCustomers: (params = {}) => client.get('/customers', { params }).then(r => r.data),
-  getCustomerDetail: (id) => client.get(`/customers/${id}`).then(r => r.data),
+  getCustomers: (params = {}) => client.get('/customers', { params }).then(r => r.data.data || r.data),
+  getCustomerDetail: (id) => client.get(`/customers/${id}`).then(r => r.data.data || r.data),
 
   // Recommendations Page
-  getRecommendations: (customerId) => client.get(`/recommendations/${customerId}`).then(r => r.data),
-  getAssociationRules: (limit = 30) => client.get(`/recommendations/rules?limit=${limit}`).then(r => r.data),
+  getRecommendations: (customerId) => client.get(`/recommendations/${customerId}`).then(r => {
+    const payload = r.data.data || r.data;
+    return {
+      ...payload,
+      recommendations: payload.top_recommendations || payload.recommendations || []
+    };
+  }),
+  getAssociationRules: (limit = 30) => client.get(`/recommendations/rules?limit=${limit}`).then(r => r.data.data || r.data),
+  getRecommendationEvaluation: () => client.get('/recommendations/evaluation').then(r => r.data.data || r.data),
 
   // Data Pipeline Page
-  getPipelineSummary: () => client.get('/pipeline/summary').then(r => r.data)
+  getPipelineSummary: () => client.get('/pipeline/summary').then(r => r.data.data || r.data)
 };

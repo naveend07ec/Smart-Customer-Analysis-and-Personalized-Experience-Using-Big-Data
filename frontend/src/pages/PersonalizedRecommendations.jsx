@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { api } from '../services/api';
-import { Sparkles, BrainCircuit, ArrowRight, Tag, HelpCircle, Layers } from 'lucide-react';
+import { Sparkles, BrainCircuit, ArrowRight, Tag, HelpCircle, Layers, CheckCircle2, Award } from 'lucide-react';
 
 export default function PersonalizedRecommendations() {
   const [selectedCustomerId, setSelectedCustomerId] = useState('CUST_0001');
   const [recommendations, setRecommendations] = useState([]);
   const [associationRules, setAssociationRules] = useState([]);
+  const [evaluationMetrics, setEvaluationMetrics] = useState([]);
   const [loading, setLoading] = useState(true);
   const [recsLoading, setRecsLoading] = useState(false);
 
@@ -19,14 +20,16 @@ export default function PersonalizedRecommendations() {
   ];
 
   useEffect(() => {
-    // Initial fetch of association rules and first customer recs
+    // Initial fetch of association rules, customer recs, and offline evaluation metrics
     Promise.all([
       api.getRecommendations(selectedCustomerId),
-      api.getAssociationRules(25)
+      api.getAssociationRules(25),
+      api.getRecommendationEvaluation()
     ])
-      .then(([recsData, rulesData]) => {
+      .then(([recsData, rulesData, evalData]) => {
         setRecommendations(recsData.recommendations || []);
         setAssociationRules(rulesData || []);
+        setEvaluationMetrics(evalData || []);
         setLoading(false);
       })
       .catch((err) => {
@@ -83,6 +86,28 @@ export default function PersonalizedRecommendations() {
           Multi-strategy recommendation engine combining User-Item Collaborative Filtering, Market Basket Association Rules, and Segment Behavioral Affinity.
         </p>
       </div>
+
+      {/* Offline Recommendation Model Evaluation Banner */}
+      {evaluationMetrics && evaluationMetrics.length > 0 && (
+        <div className="card" style={{ marginBottom: '1.5rem', borderLeft: '4px solid #10b981' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <Award size={18} color="#10b981" />
+              <span style={{ fontWeight: '600', color: '#fff' }}>Recommender Offline Validation (Zero-Leakage 80/20 Holdout)</span>
+            </div>
+            <span className="badge badge-emerald">Verified Zero-Leakage Protocol</span>
+          </div>
+          <div className="grid-4" style={{ gap: '1rem' }}>
+            {evaluationMetrics.map((m, i) => (
+              <div key={i} style={{ backgroundColor: '#0f172a', padding: '0.75rem', borderRadius: '8px', border: '1px solid #1e293b' }}>
+                <div style={{ fontSize: '0.75rem', color: '#94a3b8', marginBottom: '0.2rem' }}>{m.metric}</div>
+                <div style={{ fontSize: '1.25rem', fontWeight: '700', color: '#10b981' }}>{m.value}</div>
+                <div style={{ fontSize: '0.7rem', color: '#64748b', marginTop: '0.2rem' }}>{m.description}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Customer Selection Card */}
       <div className="card" style={{ marginBottom: '2rem' }}>
@@ -154,9 +179,9 @@ export default function PersonalizedRecommendations() {
                   <span className="badge badge-blue">Rank #{idx + 1}</span>
                   <div style={{ textAlign: 'right' }}>
                     <div style={{ fontSize: '1.25rem', fontWeight: '700', color: '#10b981' }}>
-                      {rec.score}%
+                      {rec.score} / 100
                     </div>
-                    <div style={{ fontSize: '0.7rem', color: '#94a3b8' }}>Confidence Match</div>
+                    <div style={{ fontSize: '0.7rem', color: '#94a3b8' }}>Recommendation Score</div>
                   </div>
                 </div>
 
