@@ -21,7 +21,7 @@ Sales Transactions      Website Clickstream       Social Media Sentiment
      │                          │                          │
      └──────────────────────────┼──────────────────────────┘
                                 ▼
-           Storage & Ingestion Layer (HDFS / Staged Parquet)
+           Storage & Ingestion Layer (Local Staged Parquet / Filesystem Partitioning — Distinct from HDFS)
                                 ▼
           Distributed Big Data Processing (PySpark 3.5.1)
            - Primary key deduplication (dropDuplicates)
@@ -30,14 +30,14 @@ Sales Transactions      Website Clickstream       Social Media Sentiment
            - Customer-level aggregation across all 3 channels
            - Multi-source outer join on customer_id
                                 ▼
-           Unified Behavioral Feature Matrix (1,200 x 24)
+           Unified Behavioral Feature Matrix (1,200 x 23)
                                 ▼
      ┌──────────────────────────┴──────────────────────────┐
      ▼                                                     ▼
 K-Means Segmentation (K=5)               Explainable Recommendation Engine
- - Elbow & Silhouette evaluation (0.3533)  - User-Item Collaborative Filtering
- - PCA 2D Dimensionality Reduction        - Market Basket Association Mining (541 rules)
- - 5 Distinct Behavioral Personas          - Transparent Reasoning & Confidence Scores
+ - Elbow & Silhouette evaluation (Silhouette: 0.3451, DB: 1.1759)  - User-Item Collaborative Filtering
+ - PCA 2D Dimensionality Reduction        - Market Basket Association Mining (394 rules)
+ - 5 Distinct Behavioral Personas          - Recommendation Scores (0-100) & Zero-Leakage Validation
      │                                                     │
      └──────────────────────────┬──────────────────────────┘
                                 ▼
@@ -234,10 +234,10 @@ Open your browser and navigate to `http://localhost:3000`.
 
 1. **Overview Dashboard** (`/`): Executive KPIs, monthly sales trajectory, category revenue contribution, customer segment share doughnut.
 2. **Customer Analytics** (`/analytics`): Clickstream acquisition channels, client device types, sentiment polarity breakdown, and RFM distributions.
-3. **Customer Segmentation** (`/segmentation`): K-Means evaluation (Silhouette: 0.3533, Davies-Bouldin: 1.1554), Elbow curve chart, 2D PCA interactive scatter plot, and behavioral centroid profiles.
+3. **Customer Segmentation** (`/segmentation`): K-Means evaluation (Silhouette: 0.3451, Davies-Bouldin: 1.1759), Elbow curve chart, 2D PCA interactive scatter plot, and behavioral centroid profiles.
 4. **Customer Details (360° View)** (`/customers`): Searchable and filterable directory of 1,200 customers with individual purchase histories, browsing touchpoints, and social reviews.
 5. **Personalized Recommendations** (`/recommendations`): Top 5 personalized products per customer with confidence scores ($0 - 100\%$) and plain-language reasoning, alongside Market Basket Association Rules (Lift up to 1.18x).
-6. **Data Integration & Spark** (`/pipeline`): Detailed PySpark execution audit, deduplication and cleaning counts, schema documentation, and HDFS/staged storage architecture.
+6. **Data Integration & Spark** (`/pipeline`): Detailed PySpark execution audit, deduplication and cleaning counts, schema documentation, and staged filesystem storage architecture (explicitly distinct from multi-node HDFS).
 
 ---
 
