@@ -299,6 +299,13 @@ class DataService:
     def get_customer_recommendations(self, customer_id: str) -> List[Dict[str, Any]]:
         return self.recommendations.get(customer_id, [])
 
+    def get_recommendation_evaluation(self) -> List[Dict[str, Any]]:
+        eval_path = self._resolve_path("data/processed/recommendation_evaluation.csv")
+        if os.path.exists(eval_path):
+            df_eval = pd.read_csv(eval_path)
+            return df_eval.to_dict(orient="records")
+        return []
+
     def get_top_association_rules(self, limit: int = 50) -> List[Dict[str, Any]]:
         return self.association_rules[:limit]
 
@@ -326,7 +333,7 @@ class DataService:
                 "cleaned_transactions": len(self.df_transactions),
                 "cleaned_web_activity": len(self.df_web),
                 "cleaned_social_media": len(self.df_social),
-                "unified_feature_matrix": f"{len(self.df_segments)} rows x 24 columns",
+                "unified_feature_matrix": f"{len(self.df_segments)} rows x 23 columns",
                 "customer_coverage": "100.0% (1,200 / 1,200 unique customers across all 3 sources)"
             },
             "storage_formats": [
