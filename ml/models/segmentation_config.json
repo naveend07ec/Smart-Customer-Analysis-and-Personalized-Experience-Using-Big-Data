@@ -1,0 +1,42 @@
+{
+  "selected_k": 5,
+  "silhouette_score": 0.3451,
+  "inertia": 9612.77,
+  "davies_bouldin_index": 1.1759,
+  "feature_names": [
+    "total_spend",
+    "total_transactions",
+    "avg_order_value",
+    "total_quantity",
+    "recency_days",
+    "cancelled_orders_count",
+    "cancellation_rate",
+    "total_web_activities",
+    "total_sessions",
+    "avg_duration_seconds",
+    "product_views_count",
+    "cart_additions_count",
+    "wishlist_count",
+    "checkout_starts_count",
+    "cart_to_checkout_ratio",
+    "total_social_interactions",
+    "avg_engagement_score",
+    "avg_sentiment_score",
+    "positive_interactions_count",
+    "neutral_interactions_count",
+    "negative_interactions_count",
+    "unique_platforms_count"
+  ],
+  "cluster_names": {
+    "0": "Casual & Occasional Shoppers",
+    "1": "High-Value VIP Tech Spenders",
+    "2": "High-Activity Bargain Hunters",
+    "3": "At-Risk & Churned Customers",
+    "4": "Active Brand Advocates & Influencers"
+  },
+  "pca_explained_variance_ratio": [
+    0.39404499231022017,
+    0.1684308709503466
+  ],
+  "total_customers": 1200
+}

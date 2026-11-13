@@ -1,0 +1,6 @@
+cluster_id,cluster_name,customer_count,percentage_of_total,avg_spend,avg_transactions,avg_order_value,avg_recency_days,avg_cancellation_rate,avg_web_activities,avg_sessions,avg_duration_seconds,avg_product_views,avg_cart_additions,avg_social_interactions,avg_sentiment_score,avg_engagement_score
+0,Casual & Occasional Shoppers,348,29.0,483.53,3.75,127.81,82.6,0.039,40.3,8.7,151.9,12.0,4.6,2.5,0.355,68.3
+1,High-Value VIP Tech Spenders,204,17.0,4633.07,22.02,210.35,16.9,0.02,137.5,29.4,152.8,41.1,15.2,9.5,0.747,85.5
+2,High-Activity Bargain Hunters,305,25.42,1397.85,12.03,116.02,28.6,0.059,190.0,40.6,153.2,56.9,20.9,7.0,0.197,60.9
+3,At-Risk & Churned Customers,168,14.0,359.26,2.27,150.53,291.7,0.256,32.1,7.1,150.4,9.6,3.6,4.5,-0.653,22.9
+4,Active Brand Advocates & Influencers,175,14.58,1184.71,10.42,114.8,32.0,0.025,88.6,19.1,151.9,26.7,9.7,17.9,0.818,88.7

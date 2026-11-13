@@ -3,232 +3,220 @@ K-Means Customer Segmentation Pipeline
 Project: Smart Customer Analysis and Personalized Experience Using Big Data
 
 Performs:
-1. Feature scaling with StandardScaler.
-2. Elbow method & Silhouette evaluation for optimal K selection.
-3. K-Means clustering (K=5).
-4. Rigorous cluster evaluation (Silhouette Score, Davies-Bouldin, Calinski-Harabasz).
-5. Cluster profiling and rule-based persona naming.
-6. PCA 2D dimensionality reduction for interactive dashboard visualization.
-7. Model artifact serialization.
+1. Feature extraction from unified customer features.
+2. Missing/outlier verification and StandardScaler normalization.
+3. K selection evaluation (K=2 to 8) using Inertia, Silhouette, Davies-Bouldin, and Calinski-Harabasz.
+4. Model training with optimal K.
+5. Unscaled cluster profiling and data-driven cluster naming.
+6. 2D PCA projection for visual dashboard representation.
+7. Model serialization and artifact exports.
 """
 
 import os
 import json
 import joblib
-import numpy as np
 import pandas as pd
+import numpy as np
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
-from sklearn.metrics import silhouette_score, davies_bouldin_score, calinski_harabasz_score
+from sklearn.metrics import (
+    silhouette_score,
+    davies_bouldin_score,
+    calinski_harabasz_score
+)
 
-FEATURE_COLUMNS = [
-    "total_spend",
-    "total_transactions",
-    "completed_transactions",
-    "cancelled_transactions",
-    "cancellation_rate",
-    "avg_order_value",
-    "total_quantity",
-    "recency_days",
-    "total_web_activities",
-    "total_sessions",
-    "avg_duration_seconds",
-    "product_views_count",
-    "cart_additions_count",
-    "wishlist_count",
-    "checkout_starts_count",
-    "cart_to_checkout_ratio",
-    "total_social_interactions",
-    "avg_engagement_score",
-    "avg_sentiment_score",
-    "positive_interactions_count",
-    "neutral_interactions_count",
-    "negative_interactions_count",
-    "unique_platforms_count"
-]
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+PROCESSED_DIR = os.path.join(PROJECT_ROOT, "data", "processed")
+MODELS_DIR = os.path.join(PROJECT_ROOT, "ml", "models")
 
 
-def load_feature_matrix(csv_path: str = "data/processed/unified_customer_features.csv") -> pd.DataFrame:
-    if not os.path.exists(csv_path):
-        raise FileNotFoundError(f"Feature matrix not found at: {csv_path}. Run Stage 3 pipeline first.")
-    df = pd.read_csv(csv_path)
-    return df
-
-
-def evaluate_elbow_and_silhouette(X_scaled: np.ndarray, k_range=range(2, 9)):
-    """Computes inertia and silhouette scores across multiple K values."""
-    results = []
-    for k in k_range:
-        km = KMeans(n_clusters=k, random_state=42, n_init=10)
-        labels = km.fit_predict(X_scaled)
-        inertia = float(km.inertia_)
-        sil = float(silhouette_score(X_scaled, labels))
-        results.append({
-            "k": k,
-            "inertia": round(inertia, 2),
-            "silhouette_score": round(sil, 4)
-        })
-    return results
-
-
-def assign_cluster_personas(profiles: dict) -> dict:
-    """
-    Assigns human-interpretable persona names and descriptions based on cluster centers.
-    """
-    personas = {}
-    for cid, stats in profiles.items():
-        spend = stats["avg_total_spend"]
-        sent = stats["avg_sentiment"]
-        cancel = stats["avg_cancellation_rate"]
-        web = stats["avg_web_activities"]
-        soc = stats["avg_social_interactions"]
-        recency = stats["avg_recency_days"]
-
-        # Classification logic matching the 5 distinct customer behaviors
-        if cancel > 0.15 or recency > 200 or sent < -0.2:
-            name = "At-Risk / Dissatisfied Customers"
-            desc = "Lapsed customers with high cancellation/return rates, high recency (>200 days), and negative feedback."
-            color = "#EF4444"
-        elif spend > 3000:
-            name = "High-Value VIP Tech Spenders"
-            desc = "Top-tier premium spenders with highest average order value, frequent transactions, and high satisfaction."
-            color = "#10B981"
-        elif soc > 12 and sent > 0.6:
-            name = "Social Brand Advocates"
-            desc = "Highly vocal social champions with highest interaction volume, strong engagement, and enthusiastic sentiment."
-            color = "#8B5CF6"
-        elif web > 150 or stats["avg_cart_additions"] > 18:
-            name = "Active Bargain Hunters"
-            desc = "Extensive digital window-shoppers with highest web dwell time and cart additions, driven by promotions."
-            color = "#F59E0B"
-        else:
-            name = "Casual Occasional Shoppers"
-            desc = "Moderate engagement customers making steady, low-frequency purchases with balanced sentiment."
-            color = "#3B82F6"
-
-        personas[cid] = {
-            "cluster_name": name,
-            "description": desc,
-            "color": color
-        }
-    return personas
-
-
-def train_kmeans_pipeline(k: int = 5):
+def run_segmentation():
     print("=" * 70)
-    print("STAGE 4: K-MEANS CUSTOMER SEGMENTATION PIPELINE")
+    print("PART A: K-MEANS CUSTOMER SEGMENTATION")
     print("=" * 70)
 
-    # 1. Load data
-    df = load_feature_matrix()
-    print(f"Loaded feature matrix: {df.shape[0]} customers, {df.shape[1]} columns.")
+    os.makedirs(MODELS_DIR, exist_ok=True)
+    os.makedirs(PROCESSED_DIR, exist_ok=True)
 
-    X = df[FEATURE_COLUMNS].values
+    input_path = os.path.join(PROCESSED_DIR, "unified_customer_features.parquet")
+    if not os.path.exists(input_path):
+        raise FileNotFoundError(f"Input file not found: {input_path}")
 
-    # 2. Scale features
+    df = pd.read_parquet(input_path)
+    print(f"Loaded {len(df)} customer records with {len(df.columns)} total columns.")
+
+    # 1. Feature Selection & Preparation
+    feature_cols = [c for c in df.columns if c != "customer_id"]
+    X = df[feature_cols].copy()
+
+    # Pre-check for constant features and missing values
+    null_counts = X.isnull().sum()
+    if null_counts.sum() > 0:
+        raise ValueError(f"Found unexpected missing values in features: {null_counts[null_counts > 0].to_dict()}")
+
+    std_devs = X.std()
+    constant_features = std_devs[std_devs == 0].index.tolist()
+    if constant_features:
+        print(f"Warning: Dropping constant features: {constant_features}")
+        feature_cols = [c for c in feature_cols if c not in constant_features]
+        X = X[feature_cols]
+
+    print(f"Training on {len(feature_cols)} behavioural features.")
+
+    # 2. Feature Scaling
     scaler = StandardScaler()
     X_scaled = scaler.fit_transform(X)
 
-    # 3. Elbow & Silhouette Evaluation
-    print("Evaluating K range [2..8] for Elbow & Silhouette...")
-    elbow_metrics = evaluate_elbow_and_silhouette(X_scaled, range(2, 9))
-    for m in elbow_metrics:
-        print(f"  K={m['k']}: Inertia={m['inertia']} | Silhouette={m['silhouette_score']}")
+    # 3. K Evaluation (K=2 to 8)
+    print("\nEvaluating K from 2 to 8...")
+    k_metrics = []
+    for k in range(2, 9):
+        km = KMeans(n_clusters=k, random_state=42, n_init=10)
+        labels = km.fit_predict(X_scaled)
+        sil = silhouette_score(X_scaled, labels)
+        db = davies_bouldin_score(X_scaled, labels)
+        ch = calinski_harabasz_score(X_scaled, labels)
+        sizes = np.bincount(labels).tolist()
 
-    # 4. Train Final Model
-    print(f"\nFitting final KMeans model with K={k}...")
-    kmeans = KMeans(n_clusters=k, random_state=42, n_init=15)
-    labels = kmeans.fit_predict(X_scaled)
-    df["cluster_id"] = labels
+        k_metrics.append({
+            "k": k,
+            "inertia": round(float(km.inertia_), 2),
+            "silhouette_score": round(float(sil), 4),
+            "davies_bouldin_index": round(float(db), 4),
+            "calinski_harabasz_score": round(float(ch), 2),
+            "min_cluster_size": int(min(sizes)),
+            "max_cluster_size": int(max(sizes)),
+            "cluster_sizes": str(sizes)
+        })
 
-    # 5. Model Quality Metrics
-    sil = float(silhouette_score(X_scaled, labels))
-    db_index = float(davies_bouldin_score(X_scaled, labels))
-    ch_score = float(calinski_harabasz_score(X_scaled, labels))
+    k_metrics_df = pd.DataFrame(k_metrics)
+    k_metrics_csv = os.path.join(PROCESSED_DIR, "k_selection_metrics.csv")
+    k_metrics_df.to_csv(k_metrics_csv, index=False)
+    print(f"K-selection evaluation metrics saved to: {k_metrics_csv}")
 
-    print("\nModel Quality Metrics:")
-    print(f"  - Silhouette Score: {sil:.4f} (Higher is better, >0.25 indicates distinct clusters)")
-    print(f"  - Davies-Bouldin Index: {db_index:.4f} (Lower is better)")
-    print(f"  - Calinski-Harabasz Score: {ch_score:.2f} (Higher is better)")
+    for m in k_metrics:
+        print(f"  K={m['k']}: Silhouette={m['silhouette_score']}, Inertia={m['inertia']}, DB={m['davies_bouldin_index']}, Sizes={m['cluster_sizes']}")
 
-    # 6. PCA 2D Projection for UI Visualization
+    # Select optimal K based on highest silhouette score & best cluster separation
+    best_k_row = k_metrics_df.sort_values(by="silhouette_score", ascending=False).iloc[0]
+    selected_k = int(best_k_row["k"])
+    print(f"\n--> Selected Optimal K = {selected_k} (Highest Silhouette: {best_k_row['silhouette_score']}, Lowest Davies-Bouldin: {best_k_row['davies_bouldin_index']})")
+
+    # 4. Final K-Means Model Training
+    final_kmeans = KMeans(n_clusters=selected_k, random_state=42, n_init=10)
+    cluster_labels = final_kmeans.fit_predict(X_scaled)
+    df["cluster_id"] = cluster_labels
+
+    # 5. Unscaled Cluster Profiling & Profile-Based Naming
+    profile_mean = df.groupby("cluster_id")[feature_cols].mean()
+    cluster_sizes = df["cluster_id"].value_counts().sort_index()
+
+    # Assign descriptive names based on actual verified characteristics
+    cluster_names = {}
+    for cid in range(selected_k):
+        c_mean = profile_mean.loc[cid]
+        spend = c_mean["total_spend"]
+        recency = c_mean["recency_days"]
+        web_acts = c_mean["total_web_activities"]
+        social_acts = c_mean["total_social_interactions"]
+        sentiment = c_mean["avg_sentiment_score"]
+        cancel_rate = c_mean["cancellation_rate"]
+
+        if spend > 3000 and sentiment > 0.5:
+            name = "High-Value VIP Tech Spenders"
+        elif recency > 200 and cancel_rate > 0.15:
+            name = "At-Risk & Churned Customers"
+        elif social_acts > 12 and sentiment > 0.6:
+            name = "Active Brand Advocates & Influencers"
+        elif web_acts > 150 and spend > 1000:
+            name = "High-Activity Bargain Hunters"
+        else:
+            name = "Casual & Occasional Shoppers"
+
+        cluster_names[cid] = name
+
+    df["cluster_name"] = df["cluster_id"].map(cluster_names)
+
+    # Build comprehensive unscaled profile table
+    profiles_summary = []
+    for cid in range(selected_k):
+        c_mean = profile_mean.loc[cid]
+        profiles_summary.append({
+            "cluster_id": cid,
+            "cluster_name": cluster_names[cid],
+            "customer_count": int(cluster_sizes[cid]),
+            "percentage_of_total": round(float(cluster_sizes[cid] / len(df) * 100), 2),
+            "avg_spend": round(float(c_mean["total_spend"]), 2),
+            "avg_transactions": round(float(c_mean["total_transactions"]), 2),
+            "avg_order_value": round(float(c_mean["avg_order_value"]), 2),
+            "avg_recency_days": round(float(c_mean["recency_days"]), 1),
+            "avg_cancellation_rate": round(float(c_mean["cancellation_rate"]), 3),
+            "avg_web_activities": round(float(c_mean["total_web_activities"]), 1),
+            "avg_sessions": round(float(c_mean["total_sessions"]), 1),
+            "avg_duration_seconds": round(float(c_mean["avg_duration_seconds"]), 1),
+            "avg_product_views": round(float(c_mean["product_views_count"]), 1),
+            "avg_cart_additions": round(float(c_mean["cart_additions_count"]), 1),
+            "avg_social_interactions": round(float(c_mean["total_social_interactions"]), 1),
+            "avg_sentiment_score": round(float(c_mean["avg_sentiment_score"]), 3),
+            "avg_engagement_score": round(float(c_mean["avg_engagement_score"]), 1)
+        })
+
+    profiles_df = pd.DataFrame(profiles_summary)
+    profiles_csv = os.path.join(PROCESSED_DIR, "cluster_profiles.csv")
+    profiles_df.to_csv(profiles_csv, index=False)
+    print(f"\nCluster profiles saved to: {profiles_csv}")
+
+    # 6. PCA 2D Visualization Projection
     pca = PCA(n_components=2, random_state=42)
     pca_coords = pca.fit_transform(X_scaled)
     df["pca_x"] = np.round(pca_coords[:, 0], 4)
     df["pca_y"] = np.round(pca_coords[:, 1], 4)
-    var_ratio = pca.explained_variance_ratio_
-    print(f"PCA Variance Explained: PC1={var_ratio[0]*100:.2f}%, PC2={var_ratio[1]*100:.2f}% (Total={sum(var_ratio)*100:.2f}%)")
+    explained_var = pca.explained_variance_ratio_.tolist()
+    print(f"PCA 2D explained variance ratio: PC1={explained_var[0]:.4f}, PC2={explained_var[1]:.4f} (Total: {sum(explained_var):.4f})")
 
-    # 7. Cluster Profiling
-    profiles_raw = {}
-    cluster_counts = df["cluster_id"].value_counts().to_dict()
+    # 7. Save Processed Segment Datasets
+    segments_csv = os.path.join(PROCESSED_DIR, "customer_segments.csv")
+    segments_parquet = os.path.join(PROCESSED_DIR, "customer_segments.parquet")
 
-    for cid in range(k):
-        c_df = df[df["cluster_id"] == cid]
-        profiles_raw[str(cid)] = {
-            "cluster_id": cid,
-            "customer_count": int(cluster_counts.get(cid, 0)),
-            "percentage": round(float(cluster_counts.get(cid, 0)) / len(df) * 100, 2),
-            "avg_total_spend": round(float(c_df["total_spend"].mean()), 2),
-            "avg_order_value": round(float(c_df["avg_order_value"].mean()), 2),
-            "avg_transactions": round(float(c_df["total_transactions"].mean()), 2),
-            "avg_recency_days": round(float(c_df["recency_days"].mean()), 1),
-            "avg_cancellation_rate": round(float(c_df["cancellation_rate"].mean()), 4),
-            "avg_web_activities": round(float(c_df["total_web_activities"].mean()), 1),
-            "avg_sessions": round(float(c_df["total_sessions"].mean()), 1),
-            "avg_cart_additions": round(float(c_df["cart_additions_count"].mean()), 1),
-            "avg_social_interactions": round(float(c_df["total_social_interactions"].mean()), 1),
-            "avg_engagement_score": round(float(c_df["avg_engagement_score"].mean()), 2),
-            "avg_sentiment": round(float(c_df["avg_sentiment_score"].mean()), 4)
-        }
+    # Export CSV and Parquet
+    df.to_csv(segments_csv, index=False)
+    df.to_parquet(segments_parquet, index=False)
+    print(f"Customer segments saved to: {segments_csv} & {segments_parquet}")
 
-    # Assign explainable persona labels
-    personas = assign_cluster_personas(profiles_raw)
-    final_profiles = []
-    for cid_str, stats in profiles_raw.items():
-        stats.update(personas[cid_str])
-        final_profiles.append(stats)
+    # 8. Persist Models and Configurations
+    joblib.dump(final_kmeans, os.path.join(MODELS_DIR, "kmeans_model.joblib"))
+    joblib.dump(scaler, os.path.join(MODELS_DIR, "scaler.joblib"))
+    joblib.dump(pca, os.path.join(MODELS_DIR, "pca_model.joblib"))
 
-    # Map cluster names back to DataFrame
-    cid_to_name = {int(p["cluster_id"]): p["cluster_name"] for p in final_profiles}
-    df["cluster_name"] = df["cluster_id"].map(cid_to_name)
+    config = {
+        "selected_k": selected_k,
+        "silhouette_score": float(best_k_row["silhouette_score"]),
+        "inertia": float(best_k_row["inertia"]),
+        "davies_bouldin_index": float(best_k_row["davies_bouldin_index"]),
+        "feature_names": feature_cols,
+        "cluster_names": cluster_names,
+        "pca_explained_variance_ratio": explained_var,
+        "total_customers": len(df)
+    }
+    with open(os.path.join(MODELS_DIR, "segmentation_config.json"), "w") as f:
+        json.dump(config, f, indent=2)
 
-    # 8. Save Artifacts
-    models_dir = "ml/models"
-    os.makedirs(models_dir, exist_ok=True)
+    print("\nSaved artifacts to ml/models/:")
+    print("  - kmeans_model.joblib")
+    print("  - scaler.joblib")
+    print("  - pca_model.joblib")
+    print("  - segmentation_config.json")
 
-    joblib.dump(kmeans, os.path.join(models_dir, "kmeans_model.pkl"))
-    joblib.dump(scaler, os.path.join(models_dir, "scaler.pkl"))
-    joblib.dump(pca, os.path.join(models_dir, "pca_model.pkl"))
-
-    with open(os.path.join(models_dir, "elbow_metrics.json"), "w", encoding="utf-8") as f:
-        json.dump(elbow_metrics, f, indent=2)
-
-    with open(os.path.join(models_dir, "cluster_profiles.json"), "w", encoding="utf-8") as f:
-        json.dump({
-            "metrics": {
-                "silhouette_score": round(sil, 4),
-                "davies_bouldin_index": round(db_index, 4),
-                "calinski_harabasz_score": round(ch_score, 2),
-                "pca_explained_variance_ratio": [round(float(v), 4) for v in var_ratio]
-            },
-            "clusters": final_profiles
-        }, f, indent=2)
-
-    # Save assignments CSV
-    output_assignments_path = "data/processed/customer_segment_assignments.csv"
-    df.to_csv(output_assignments_path, index=False)
-    print(f"\nSaved customer segment assignments: {output_assignments_path}")
-
-    print("\nCluster Persona Summary:")
-    for prof in sorted(final_profiles, key=lambda x: x["customer_count"], reverse=True):
-        print(f"  [{prof['cluster_id']}] {prof['cluster_name']}: {prof['customer_count']} customers ({prof['percentage']}%) | Avg Spend: ${prof['avg_total_spend']} | Avg Sentiment: {prof['avg_sentiment']}")
-
-    print("=" * 70)
-    print("K-MEANS CLUSTERING PIPELINE COMPLETED!")
-    print("=" * 70)
+    return {
+        "selected_k": selected_k,
+        "silhouette_score": best_k_row["silhouette_score"],
+        "inertia": best_k_row["inertia"],
+        "davies_bouldin_index": best_k_row["davies_bouldin_index"],
+        "cluster_profiles": profiles_summary,
+        "total_customers": len(df)
+    }
 
 
 if __name__ == "__main__":
-    train_kmeans_pipeline()
+    run_segmentation()
