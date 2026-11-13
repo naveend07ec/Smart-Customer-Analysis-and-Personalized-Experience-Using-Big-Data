@@ -157,10 +157,10 @@ export default function DataProcessing() {
         <div className="card">
           <div className="card-title">
             <HardDrive size={18} color="#06b6d4" />
-            <span>Dual Storage Architecture (HDFS & Local Staged Store)</span>
+            <span>Storage Architecture (Local Staged Store — Explicitly Distinct from HDFS)</span>
           </div>
           <div style={{ fontSize: '0.875rem', color: '#94a3b8', lineHeight: '1.6', marginBottom: '1rem' }}>
-            To accommodate lightweight laptops (8 GB RAM) without requiring heavy background NameNode/DataNode daemons while ensuring complete Hadoop/Spark compatibility:
+            Local filesystem storage (NTFS) is utilized for lightweight offline development. The layout follows standard Hadoop-compatible partitioned directory structures (<code style={{ color: '#38bdf8' }}>data/raw/</code>, <code style={{ color: '#38bdf8' }}>data/processed/</code>) with PySpark batch processing, running without multi-node daemon overhead to preserve resources on 8 GB RAM systems.
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
             {storage_formats.map((fmt, i) => (
