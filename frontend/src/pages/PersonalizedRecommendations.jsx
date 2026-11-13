@@ -27,9 +27,12 @@ export default function PersonalizedRecommendations() {
       api.getRecommendationEvaluation()
     ])
       .then(([recsData, rulesData, evalData]) => {
-        setRecommendations(recsData.recommendations || []);
-        setAssociationRules(rulesData || []);
-        setEvaluationMetrics(evalData || []);
+        const recList = recsData?.top_recommendations || recsData?.recommendations || recsData?.data?.top_recommendations || [];
+        const ruleList = Array.isArray(rulesData) ? rulesData : (rulesData?.data || []);
+        const evalList = Array.isArray(evalData) ? evalData : (evalData?.data || []);
+        setRecommendations(recList);
+        setAssociationRules(ruleList);
+        setEvaluationMetrics(evalList);
         setLoading(false);
       })
       .catch((err) => {
@@ -43,7 +46,8 @@ export default function PersonalizedRecommendations() {
     setRecsLoading(true);
     api.getRecommendations(cid)
       .then((data) => {
-        setRecommendations(data.recommendations || []);
+        const recList = data?.top_recommendations || data?.recommendations || data?.data?.top_recommendations || [];
+        setRecommendations(recList);
         setRecsLoading(false);
       })
       .catch((err) => {

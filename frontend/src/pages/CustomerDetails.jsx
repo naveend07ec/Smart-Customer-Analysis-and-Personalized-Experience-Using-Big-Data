@@ -23,9 +23,10 @@ export default function CustomerDetails() {
     setLoading(true);
     api.getCustomers({ page, pageSize: 15, search, segment, sortBy, sortDir })
       .then((res) => {
-        setCustomers(res.customers);
-        setTotalRecords(res.total_records);
-        setTotalPages(res.total_pages);
+        const payload = res?.data || res || {};
+        setCustomers(payload.customers || []);
+        setTotalRecords(payload.total_records || 0);
+        setTotalPages(payload.total_pages || 1);
         setLoading(false);
       })
       .catch((err) => {
@@ -51,7 +52,8 @@ export default function CustomerDetails() {
     setDetailLoading(true);
     api.getCustomerDetail(cid)
       .then((data) => {
-        setCustomerDetail(data);
+        const payload = data?.data || data;
+        setCustomerDetail(payload);
         setDetailLoading(false);
       })
       .catch((err) => {
