@@ -144,10 +144,71 @@ Execute the PySpark pipeline to ingest raw CSVs, perform cleaning, compute the 2
 *(All verified outputs will be saved in `data/processed/` and `ml/models/`).*
 
 ### 4. Verify Backend REST API
-Run the automated test suite to verify all 15 endpoints:
+Run the automated test suite to verify all endpoints:
 ```powershell
-.\.venv\Scripts\python.exe scripts\test_api.py
+.\.venv\Scripts\pytest.exe tests/test_api.py -v
 ```
+
+---
+
+## REST API Endpoints & Documentation (Stage 5)
+
+The Flask backend exposes modular, cached REST endpoints serving verified Stage 3 & Stage 4 batch processing and ML results:
+
+| Endpoint | Method | Description | Key Response Fields |
+| :--- | :---: | :--- | :--- |
+| `/api/overview` | `GET` | Platform-wide KPI counters & financial summary | `total_customers`, `total_transactions`, `total_web_activities`, `total_social_interactions`, `total_customer_segments`, `total_recommendations_generated`, `total_revenue` |
+| `/api/analytics` | `GET` | Multi-channel behavioral distributions & histograms | `spending_distribution`, `purchase_frequency`, `website_engagement`, `social_engagement`, `sentiment_distribution` |
+| `/api/segments` | `GET` | K-Means cluster profiles, evaluation metrics, & PCA coordinates | `segment_names`, `customer_counts`, `segment_percentages`, `cluster_profiles`, `pca_coordinates`, `k_means_evaluation_metrics` |
+| `/api/customer/<id>`| `GET` | Individual 360° customer profile | `profile`, `transactions`, `web_activity`, `social_media`, `recommendations` (returns 404 for unknown customer, 400 for invalid ID format) |
+| `/api/recommendations/<id>` | `GET` | Top-5 explainable recommendations for target customer | `customer_id`, `recommendations_count`, `top_recommendations` (`product_id`, `product_name`, `category`, `unit_price`, `score`, `explanation`) |
+| `/api/processing` | `GET` | PySpark big data ingestion, deduplication & cleaning audit | `source_dataset_counts`, `cleaned_record_counts`, `duplicates_removed`, `missing_values_handled`, `feature_matrix_dimensions`, `processing_output_status` |
+| `/api/health` | `GET` | Service health status check | `status: "healthy"`, `service`, `version` |
+
+### Example JSON Responses
+
+#### 1. `GET /api/overview`
+```json
+{
+  "status": "success",
+  "data": {
+    "total_customers": 1200,
+    "total_transactions": 12214,
+    "total_web_activities": 120944,
+    "total_social_interactions": 8828,
+    "total_customer_segments": 5,
+    "total_recommendations_generated": 6000,
+    "total_revenue": 1807439.49,
+    "avg_spend_per_customer": 1506.20,
+    "fulfillment_rate": 95.56,
+    "avg_sentiment_score": 0.48
+  }
+}
+```
+
+#### 2. `GET /api/recommendations/CUST_0002`
+```json
+{
+  "status": "success",
+  "data": {
+    "customer_id": "CUST_0002",
+    "recommendations_count": 5,
+    "top_recommendations": [
+      {
+        "category": "Home & Kitchen",
+        "explanation": "Frequently bought together with 'Ergonomic Mechanical Keyboard' in customer orders (Association Lift: 2.1x).",
+        "product_id": "PROD_108",
+        "product_name": "Stainless Steel Espresso Coffee Maker",
+        "reason_type": "association_rule",
+        "score": 92.4,
+        "unit_price": 189.99
+      }
+    ]
+  }
+}
+```
+
+---
 
 ### 5. Launch the Application
 

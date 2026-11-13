@@ -12,11 +12,8 @@ def get_analytics_root():
     sentiment = service.get_sentiment_analysis()
     channel = service.get_channel_attribution()
 
-    monetary_bins = rfm.get("monetary_distribution", {}).get("bins", [])
-    freq_bins = rfm.get("frequency_distribution", {}).get("bins", [])
-
-    spending_dist = {f"${b['min']}-${b['max']}": b["count"] for b in monetary_bins}
-    purchase_freq = {f"{b['min']}-{b['max']} orders": b["count"] for b in freq_bins}
+    spending_dist = {item["bin"]: item["count"] for item in rfm.get("spend", [])}
+    purchase_freq = {item["bin"]: item["count"] for item in rfm.get("frequency", [])}
 
     return jsonify({
         "status": "success",
@@ -27,7 +24,7 @@ def get_analytics_root():
             "social_engagement": sentiment.get("metrics", {}),
             "sentiment_distribution": sentiment.get("sentiment_distribution", {}),
             "aggregated_statistics": {
-                "rfm_summary": rfm.get("summary", {}),
+                "recency_distribution": rfm.get("recency", []),
                 "top_channels": channel.get("top_channels", [])
             }
         }

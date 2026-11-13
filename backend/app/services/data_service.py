@@ -187,7 +187,7 @@ class DataService:
         recency_labels = ["0-30d", "31-60d", "61-90d", "91-180d", "180d+"]
         r_cut = pd.cut(self.df_segments["recency_days"], bins=recency_bins, labels=recency_labels).value_counts()
 
-        spend_bins = [0, 250, 500, 1000, 2500, 10000]
+        spend_bins = [-0.01, 250, 500, 1000, 2500, 100000]
         spend_labels = ["$0-250", "$251-500", "$501-1k", "$1k-2.5k", "$2.5k+"]
         s_cut = pd.cut(self.df_segments["total_spend"], bins=spend_bins, labels=spend_labels).value_counts()
 
