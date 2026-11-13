@@ -25,13 +25,25 @@ def get_customer_recommendations(customer_id):
         }), 404
 
     recs = service.get_customer_recommendations(clean_id)
+    eval_metrics = service.get_recommendation_evaluation()
     return jsonify({
         "status": "success",
         "data": {
             "customer_id": clean_id,
             "recommendations_count": len(recs),
-            "top_recommendations": recs
+            "top_recommendations": recs,
+            "evaluation_metrics": eval_metrics
         }
+    })
+
+
+@recommendations_bp.route("/evaluation", methods=["GET"])
+def get_recommendation_evaluation():
+    service = DataService.get_instance()
+    eval_metrics = service.get_recommendation_evaluation()
+    return jsonify({
+        "status": "success",
+        "data": eval_metrics
     })
 
 

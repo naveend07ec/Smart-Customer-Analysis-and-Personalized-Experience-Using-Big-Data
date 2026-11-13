@@ -37,7 +37,7 @@ def get_pipeline_summary():
             },
             "missing_values_handled": metrics.get("transactions_imputed_payment", 73),
             "meaningful_nulls_preserved": metrics.get("meaningful_null_product_ids_preserved", 60540),
-            "feature_matrix_dimensions": cleaned.get("unified_feature_matrix", "1200 rows x 24 columns"),
+            "feature_matrix_dimensions": cleaned.get("unified_feature_matrix", "1200 rows x 23 columns"),
             "customer_coverage": cleaned.get("customer_coverage", "100.0%"),
             "processing_output_status": "All 7 verified PySpark batch datasets & ML models available locally"
         }
