@@ -1,0 +1,5 @@
+# Backend & Big Data Dependencies
+# Academic Project: Smart Customer Analysis and Personalized Experience Using Big Data
+
+pyspark==3.5.1
+py4j==0.10.9.7
