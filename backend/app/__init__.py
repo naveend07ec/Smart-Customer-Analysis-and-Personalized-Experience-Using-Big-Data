@@ -7,6 +7,8 @@ from backend.app.routes.segmentation_routes import segmentation_bp
 from backend.app.routes.customer_routes import customer_bp
 from backend.app.routes.recommendation_routes import recommendations_bp
 from backend.app.routes.pipeline_routes import pipeline_bp
+from backend.app.routes.churn_routes import churn_bp
+from backend.app.routes.ingestion_routes import ingestion_bp
 
 
 def create_app(config_override=None) -> Flask:
@@ -26,6 +28,8 @@ def create_app(config_override=None) -> Flask:
     app.register_blueprint(customer_bp)
     app.register_blueprint(recommendations_bp)
     app.register_blueprint(pipeline_bp)
+    app.register_blueprint(churn_bp)
+    app.register_blueprint(ingestion_bp)
 
     # Register aliases to satisfy strict prompt endpoint paths
     # /api/segments alias for /api/segmentation
@@ -34,6 +38,8 @@ def create_app(config_override=None) -> Flask:
     app.register_blueprint(customer_bp, url_prefix="/api/customer", name="customer_alias")
     # /api/processing alias for /api/pipeline
     app.register_blueprint(pipeline_bp, url_prefix="/api/processing", name="processing_alias")
+    # /api/pipeline/ingest alias for /api/ingestion
+    app.register_blueprint(ingestion_bp, url_prefix="/api/pipeline/ingest", name="ingestion_alias")
 
     @app.route("/api/health", methods=["GET"])
     @app.route("/health", methods=["GET"])

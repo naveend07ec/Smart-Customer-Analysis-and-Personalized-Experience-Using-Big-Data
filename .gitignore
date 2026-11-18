@@ -63,3 +63,14 @@ Thumbs.db
 # Large raw datasets (track sample datasets in git, ignore very large raw dumps)
 # data/raw/*.csv
 
+
+# Runtime batch uploads, versioned execution artifacts & backups
+data/uploads/
+data/versions/
+data/exports/
+data/_backup_prior_to_promotion/
+data/_baseline_backup/
+ml/models/_backup_prior_to_promotion/
+ml/models/_baseline_backup/
+ml/models/versions/
+scratch/

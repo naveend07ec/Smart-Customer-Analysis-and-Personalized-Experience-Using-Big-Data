@@ -48,8 +48,8 @@ def build_interaction_matrix():
     tx_df = pd.read_parquet(tx_path)
     web_df = pd.read_parquet(web_path)
 
-    # 1. Product Metadata Catalog
-    prod_meta = tx_df[["product_id", "product_name", "product_category", "unit_price"]].drop_duplicates()
+    # 1. Product Metadata Catalog (ensure 1 row per product_id)
+    prod_meta = tx_df[["product_id", "product_name", "product_category", "unit_price"]].drop_duplicates(subset=["product_id"], keep="last")
     prod_meta = prod_meta.set_index("product_id")
 
     # 2. Extract transaction interactions

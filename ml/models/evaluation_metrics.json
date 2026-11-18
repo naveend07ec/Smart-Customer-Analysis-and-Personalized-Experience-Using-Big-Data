@@ -1,0 +1,32 @@
+[
+  {
+    "evaluation_metric": "Hit_Rate@5",
+    "metric_value": 0.7756,
+    "benchmark_baseline": 0.76,
+    "interpretation": "76%+ top-5 holdout hit rate"
+  },
+  {
+    "evaluation_metric": "Precision@5",
+    "metric_value": 0.3205,
+    "benchmark_baseline": 0.3007,
+    "interpretation": "Relevant recommendations per customer"
+  },
+  {
+    "evaluation_metric": "Recall@5",
+    "metric_value": 0.6107,
+    "benchmark_baseline": 0.611,
+    "interpretation": "Coverage of held-out test interactions"
+  },
+  {
+    "evaluation_metric": "Catalog_Coverage",
+    "metric_value": 0.8378,
+    "benchmark_baseline": 1.0,
+    "interpretation": "Catalog items represented in top recommendations"
+  },
+  {
+    "evaluation_metric": "Evaluated_Customers_Count",
+    "metric_value": 1301.0,
+    "benchmark_baseline": 1200.0,
+    "interpretation": "Eligible customers with >=3 interactions evaluated"
+  }
+]

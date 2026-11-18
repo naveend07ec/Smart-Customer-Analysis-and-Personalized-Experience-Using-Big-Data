@@ -35,6 +35,15 @@ def get_kpis():
     return jsonify(service.get_kpi_summary())
 
 
+@overview_bp.route("/data-composition", methods=["GET"])
+def get_data_composition():
+    service = DataService.get_instance()
+    try:
+        return jsonify(service.get_data_composition())
+    except Exception as e:
+        return jsonify({"error": str(e), "status": "error"}), 400
+
+
 @overview_bp.route("/segment-distribution", methods=["GET"])
 def get_segment_distribution():
     service = DataService.get_instance()

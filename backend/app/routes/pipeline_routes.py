@@ -23,6 +23,7 @@ def get_pipeline_summary():
             "pipeline_framework": summary.get("framework"),
             "execution_mode": summary.get("execution_mode"),
             "java_runtime": summary.get("java_runtime"),
+            "hdfs_storage": summary.get("hdfs_storage", {}),
             "raw_datasets": summary.get("raw_datasets", {}),
             "cleaning_metrics": summary.get("cleaning_metrics", {}),
             "processed_datasets": summary.get("processed_datasets", {}),

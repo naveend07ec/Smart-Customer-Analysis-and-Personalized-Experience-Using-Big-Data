@@ -1,0 +1,27 @@
+{
+  "model_name": "Random Forest Classifier",
+  "model_version": "v1.0-rf",
+  "prediction_cutoff": "2024-10-01 00:00:00",
+  "total_customers_evaluated": 1177,
+  "risk_distribution": {
+    "low_risk": {
+      "count": 677,
+      "percentage": 57.5,
+      "threshold": "Score < 35.0"
+    },
+    "medium_risk": {
+      "count": 271,
+      "percentage": 23.0,
+      "threshold": "35.0 <= Score < 65.0"
+    },
+    "high_risk": {
+      "count": 229,
+      "percentage": 19.5,
+      "threshold": "Score >= 65.0"
+    }
+  },
+  "predicted_churn_counts": {
+    "predicted_retained_0": 750,
+    "predicted_churned_1": 427
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "pipeline_name": "Smart Customer Analysis Big Data Pipeline",
+  "storage_mode": "hdfs",
+  "execution_mode": "PySpark local[2] Batch Processing",
+  "timestamp": "2026-11-14 10:47:52",
+  "elapsed_seconds": 65.99,
+  "hdfs": {
+    "namenode_uri": "hdfs://172.27.214.120:9000",
+    "base_uri": "hdfs://172.27.214.120:9000/customer-analytics",
+    "wsl_ip": "172.27.214.120",
+    "status": "CONNECTED",
+    "datasets_stored": 7
+  },
+  "datasets": {
+    "transactions": {
+      "raw": 12239,
+      "cleaned": 12214,
+      "duplicates_removed": 25
+    },
+    "web_activity": {
+      "raw": 120979,
+      "cleaned": 120944,
+      "duplicates_removed": 35
+    },
+    "social_media": {
+      "raw": 8828,
+      "cleaned": 8828,
+      "duplicates_removed": 0
+    },
+    "unified_customer_features": {
+      "total_customers": 1200,
+      "features_count": 23,
+      "unexpected_nulls": 0
+    }
+  }
+}

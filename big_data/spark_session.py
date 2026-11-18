@@ -53,6 +53,7 @@ def get_spark_session(app_name: str = "SmartCustomerBigDataPipeline") -> SparkSe
         .config("spark.sql.execution.arrow.pyspark.enabled", "true")
         .config("spark.ui.enabled", "false")
         .config("spark.ui.showConsoleProgress", "false")
+        .config("spark.hadoop.dfs.client.use.datanode.hostname", "true")
     )
 
     spark = builder.getOrCreate()

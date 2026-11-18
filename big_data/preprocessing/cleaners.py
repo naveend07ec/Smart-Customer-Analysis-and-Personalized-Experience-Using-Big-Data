@@ -6,6 +6,7 @@ Applies declarative transformations, deduplication, imputation, and validation.
 from pyspark.sql import DataFrame
 from pyspark.sql import functions as F
 from pyspark.sql.types import TimestampType
+from pyspark.sql.window import Window
 
 
 def clean_transactions(df: DataFrame) -> tuple[DataFrame, dict]:
@@ -20,8 +21,16 @@ def clean_transactions(df: DataFrame) -> tuple[DataFrame, dict]:
     """
     orig_count = df.count()
 
-    # 1. Deduplicate by transaction_id
-    dedup_df = df.dropDuplicates(["transaction_id"])
+    # 1. Enterprise content-aware deduplication
+    # Eliminates genuine duplicate transmissions while preserving distinct transactions with colliding batch keys
+    content_dedup = df.dropDuplicates(["customer_id", "transaction_date", "product_id", "total_amount"])
+    window_spec_tx = Window.partitionBy("transaction_id").orderBy(F.col("transaction_date").asc_nulls_last())
+    disambiguated_tx = content_dedup.withColumn("_rn", F.row_number().over(window_spec_tx))
+    dedup_df = disambiguated_tx.withColumn(
+        "transaction_id",
+        F.when(F.col("_rn") > 1, F.concat(F.col("transaction_id"), F.lit("_b"), F.col("_rn")))
+         .otherwise(F.col("transaction_id"))
+    ).drop("_rn")
     dedup_count = dedup_df.count()
     duplicates_removed = orig_count - dedup_count
 
@@ -82,8 +91,15 @@ def clean_web_activity(df: DataFrame) -> tuple[DataFrame, dict]:
     """
     orig_count = df.count()
 
-    # 1. Deduplicate by activity_id
-    dedup_df = df.dropDuplicates(["activity_id"])
+    # 1. Enterprise content-aware deduplication
+    content_dedup = df.dropDuplicates(["customer_id", "timestamp", "page_url", "session_id"])
+    window_spec_web = Window.partitionBy("activity_id").orderBy(F.col("timestamp").asc_nulls_last())
+    disambiguated_web = content_dedup.withColumn("_rn", F.row_number().over(window_spec_web))
+    dedup_df = disambiguated_web.withColumn(
+        "activity_id",
+        F.when(F.col("_rn") > 1, F.concat(F.col("activity_id"), F.lit("_b"), F.col("_rn")))
+         .otherwise(F.col("activity_id"))
+    ).drop("_rn")
     dedup_count = dedup_df.count()
     duplicates_removed = orig_count - dedup_count
 
@@ -142,8 +158,15 @@ def clean_social_media(df: DataFrame) -> tuple[DataFrame, dict]:
     """
     orig_count = df.count()
 
-    # 1. Deduplicate by interaction_id
-    dedup_df = df.dropDuplicates(["interaction_id"])
+    # 1. Enterprise content-aware deduplication
+    content_dedup = df.dropDuplicates(["customer_id", "timestamp", "platform", "interaction_type"])
+    window_spec_soc = Window.partitionBy("interaction_id").orderBy(F.col("timestamp").asc_nulls_last())
+    disambiguated_soc = content_dedup.withColumn("_rn", F.row_number().over(window_spec_soc))
+    dedup_df = disambiguated_soc.withColumn(
+        "interaction_id",
+        F.when(F.col("_rn") > 1, F.concat(F.col("interaction_id"), F.lit("_b"), F.col("_rn")))
+         .otherwise(F.col("interaction_id"))
+    ).drop("_rn")
     dedup_count = dedup_df.count()
     duplicates_removed = orig_count - dedup_count
 

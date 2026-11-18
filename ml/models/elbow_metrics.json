@@ -1,37 +1,93 @@
 [
   {
     "k": 2,
-    "inertia": 17925.61,
-    "silhouette_score": 0.3314
+    "inertia": 20439.88,
+    "silhouette_score": 0.3352,
+    "davies_bouldin": 1.2654,
+    "cluster_sizes": [
+      742,
+      702
+    ]
   },
   {
     "k": 3,
-    "inertia": 14460.38,
-    "silhouette_score": 0.3194
+    "inertia": 17039.21,
+    "silhouette_score": 0.3147,
+    "davies_bouldin": 1.2466,
+    "cluster_sizes": [
+      411,
+      701,
+      332
+    ]
   },
   {
     "k": 4,
-    "inertia": 11642.59,
-    "silhouette_score": 0.3365
+    "inertia": 14339.14,
+    "silhouette_score": 0.3176,
+    "davies_bouldin": 1.3565,
+    "cluster_sizes": [
+      512,
+      411,
+      332,
+      189
+    ]
   },
   {
     "k": 5,
-    "inertia": 9784.31,
-    "silhouette_score": 0.3533
+    "inertia": 12558.26,
+    "silhouette_score": 0.3246,
+    "davies_bouldin": 1.251,
+    "cluster_sizes": [
+      196,
+      512,
+      327,
+      220,
+      189
+    ]
   },
   {
     "k": 6,
-    "inertia": 9175.91,
-    "silhouette_score": 0.3484
+    "inertia": 10918.46,
+    "silhouette_score": 0.3478,
+    "davies_bouldin": 1.1607,
+    "cluster_sizes": [
+      220,
+      66,
+      196,
+      446,
+      189,
+      327
+    ]
   },
   {
     "k": 7,
-    "inertia": 8848.88,
-    "silhouette_score": 0.3502
+    "inertia": 10169.65,
+    "silhouette_score": 0.3493,
+    "davies_bouldin": 1.1912,
+    "cluster_sizes": [
+      196,
+      70,
+      65,
+      219,
+      442,
+      124,
+      328
+    ]
   },
   {
     "k": 8,
-    "inertia": 8426.4,
-    "silhouette_score": 0.3337
+    "inertia": 9553.61,
+    "silhouette_score": 0.3229,
+    "davies_bouldin": 1.2415,
+    "cluster_sizes": [
+      196,
+      86,
+      328,
+      219,
+      71,
+      48,
+      121,
+      375
+    ]
   }
 ]

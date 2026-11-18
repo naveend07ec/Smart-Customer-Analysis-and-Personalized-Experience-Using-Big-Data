@@ -1,0 +1,12 @@
+{
+  "dataset_version": "v_batch_20261118_131539_cb5c",
+  "total_cleaned_transactions": 13422,
+  "completed_transactions": 12783,
+  "valid_rule_mining_rows": 12783,
+  "unique_customer_baskets": 1319,
+  "multi_item_baskets": 1228,
+  "single_item_baskets": 91,
+  "rules_mined": 400,
+  "min_support": 0.01,
+  "min_lift": 1.05
+}

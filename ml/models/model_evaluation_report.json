@@ -1,0 +1,107 @@
+{
+  "version_id": "v_batch_20261118_131539_cb5c",
+  "retrained_at": "2026-11-18T13:42:34.653573",
+  "status": "EVALUATION_COMPLETED",
+  "models": {
+    "kmeans": {
+      "status": "TRAINING_COMPLETED",
+      "selected_k": 7,
+      "silhouette_score": 0.3493,
+      "davies_bouldin": 1.1912,
+      "inertia": 10169.65,
+      "customer_count": 1444
+    },
+    "recommender": {
+      "status": "TRAINING_COMPLETED",
+      "hit_rate_5": 0.7756,
+      "precision_5": 0.3205,
+      "recall_5": 0.6107,
+      "catalog_coverage": 0.8378,
+      "evaluated_customers_count": 1301,
+      "rules_mined": 400,
+      "rules_source": "MINED",
+      "rules_status": "MINED_SUCCESSFULLY",
+      "rules_note": "Discovered 400 association rules using customer-level co-purchasing baskets.",
+      "recommendations_generated": 1374,
+      "association_recs_count": 6641,
+      "collaborative_recs_count": 229,
+      "rules_metadata": {
+        "dataset_version": "v_batch_20261118_131539_cb5c",
+        "total_cleaned_transactions": 13422,
+        "completed_transactions": 12783,
+        "valid_rule_mining_rows": 12783,
+        "unique_customer_baskets": 1319,
+        "multi_item_baskets": 1228,
+        "single_item_baskets": 91,
+        "rules_mined": 400,
+        "min_support": 0.01,
+        "min_lift": 1.05
+      }
+    },
+    "churn": {
+      "status": "TRAINING_COMPLETED",
+      "roc_auc": 0.8116,
+      "recall": 0.709,
+      "f1_score": 0.7143,
+      "total_evaluated": 1325
+    }
+  },
+  "comparison": [
+    {
+      "model": "K-Means Segmentation",
+      "metric": "Silhouette Score",
+      "baseline": 0.3451,
+      "new_batch": 0.3493,
+      "difference": 0.0042,
+      "status": "COMPLETED"
+    },
+    {
+      "model": "Recommendation Engine",
+      "metric": "Hit Rate@5",
+      "baseline": 0.76,
+      "new_batch": 0.7756,
+      "difference": 0.0156,
+      "status": "COMPLETED"
+    },
+    {
+      "model": "Recommendation Engine",
+      "metric": "Precision@5",
+      "baseline": 0.3007,
+      "new_batch": 0.3205,
+      "difference": 0.0198,
+      "status": "COMPLETED"
+    },
+    {
+      "model": "Recommendation Engine",
+      "metric": "Recall@5",
+      "baseline": 0.611,
+      "new_batch": 0.6107,
+      "difference": -0.0003,
+      "status": "COMPLETED"
+    },
+    {
+      "model": "Recommendation Engine",
+      "metric": "Catalog Coverage",
+      "baseline": 1.0,
+      "new_batch": 0.8378,
+      "difference": -0.1622,
+      "status": "COMPLETED"
+    },
+    {
+      "model": "Recommendation Engine",
+      "metric": "Association Rules Mined",
+      "baseline": 394,
+      "new_batch": 400,
+      "difference": 6,
+      "status": "MINED_SUCCESSFULLY"
+    },
+    {
+      "model": "Customer Churn Prediction",
+      "metric": "ROC-AUC",
+      "baseline": 0.9365,
+      "new_batch": 0.8116,
+      "difference": -0.1249,
+      "status": "TRAINING_COMPLETED"
+    }
+  ]
+}

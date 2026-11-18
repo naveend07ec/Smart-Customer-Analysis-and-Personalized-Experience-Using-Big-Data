@@ -1,0 +1,43 @@
+{
+  "version_id": "v_batch_20261118_131539_cb5c",
+  "batch_id": "batch_20261118_131539_cb5c",
+  "active_dataset_version": "v_batch_20261118_131539_cb5c",
+  "current_batch_id": "batch_20261118_131539_cb5c",
+  "previous_batch_count": 4,
+  "parent_version": "v_batch_20261118_131539_cb5c",
+  "included_batches": [
+    "batch_20261118_113456_068e",
+    "batch_20261118_114510_ce2a",
+    "batch_20261118_120843_5c51",
+    "batch_20261118_122707_304e",
+    "batch_20261118_131539_cb5c"
+  ],
+  "historical": {
+    "total_customers": 1300,
+    "total_transactions": 13338,
+    "valid_completed_transactions": 12719,
+    "total_web_activities": 131621,
+    "total_social_interactions": 9845,
+    "total_revenue": 2010755.22
+  },
+  "newly_added": {
+    "new_unique_customers": 144,
+    "existing_customers_with_new_activity": 93,
+    "valid_transactions": 84,
+    "total_transactions": 84,
+    "valid_completed_transactions": 64,
+    "valid_web_activities": 150,
+    "total_web_activities": 150,
+    "valid_social_interactions": 151,
+    "total_social_interactions": 151,
+    "new_revenue": 9291.87
+  },
+  "overall": {
+    "total_customers": 1444,
+    "total_transactions": 13422,
+    "valid_completed_transactions": 12783,
+    "total_web_activities": 131771,
+    "total_social_interactions": 9996,
+    "total_revenue": 2020047.09
+  }
+}

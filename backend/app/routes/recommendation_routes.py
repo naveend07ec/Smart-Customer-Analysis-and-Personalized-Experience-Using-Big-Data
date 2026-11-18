@@ -52,7 +52,18 @@ def get_association_rules():
     service = DataService.get_instance()
     limit = request.args.get("limit", default=50, type=int)
     rules = service.get_top_association_rules(limit=limit)
+    metadata = service.get_rules_metadata()
     return jsonify({
         "status": "success",
-        "data": rules
+        "data": rules,
+        "metadata": metadata
+    })
+
+
+@recommendations_bp.route("/metadata", methods=["GET"])
+def get_recommendation_metadata():
+    service = DataService.get_instance()
+    return jsonify({
+        "status": "success",
+        "data": service.get_rules_metadata()
     })

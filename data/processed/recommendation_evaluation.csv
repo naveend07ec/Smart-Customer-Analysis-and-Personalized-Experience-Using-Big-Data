@@ -1,6 +1,6 @@
 evaluation_metric,metric_value
-Precision@5,0.3007
-Recall@5,0.611
-Hit_Rate@5,0.76
-Catalog_Coverage,1.0
-Evaluated_Customers_Count,1200.0
+Precision@5,0.3205
+Recall@5,0.6107
+Hit_Rate@5,0.7756
+Catalog_Coverage,0.8378
+Evaluated_Customers_Count,1301.0

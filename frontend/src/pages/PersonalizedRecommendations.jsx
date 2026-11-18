@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { api } from '../services/api';
-import { Sparkles, BrainCircuit, ArrowRight, Tag, HelpCircle, Layers, CheckCircle2, Award } from 'lucide-react';
+import { Sparkles, BrainCircuit, ArrowRight, Tag, Award } from 'lucide-react';
 
 export default function PersonalizedRecommendations() {
   const [selectedCustomerId, setSelectedCustomerId] = useState('CUST_0001');
   const [recommendations, setRecommendations] = useState([]);
   const [associationRules, setAssociationRules] = useState([]);
+  const [rulesMetadata, setRulesMetadata] = useState(null);
   const [evaluationMetrics, setEvaluationMetrics] = useState([]);
   const [loading, setLoading] = useState(true);
   const [recsLoading, setRecsLoading] = useState(false);
@@ -29,9 +30,11 @@ export default function PersonalizedRecommendations() {
       .then(([recsData, rulesData, evalData]) => {
         const recList = recsData?.top_recommendations || recsData?.recommendations || recsData?.data?.top_recommendations || [];
         const ruleList = Array.isArray(rulesData) ? rulesData : (rulesData?.data || []);
+        const rulesMeta = rulesData?.metadata || null;
         const evalList = Array.isArray(evalData) ? evalData : (evalData?.data || []);
         setRecommendations(recList);
         setAssociationRules(ruleList);
+        setRulesMetadata(rulesMeta);
         setEvaluationMetrics(evalList);
         setLoading(false);
       })
@@ -61,7 +64,7 @@ export default function PersonalizedRecommendations() {
       <div className="page-container">
         <div className="loading-spinner">
           <div className="spinner"></div>
-          <div>Loading Collaborative Filtering & Association Rules...</div>
+          <div>Loading Recommendation Engine...</div>
         </div>
       </div>
     );
@@ -72,7 +75,7 @@ export default function PersonalizedRecommendations() {
       case 'association_rule':
         return <span className="badge badge-purple">Association Rule (Market Basket)</span>;
       case 'collaborative_peer':
-        return <span className="badge badge-emerald">Collaborative Filtering (Peers)</span>;
+        return <span className="badge badge-sage">Collaborative Filtering (Peers)</span>;
       case 'browsing_intent':
         return <span className="badge badge-blue">Browsing Intent (Clickstream)</span>;
       case 'cluster_affinity':
@@ -85,28 +88,30 @@ export default function PersonalizedRecommendations() {
   return (
     <div className="page-container">
       <div className="page-header">
-        <h1 className="page-title">Explainable Personalized Recommendations</h1>
-        <p className="page-subtitle">
-          Multi-strategy recommendation engine combining User-Item Collaborative Filtering, Market Basket Association Rules, and Segment Behavioral Affinity.
-        </p>
+        <div>
+          <h1 className="page-title">Explainable Personalized Recommendations</h1>
+          <p className="page-subtitle">
+            Multi-strategy recommendation engine combining User-Item Collaborative Filtering, Market Basket Association Rules, and Segment Behavioral Affinity.
+          </p>
+        </div>
       </div>
 
       {/* Offline Recommendation Model Evaluation Banner */}
       {evaluationMetrics && evaluationMetrics.length > 0 && (
-        <div className="card" style={{ marginBottom: '1.5rem', borderLeft: '4px solid #10b981' }}>
+        <div className="card" style={{ marginBottom: '1.5rem', borderLeft: '3px solid var(--accent-blue)' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem', flexWrap: 'wrap', gap: '0.5rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <Award size={18} color="#10b981" />
-              <span style={{ fontWeight: '600', color: '#fff' }}>Recommender Offline Validation (Zero-Leakage 80/20 Holdout)</span>
+              <Award size={17} color="var(--accent-blue)" />
+              <span style={{ fontWeight: '600', color: 'var(--text-primary)', fontSize: '0.9rem' }}>Recommender Offline Validation (Zero-Leakage 80/20 Holdout)</span>
             </div>
-            <span className="badge badge-emerald">Verified Zero-Leakage Protocol</span>
+            <span className="badge badge-sage">Verified Zero-Leakage Protocol</span>
           </div>
-          <div className="grid-4" style={{ gap: '1rem' }}>
+          <div className="grid-4" style={{ gap: '0.75rem' }}>
             {evaluationMetrics.map((m, i) => (
-              <div key={i} style={{ backgroundColor: '#0f172a', padding: '0.75rem', borderRadius: '8px', border: '1px solid #1e293b' }}>
-                <div style={{ fontSize: '0.75rem', color: '#94a3b8', marginBottom: '0.2rem' }}>{m.metric}</div>
-                <div style={{ fontSize: '1.25rem', fontWeight: '700', color: '#10b981' }}>{m.value}</div>
-                <div style={{ fontSize: '0.7rem', color: '#64748b', marginTop: '0.2rem' }}>{m.description}</div>
+              <div key={i} className="glass-sub-card" style={{ padding: '0.75rem' }}>
+                <div style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', marginBottom: '0.2rem' }}>{m.metric}</div>
+                <div style={{ fontSize: '1.2rem', fontWeight: '600', color: 'var(--text-primary)' }}>{m.value}</div>
+                <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', marginTop: '0.2rem' }}>{m.description}</div>
               </div>
             ))}
           </div>
@@ -117,13 +122,13 @@ export default function PersonalizedRecommendations() {
       <div className="card" style={{ marginBottom: '2rem' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
           <div>
-            <div style={{ fontSize: '0.85rem', color: '#94a3b8', marginBottom: '0.35rem' }}>Select Target Customer:</div>
+            <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '0.45rem' }}>Select Target Customer:</div>
             <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
               {sampleArchetypes.map((arch) => (
                 <button
                   key={arch.id}
                   className={`btn ${selectedCustomerId === arch.id ? 'btn-primary' : 'btn-secondary'}`}
-                  style={{ fontSize: '0.8rem', padding: '0.4rem 0.8rem' }}
+                  style={{ fontSize: '0.8rem', padding: '0.35rem 0.75rem' }}
                   onClick={() => handleFetchCustomerRecs(arch.id)}
                 >
                   {arch.label}
@@ -138,14 +143,6 @@ export default function PersonalizedRecommendations() {
               placeholder="e.g. CUST_0042"
               value={selectedCustomerId}
               onChange={(e) => setSelectedCustomerId(e.target.value.toUpperCase())}
-              style={{
-                padding: '0.45rem 0.75rem',
-                borderRadius: '8px',
-                border: '1px solid #334155',
-                backgroundColor: '#0f172a',
-                color: '#fff',
-                fontSize: '0.875rem'
-              }}
             />
             <button
               className="btn btn-secondary"
@@ -159,9 +156,9 @@ export default function PersonalizedRecommendations() {
 
       {/* Recommendations Output Grid */}
       <div style={{ marginBottom: '2.5rem' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
-          <Sparkles size={20} color="#10b981" />
-          <h2 style={{ fontSize: '1.2rem', fontWeight: '600', color: '#fff' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', marginBottom: '1rem' }}>
+          <Sparkles size={17} color="var(--accent-blue)" />
+          <h2 style={{ fontSize: '1.1rem', fontWeight: '600', color: 'var(--text-primary)' }}>
             Top Tailored Recommendations for {selectedCustomerId}
           </h2>
         </div>
@@ -172,7 +169,7 @@ export default function PersonalizedRecommendations() {
             <div>Evaluating Collaborative Similarity & Co-Purchases...</div>
           </div>
         ) : recommendations.length === 0 ? (
-          <div className="card" style={{ textAlign: 'center', padding: '2rem', color: '#94a3b8' }}>
+          <div className="card" style={{ textAlign: 'center', padding: '2rem', color: 'var(--text-secondary)' }}>
             No recommendations generated for this customer ID.
           </div>
         ) : (
@@ -180,24 +177,24 @@ export default function PersonalizedRecommendations() {
             {recommendations.map((rec, idx) => (
               <div key={rec.product_id} className="card" style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                  <span className="badge badge-blue">Rank #{idx + 1}</span>
+                  <span className="badge badge-purple">Rank #{idx + 1}</span>
                   <div style={{ textAlign: 'right' }}>
-                    <div style={{ fontSize: '1.25rem', fontWeight: '700', color: '#10b981' }}>
+                    <div style={{ fontSize: '1.2rem', fontWeight: '600', color: 'var(--accent-green)' }}>
                       {rec.score} / 100
                     </div>
-                    <div style={{ fontSize: '0.7rem', color: '#94a3b8' }}>Recommendation Score</div>
+                    <div style={{ fontSize: '0.68rem', color: 'var(--text-secondary)' }}>Recommendation Score</div>
                   </div>
                 </div>
 
                 <div>
-                  <h3 style={{ fontSize: '1.05rem', fontWeight: '600', color: '#fff', marginBottom: '0.25rem' }}>
+                  <h3 style={{ fontSize: '0.975rem', fontWeight: '600', color: 'var(--text-primary)', marginBottom: '0.25rem' }}>
                     {rec.product_name}
                   </h3>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.8rem', color: '#94a3b8' }}>
-                    <Tag size={14} />
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.78rem', color: 'var(--text-secondary)' }}>
+                    <Tag size={13} />
                     <span>{rec.category}</span>
                     <span>•</span>
-                    <span style={{ fontWeight: '600', color: '#fff' }}>${rec.unit_price}</span>
+                    <span style={{ fontWeight: '600', color: 'var(--text-primary)' }}>${rec.unit_price}</span>
                   </div>
                 </div>
 
@@ -205,21 +202,20 @@ export default function PersonalizedRecommendations() {
                   {getReasonBadge(rec.reason_type)}
                 </div>
 
-                <div style={{
-                  backgroundColor: '#0f172a',
+                <div className="glass-sub-card" style={{
                   padding: '0.75rem',
-                  borderRadius: '8px',
-                  border: '1px solid #1e293b',
-                  fontSize: '0.8rem',
-                  color: '#93c5fd',
+                  fontSize: '0.78rem',
+                  color: 'var(--text-primary)',
                   marginTop: 'auto',
                   lineHeight: '1.4'
                 }}>
-                  <div style={{ fontWeight: '600', color: '#38bdf8', marginBottom: '0.2rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                    <BrainCircuit size={14} />
+                  <div style={{ fontWeight: '600', color: 'var(--accent-blue)', marginBottom: '0.2rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                    <BrainCircuit size={13} />
                     <span>Explainable Reasoning:</span>
                   </div>
-                  {rec.explanation}
+                  <div style={{ fontStyle: 'italic', color: 'var(--text-secondary)' }}>
+                    "{rec.explanation}"
+                  </div>
                 </div>
               </div>
             ))}
@@ -230,11 +226,29 @@ export default function PersonalizedRecommendations() {
       {/* Market Basket Association Rules Mining Section */}
       <div className="card">
         <div className="card-title">
-          <BrainCircuit size={20} color="#8b5cf6" />
-          <span>Market Basket Association Rules (Mined from 12,214 Transactions)</span>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', flexWrap: 'wrap', gap: '0.5rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+              <BrainCircuit size={18} color="var(--accent-purple)" />
+              <span>
+                Market Basket Association Rules
+                {rulesMetadata?.completed_transactions ? (
+                  ` (Mined from ${rulesMetadata.completed_transactions.toLocaleString()} Completed Transactions across ${rulesMetadata.multi_item_baskets.toLocaleString()} Customer Baskets)`
+                ) : (
+                  ''
+                )}
+              </span>
+            </div>
+            {rulesMetadata && (
+              <div style={{ display: 'flex', gap: '0.5rem', fontSize: '0.72rem' }}>
+                <span className="badge badge-purple">Version: {rulesMetadata.dataset_version}</span>
+                <span className="badge badge-sage">Min Support: {rulesMetadata.min_support}</span>
+                <span className="badge badge-blue">Min Lift: {rulesMetadata.min_lift}x</span>
+              </div>
+            )}
+          </div>
         </div>
-        <p style={{ fontSize: '0.85rem', color: '#94a3b8', marginBottom: '1.25rem' }}>
-          High-confidence product co-occurrence patterns: Rule <code style={{ color: '#60a5fa' }}>A → B</code> indicates when a customer purchases item A, they are significantly more likely to purchase item B.
+        <p style={{ fontSize: '0.825rem', color: 'var(--text-secondary)', marginBottom: '1.25rem' }}>
+          High-confidence product co-occurrence patterns: Rule <code style={{ color: 'var(--accent-blue)', background: 'var(--bg-secondary)', padding: '0.1rem 0.35rem', borderRadius: '4px' }}>A → B</code> indicates when a customer purchases item A, they are significantly more likely to purchase item B.
         </p>
 
         <div className="table-container">
@@ -253,18 +267,18 @@ export default function PersonalizedRecommendations() {
             <tbody>
               {associationRules.map((rule, idx) => (
                 <tr key={idx}>
-                  <td style={{ fontWeight: '600', color: '#93c5fd' }}>{rule.antecedent}</td>
-                  <td><ArrowRight size={14} color="#64748b" /></td>
-                  <td style={{ fontWeight: '600', color: '#34d399' }}>{rule.consequent}</td>
+                  <td style={{ fontWeight: '500', color: 'var(--accent-blue)' }}>{rule.antecedent}</td>
+                  <td><ArrowRight size={13} color="var(--text-muted)" /></td>
+                  <td style={{ fontWeight: '500', color: 'var(--accent-teal)' }}>{rule.consequent}</td>
                   <td>{(rule.support * 100).toFixed(2)}%</td>
                   <td>{(rule.confidence * 100).toFixed(1)}%</td>
                   <td>
-                    <span style={{ fontWeight: '700', color: rule.lift > 1.0 ? '#10b981' : '#f59e0b' }}>
+                    <span style={{ fontWeight: '600', color: rule.lift > 1.0 ? 'var(--accent-green)' : 'var(--accent-orange)' }}>
                       {rule.lift}x
                     </span>
                   </td>
                   <td>
-                    <span className={`badge ${rule.lift >= 1.0 ? 'badge-emerald' : 'badge-amber'}`}>
+                    <span className={`badge ${rule.lift >= 1.0 ? 'badge-sage' : 'badge-amber'}`}>
                       {rule.lift >= 1.0 ? 'High Affinity' : 'Moderate'}
                     </span>
                   </td>
