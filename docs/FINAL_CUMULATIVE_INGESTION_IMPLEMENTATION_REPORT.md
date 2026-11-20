@@ -20,9 +20,7 @@ A newly uploaded batch is **never** an isolated replacement dataset. The histori
 ## 2. Root Cause Analysis of Previous Failure
 
 ### 2.1 The Incident Observed
-Following a version promotion to `v_batch_20261117_171838_f825`, the dashboard displayed:
-- Active customers: **8** (instead of 1,203)
-- Transactions: **9** (instead of 12,223)
+Following a version promotion to `v_batch_20261117_171838_f825`, the dashboard displayed:se
 - Web activities: **10** (instead of 120,954)
 
 ### 2.2 Mechanism of Failure

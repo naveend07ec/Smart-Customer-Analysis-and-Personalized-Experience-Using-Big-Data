@@ -246,7 +246,7 @@ export default function CustomerAnalytics() {
                 {sentimentData.platform_breakdown.map((p) => (
                   <tr key={p.platform}>
                     <td style={{ fontWeight: '500' }}>{p.platform}</td>
-                    <td>{p.count.toLocaleString()}</td>
+                    <td>{Number(p.count || 0).toLocaleString()}</td>
                     <td>
                       <span className={`badge ${p.avg_sentiment >= 0 ? 'badge-sage' : 'badge-rose'}`}>
                         {p.avg_sentiment > 0 ? `+${p.avg_sentiment}` : p.avg_sentiment}

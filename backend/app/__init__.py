@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 
 from backend.app.routes.overview_routes import overview_bp
@@ -49,5 +49,19 @@ def create_app(config_override=None) -> Flask:
             "service": "Big Data Customer Analytics & Recommendation REST API",
             "version": "1.0.0"
         })
+
+    @app.route("/api/dataset-mode", methods=["GET", "POST"])
+    def app_dataset_mode():
+        from backend.app.services.data_service import DataService
+        data_service = DataService.get_instance()
+        if request.method == "POST":
+            body = request.get_json(silent=True) or {}
+            mode = body.get("mode", "cumulative")
+            batch_id = body.get("batch_id")
+            ok, msg, ctx = data_service.switch_mode(mode, batch_id)
+            if not ok:
+                return jsonify({"status": "error", "message": msg, "data": ctx}), 400
+            return jsonify({"status": "success", "message": msg, "data": ctx}), 200
+        return jsonify({"status": "success", "data": data_service.get_mode_context()}), 200
 
     return app

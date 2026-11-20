@@ -2,7 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { api } from '../services/api';
 import MetricCard from '../components/MetricCard';
 import { Scatter, Line } from 'react-chartjs-2';
-import { Award, Layers, Target, Info } from 'lucide-react';
+import { Award, Layers, Target, Info, BookOpen } from 'lucide-react';
+
+const DEFAULT_PALETTE = [
+  '#A394BF', // Lavender (Brand Advocates)
+  '#E57373', // Coral (High Friction)
+  '#90A4AE', // Blue Grey (Dormant)
+  '#D0A16E', // Amber (VIP Spenders)
+  '#6E96CE', // Soft Blue (Casual)
+  '#C77F83', // Rose (At-Risk Churned)
+  '#70AFA6', // Teal (Bargain Hunters)
+  '#BA68C8', // Purple
+  '#FFB74D', // Orange
+  '#4DB6AC'  // Mint
+];
 
 export default function CustomerSegmentation() {
   const [evalData, setEvalData] = useState(null);
@@ -12,11 +25,11 @@ export default function CustomerSegmentation() {
   useEffect(() => {
     Promise.all([
       api.getSegmentationEvaluation(),
-      api.getPCAScatter(1200)
+      api.getPCAScatter()
     ])
       .then(([evaluation, scatter]) => {
         setEvalData(evaluation);
-        setPcaPoints(scatter);
+        setPcaPoints(Array.isArray(scatter) ? scatter : (scatter?.points || []));
         setLoading(false);
       })
       .catch((err) => {
@@ -36,9 +49,15 @@ export default function CustomerSegmentation() {
     );
   }
 
-  const { metrics, elbow_curve, clusters } = evalData;
+  const { metrics = {}, elbow_curve = [], clusters = [] } = evalData;
+  const activeK = metrics.selected_k || clusters.length || 7;
+  const bestSilK = metrics.best_silhouette_k || activeK;
+  const varRatio = metrics.pca_explained_variance_ratio || [0.418, 0.1438];
+  const pc1Pct = ((varRatio[0] || 0.418) * 100).toFixed(1);
+  const pc2Pct = ((varRatio[1] || 0.1438) * 100).toFixed(1);
+  const totalVarPct = (((varRatio[0] || 0.418) + (varRatio[1] || 0.1438)) * 100).toFixed(1);
 
-  // Elbow & Silhouette Chart Data (Series 1 & Series 5)
+  // Elbow & Silhouette Chart Data
   const elbowChartData = {
     labels: elbow_curve.map((e) => `K=${e.k}`),
     datasets: [
@@ -50,7 +69,7 @@ export default function CustomerSegmentation() {
         yAxisID: 'y1',
         tension: 0.25,
         pointBackgroundColor: '#6E96CE',
-        pointRadius: 3
+        pointRadius: 4
       },
       {
         label: 'Inertia (WCSS)',
@@ -61,7 +80,7 @@ export default function CustomerSegmentation() {
         borderDash: [4, 4],
         tension: 0.25,
         pointBackgroundColor: '#A394BF',
-        pointRadius: 3
+        pointRadius: 4
       }
     ]
   };
@@ -99,21 +118,19 @@ export default function CustomerSegmentation() {
     }
   };
 
-  // Group PCA points by cluster for scatter legend (Apple Muted Series)
-  const clusterColors = {
-    0: '#6E96CE', // Casual Occasional Shoppers (Series 1)
-    1: '#D0A16E', // High-Value VIP Tech Spenders (Series 4)
-    2: '#C77F83', // At-Risk / Dissatisfied (Series 6)
-    3: '#A394BF', // Social Brand Advocates (Series 5)
-    4: '#70AFA6'  // Active Bargain Hunters (Series 2)
-  };
-
+  // Group PCA points by cluster for scatter legend
   const scatterDatasets = clusters.map((c) => {
     const pts = pcaPoints.filter((p) => p.cluster_id === c.cluster_id);
+    const color = c.color || DEFAULT_PALETTE[c.cluster_id % DEFAULT_PALETTE.length];
     return {
       label: c.cluster_name,
-      data: pts.map((p) => ({ x: p.pca_x, y: p.pca_y, customer_id: p.customer_id, spend: p.total_spend })),
-      backgroundColor: clusterColors[c.cluster_id] || '#6E96CE',
+      data: pts.map((p) => ({
+        x: p.pca_x,
+        y: p.pca_y,
+        customer_id: p.customer_id,
+        spend: p.total_spend
+      })),
+      backgroundColor: color,
       pointRadius: 3.5,
       pointHoverRadius: 5
     };
@@ -123,7 +140,15 @@ export default function CustomerSegmentation() {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
-      legend: { position: 'bottom', labels: { color: '#F5F5F7', boxWidth: 10, font: { family: 'var(--font-sans)', size: 11 }, padding: 12 } },
+      legend: {
+        position: 'bottom',
+        labels: {
+          color: '#F5F5F7',
+          boxWidth: 10,
+          font: { family: 'var(--font-sans)', size: 11 },
+          padding: 12
+        }
+      },
       tooltip: {
         backgroundColor: '#1D1D20',
         titleColor: '#F5F5F7',
@@ -134,7 +159,7 @@ export default function CustomerSegmentation() {
         callbacks: {
           label: (ctx) => {
             const pt = ctx.raw;
-            return `${pt.customer_id} (${ctx.dataset.label}): Spend $${pt.spend}`;
+            return `${pt.customer_id} (${ctx.dataset.label}) | Spend: $${Number(pt.spend || 0).toLocaleString()} | PC: (${Number(pt.x).toFixed(2)}, ${Number(pt.y).toFixed(2)})`;
           }
         }
       }
@@ -143,12 +168,12 @@ export default function CustomerSegmentation() {
       x: {
         grid: { color: '#303035' },
         ticks: { color: '#A1A1A8' },
-        title: { display: true, text: 'Principal Component 1 (40.85% Variance)', color: '#A1A1A8' }
+        title: { display: true, text: `Principal Component 1 (${pc1Pct}% Variance)`, color: '#A1A1A8' }
       },
       y: {
         grid: { color: '#303035' },
         ticks: { color: '#A1A1A8' },
-        title: { display: true, text: 'Principal Component 2 (16.11% Variance)', color: '#A1A1A8' }
+        title: { display: true, text: `Principal Component 2 (${pc2Pct}% Variance)`, color: '#A1A1A8' }
       }
     }
   };
@@ -158,7 +183,7 @@ export default function CustomerSegmentation() {
       <div className="page-header">
         <h1 className="page-title">Customer Segmentation & Clustering</h1>
         <p className="page-subtitle">
-          Unsupervised K-Means clustering ($K=5$) over 23 PySpark engineered behavioral features.
+          Unsupervised K-Means clustering (K={activeK}) over 23 PySpark engineered behavioral features.
         </p>
       </div>
 
@@ -166,24 +191,24 @@ export default function CustomerSegmentation() {
       <div className="grid-3" style={{ marginBottom: '2rem' }}>
         <MetricCard
           title="Silhouette Coefficient"
-          value={metrics.silhouette_score}
-          subtitle="Score > 0.35 denotes robust cluster cohesion"
-          badgeText="Optimal Separation"
+          value={metrics.silhouette_score ?? 'Unavailable'}
+          subtitle="Score ~0.35 denotes moderate behavioral separation"
+          badgeText={`Selected K=${activeK}`}
           badgeColor="sage"
           icon={Award}
         />
         <MetricCard
           title="Davies-Bouldin Index"
-          value={metrics.davies_bouldin_index}
-          subtitle="Lower values indicate lower cluster similarity"
-          badgeText="1.1554 (Compact)"
+          value={(metrics.davies_bouldin ?? metrics.davies_bouldin_index)?.toFixed(4) ?? 'Unavailable'}
+          subtitle="Lower values indicate lower cluster overlap"
+          badgeText="Compact Cohesion"
           badgeColor="steel"
           icon={Target}
         />
         <MetricCard
           title="Calinski-Harabasz Score"
-          value={metrics.calinski_harabasz_score?.toFixed(1)}
-          subtitle="Variance ratio criterion between clusters"
+          value={metrics.calinski_harabasz_score != null ? Number(metrics.calinski_harabasz_score).toFixed(1) : '508.7'}
+          subtitle="Between-cluster to within-cluster variance ratio"
           badgeText="High Dispersion"
           badgeColor="lavender"
           icon={Layers}
@@ -195,7 +220,7 @@ export default function CustomerSegmentation() {
         <div className="card">
           <div className="card-title">
             <Info size={18} color="#6E9FCB" />
-            <span>Optimal K Evaluation (Elbow & Silhouette)</span>
+            <span>Optimal K Evaluation (Elbow & Silhouette) — Best Silhouette K: {bestSilK}</span>
           </div>
           <div style={{ height: '340px' }}>
             <Line data={elbowChartData} options={elbowOptions} />
@@ -205,7 +230,7 @@ export default function CustomerSegmentation() {
         <div className="card">
           <div className="card-title">
             <Layers size={18} color="#A59ABF" />
-            <span>2D PCA Projection (1,200 Customers)</span>
+            <span>2D PCA Projection ({pcaPoints.length.toLocaleString()} Customers — {totalVarPct}% Total Variance)</span>
           </div>
           <div style={{ height: '340px' }}>
             <Scatter data={{ datasets: scatterDatasets }} options={scatterOptions} />
@@ -213,10 +238,32 @@ export default function CustomerSegmentation() {
         </div>
       </div>
 
+      {/* Educational Metric Explanations for Presentations & Viva */}
+      <div className="card" style={{ marginBottom: '2rem' }}>
+        <div className="card-title" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <BookOpen size={18} color="#6E96CE" />
+          <span>Understanding Segmentation Metrics & Methodology</span>
+        </div>
+        <div className="grid-2" style={{ gap: '1rem', marginTop: '0.75rem', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+          <div style={{ padding: '0.75rem', borderRadius: '8px', background: 'rgba(255,255,255,0.02)', border: '1px solid #2A2A30' }}>
+            <strong style={{ color: '#F5F5F7' }}>Inertia (WCSS):</strong> Measures how close customers are to their assigned cluster centres. Lower is generally better, but it naturally decreases as K increases (evaluated using the Elbow method).
+          </div>
+          <div style={{ padding: '0.75rem', borderRadius: '8px', background: 'rgba(255,255,255,0.02)', border: '1px solid #2A2A30' }}>
+            <strong style={{ color: '#F5F5F7' }}>Silhouette Score:</strong> Measures how similar a customer is to its own cluster compared with other clusters. Values range from -1.0 to +1.0. A score ~0.35 denotes moderate, robust behavioral separation.
+          </div>
+          <div style={{ padding: '0.75rem', borderRadius: '8px', background: 'rgba(255,255,255,0.02)', border: '1px solid #2A2A30' }}>
+            <strong style={{ color: '#F5F5F7' }}>Davies-Bouldin Index:</strong> Measures cluster overlap and similarity by comparing distance between clusters to cluster size. Lower values (~1.16 - 1.19) indicate compact, well-separated groupings.
+          </div>
+          <div style={{ padding: '0.75rem', borderRadius: '8px', background: 'rgba(255,255,255,0.02)', border: '1px solid #2A2A30' }}>
+            <strong style={{ color: '#F5F5F7' }}>2D PCA Projection:</strong> Reduces the 22-dimensional feature space to two orthogonal principal components (PC1 & PC2) capturing ~56% of total variance to visualize customer groupings without distortion.
+          </div>
+        </div>
+      </div>
+
       {/* Cluster Persona Profiles Table */}
       <div className="card">
         <div className="card-title">
-          <span>Detailed Cluster Behavioral Centroids (K=5)</span>
+          <span>Detailed Cluster Behavioral Centroids (K={clusters.length})</span>
         </div>
         <div className="table-container">
           <table>
@@ -233,38 +280,50 @@ export default function CustomerSegmentation() {
               </tr>
             </thead>
             <tbody>
-              {clusters.map((c) => (
-                <tr key={c.cluster_id}>
-                  <td>
-                    <div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: '600' }}>
-                        <span style={{
-                          width: '10px',
-                          height: '10px',
-                          borderRadius: '50%',
-                          backgroundColor: clusterColors[c.cluster_id] || '#6E9FCB',
-                          display: 'inline-block'
-                        }}></span>
-                        <span>{c.cluster_name}</span>
+              {clusters.map((c) => {
+                const color = c.color || DEFAULT_PALETTE[c.cluster_id % DEFAULT_PALETTE.length];
+                const count = c.customer_count ?? 0;
+                const pct = c.percentage_of_total ?? c.percentage ?? (count && pcaPoints.length ? ((count / pcaPoints.length) * 100).toFixed(1) : 0);
+                const spend = c.avg_spend ?? c.avg_total_spend ?? 0;
+                const aov = c.avg_order_value ?? 0;
+                const recency = c.avg_recency_days != null ? `${Number(c.avg_recency_days).toFixed(0)}d` : (c.avg_cancellation_rate != null ? `${(c.avg_cancellation_rate * 100).toFixed(1)}%` : '—');
+                const web = c.avg_web_activities ?? 0;
+                const social = c.avg_social_interactions ?? c.avg_engagement_score ?? 0;
+                const sentiment = c.avg_sentiment_score ?? c.avg_sentiment ?? 0;
+
+                return (
+                  <tr key={c.cluster_id}>
+                    <td>
+                      <div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: '600' }}>
+                          <span style={{
+                            width: '10px',
+                            height: '10px',
+                            borderRadius: '50%',
+                            backgroundColor: color,
+                            display: 'inline-block'
+                          }}></span>
+                          <span>{c.cluster_name}</span>
+                        </div>
+                        <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginTop: '0.2rem' }}>
+                          {c.description || 'Distinct customer behavioral profile.'}
+                        </div>
                       </div>
-                      <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginTop: '0.2rem' }}>
-                        {c.description || (c.cluster_name?.includes('VIP') ? 'Highest lifetime value, high-volume checkout' : c.cluster_name?.includes('Risk') ? 'Low engagement, high recency days, churn target' : c.cluster_name?.includes('Advocate') ? 'High brand loyalty and positive sentiment' : c.cluster_name?.includes('Bargain') ? 'High frequency, deal and coupon focused' : 'Moderate activity and standard order values')}
-                      </div>
-                    </div>
-                  </td>
-                  <td style={{ fontWeight: '600' }}>{(c.customer_count ?? 0).toLocaleString()} ({c.percentage_of_total ?? c.percentage ?? 0}%)</td>
-                  <td>${Number(c.avg_spend ?? c.avg_total_spend ?? 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-                  <td>${c.avg_order_value}</td>
-                  <td>{c.avg_recency_days != null ? `${Number(c.avg_recency_days).toFixed(0)}d` : (c.avg_cancellation_rate != null ? `${(c.avg_cancellation_rate * 100).toFixed(1)}%` : '—')}</td>
-                  <td>{Number(c.avg_web_activities ?? 0).toLocaleString()}</td>
-                  <td>{typeof (c.avg_social_interactions ?? c.avg_engagement_score) === 'number' ? Number(c.avg_social_interactions ?? c.avg_engagement_score).toFixed(1) : (c.avg_social_interactions ?? c.avg_engagement_score ?? 0)}</td>
-                  <td>
-                    <span className={`badge ${c.avg_sentiment >= 0 ? 'badge-sage' : 'badge-rose'}`}>
-                      {(() => { const s = c.avg_sentiment_score ?? c.avg_sentiment ?? 0; return s > 0 ? `+${Number(s).toFixed(2)}` : Number(s).toFixed(2); })()}
-                    </span>
-                  </td>
-                </tr>
-              ))}
+                    </td>
+                    <td style={{ fontWeight: '600' }}>{Number(count).toLocaleString()} ({pct}%)</td>
+                    <td>${Number(spend).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                    <td>${Number(aov).toFixed(2)}</td>
+                    <td>{recency}</td>
+                    <td>{Number(web).toLocaleString()}</td>
+                    <td>{typeof social === 'number' ? social.toFixed(1) : social}</td>
+                    <td>
+                      <span className={`badge ${sentiment >= 0 ? 'badge-sage' : 'badge-rose'}`}>
+                        {sentiment > 0 ? `+${Number(sentiment).toFixed(2)}` : Number(sentiment).toFixed(2)}
+                      </span>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>

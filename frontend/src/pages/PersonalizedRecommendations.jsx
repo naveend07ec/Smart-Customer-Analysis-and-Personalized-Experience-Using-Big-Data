@@ -3,7 +3,9 @@ import { api } from '../services/api';
 import { Sparkles, BrainCircuit, ArrowRight, Tag, Award } from 'lucide-react';
 
 export default function PersonalizedRecommendations() {
-  const [selectedCustomerId, setSelectedCustomerId] = useState('CUST_0001');
+  const [selectedCustomerId, setSelectedCustomerId] = useState('');
+  const [sampleArchetypes, setSampleArchetypes] = useState([]);
+  const [customerNotFound, setCustomerNotFound] = useState(null);
   const [recommendations, setRecommendations] = useState([]);
   const [associationRules, setAssociationRules] = useState([]);
   const [rulesMetadata, setRulesMetadata] = useState(null);
@@ -11,42 +13,10 @@ export default function PersonalizedRecommendations() {
   const [loading, setLoading] = useState(true);
   const [recsLoading, setRecsLoading] = useState(false);
 
-  // Quick select archetypes
-  const sampleArchetypes = [
-    { id: 'CUST_0001', label: 'CUST_0001 (Casual)' },
-    { id: 'CUST_0002', label: 'CUST_0002 (VIP Spender)' },
-    { id: 'CUST_0003', label: 'CUST_0003 (Bargain Hunter)' },
-    { id: 'CUST_0005', label: 'CUST_0005 (Social Advocate)' },
-    { id: 'CUST_0016', label: 'CUST_0016 (At-Risk Lapsed)' }
-  ];
-
-  useEffect(() => {
-    // Initial fetch of association rules, customer recs, and offline evaluation metrics
-    Promise.all([
-      api.getRecommendations(selectedCustomerId),
-      api.getAssociationRules(25),
-      api.getRecommendationEvaluation()
-    ])
-      .then(([recsData, rulesData, evalData]) => {
-        const recList = recsData?.top_recommendations || recsData?.recommendations || recsData?.data?.top_recommendations || [];
-        const ruleList = Array.isArray(rulesData) ? rulesData : (rulesData?.data || []);
-        const rulesMeta = rulesData?.metadata || null;
-        const evalList = Array.isArray(evalData) ? evalData : (evalData?.data || []);
-        setRecommendations(recList);
-        setAssociationRules(ruleList);
-        setRulesMetadata(rulesMeta);
-        setEvaluationMetrics(evalList);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error('Error loading recommendations:', err);
-        setLoading(false);
-      });
-  }, []);
-
-  const handleFetchCustomerRecs = (cid) => {
-    setSelectedCustomerId(cid);
+  const fetchCustomerRecs = (cid) => {
+    if (!cid) return;
     setRecsLoading(true);
+    setCustomerNotFound(null);
     api.getRecommendations(cid)
       .then((data) => {
         const recList = data?.top_recommendations || data?.recommendations || data?.data?.top_recommendations || [];
@@ -54,9 +24,61 @@ export default function PersonalizedRecommendations() {
         setRecsLoading(false);
       })
       .catch((err) => {
-        console.error('Error fetching recs for customer:', err);
+        console.warn('Error fetching recs for customer:', err);
+        setRecommendations([]);
+        setCustomerNotFound(`Customer '${cid}' was not found in the active dataset.`);
         setRecsLoading(false);
       });
+  };
+
+  useEffect(() => {
+    // 1. Fetch association rules and offline evaluation metrics independently
+    api.getAssociationRules(50)
+      .then((rulesData) => {
+        const ruleList = Array.isArray(rulesData) ? rulesData : (rulesData?.data || []);
+        const rulesMeta = rulesData?.metadata || null;
+        setAssociationRules(ruleList);
+        setRulesMetadata(rulesMeta);
+      })
+      .catch((err) => console.error('Error loading association rules:', err));
+
+    api.getRecommendationEvaluation()
+      .then((evalData) => {
+        const evalList = Array.isArray(evalData) ? evalData : (evalData?.data || []);
+        setEvaluationMetrics(evalList);
+      })
+      .catch((err) => console.error('Error loading evaluation metrics:', err));
+
+    // 2. Fetch customers dynamically from the active dataset so quick-select archetypes match current data
+    api.getCustomers({ page: 1, pageSize: 6 })
+      .then((custRes) => {
+        const custList = custRes?.customers || custRes?.data?.customers || [];
+        if (custList.length > 0) {
+          const archetypes = custList.slice(0, 5).map((c) => ({
+            id: c.customer_id,
+            label: `${c.customer_id} (${c.cluster_name ? c.cluster_name.split('&')[0].trim() : 'Cohort'})`
+          }));
+          setSampleArchetypes(archetypes);
+          const firstId = custList[0].customer_id;
+          setSelectedCustomerId(firstId);
+          fetchCustomerRecs(firstId);
+        } else {
+          setSelectedCustomerId('CUST_0001');
+          fetchCustomerRecs('CUST_0001');
+        }
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error('Error loading active customers for recommendations:', err);
+        setSelectedCustomerId('CUST_0001');
+        fetchCustomerRecs('CUST_0001');
+        setLoading(false);
+      });
+  }, []);
+
+  const handleFetchCustomerRecs = (cid) => {
+    setSelectedCustomerId(cid);
+    fetchCustomerRecs(cid);
   };
 
   if (loading) {
@@ -168,6 +190,15 @@ export default function PersonalizedRecommendations() {
             <div className="spinner"></div>
             <div>Evaluating Collaborative Similarity & Co-Purchases...</div>
           </div>
+        ) : customerNotFound ? (
+          <div className="card" style={{ padding: '1.5rem', borderLeft: '3px solid var(--accent-orange)' }}>
+            <div style={{ color: 'var(--accent-orange)', fontWeight: '600', marginBottom: '0.35rem', fontSize: '0.9rem' }}>
+              Customer Not Found in Active Dataset
+            </div>
+            <div style={{ color: 'var(--text-secondary)', fontSize: '0.825rem', lineHeight: '1.5' }}>
+              {customerNotFound} Please select one of the active customer profiles from the quick-select list above or enter a valid ID from this dataset.
+            </div>
+          </div>
         ) : recommendations.length === 0 ? (
           <div className="card" style={{ textAlign: 'center', padding: '2rem', color: 'var(--text-secondary)' }}>
             No recommendations generated for this customer ID.
@@ -232,7 +263,7 @@ export default function PersonalizedRecommendations() {
               <span>
                 Market Basket Association Rules
                 {rulesMetadata?.completed_transactions ? (
-                  ` (Mined from ${rulesMetadata.completed_transactions.toLocaleString()} Completed Transactions across ${rulesMetadata.multi_item_baskets.toLocaleString()} Customer Baskets)`
+                  ` (Mined from ${Number(rulesMetadata.completed_transactions || 0).toLocaleString()} Completed Transactions across ${Number(rulesMetadata.multi_item_baskets || 0).toLocaleString()} Customer Baskets)`
                 ) : (
                   ''
                 )}
@@ -265,25 +296,33 @@ export default function PersonalizedRecommendations() {
               </tr>
             </thead>
             <tbody>
-              {associationRules.map((rule, idx) => (
-                <tr key={idx}>
-                  <td style={{ fontWeight: '500', color: 'var(--accent-blue)' }}>{rule.antecedent}</td>
-                  <td><ArrowRight size={13} color="var(--text-muted)" /></td>
-                  <td style={{ fontWeight: '500', color: 'var(--accent-teal)' }}>{rule.consequent}</td>
-                  <td>{(rule.support * 100).toFixed(2)}%</td>
-                  <td>{(rule.confidence * 100).toFixed(1)}%</td>
-                  <td>
-                    <span style={{ fontWeight: '600', color: rule.lift > 1.0 ? 'var(--accent-green)' : 'var(--accent-orange)' }}>
-                      {rule.lift}x
-                    </span>
-                  </td>
-                  <td>
-                    <span className={`badge ${rule.lift >= 1.0 ? 'badge-sage' : 'badge-amber'}`}>
-                      {rule.lift >= 1.0 ? 'High Affinity' : 'Moderate'}
-                    </span>
+              {associationRules.length === 0 ? (
+                <tr>
+                  <td colSpan="7" style={{ textAlign: 'center', padding: '1.5rem', color: 'var(--text-secondary)' }}>
+                    No market basket association rules generated for this dataset.
                   </td>
                 </tr>
-              ))}
+              ) : (
+                associationRules.map((rule, idx) => (
+                  <tr key={idx}>
+                    <td style={{ fontWeight: '500', color: 'var(--accent-blue)' }}>{rule.antecedent}</td>
+                    <td><ArrowRight size={13} color="var(--text-muted)" /></td>
+                    <td style={{ fontWeight: '500', color: 'var(--accent-teal)' }}>{rule.consequent}</td>
+                    <td>{(rule.support * 100).toFixed(2)}%</td>
+                    <td>{(rule.confidence * 100).toFixed(1)}%</td>
+                    <td>
+                      <span style={{ fontWeight: '600', color: rule.lift > 1.0 ? 'var(--accent-green)' : 'var(--accent-orange)' }}>
+                        {rule.lift}x
+                      </span>
+                    </td>
+                    <td>
+                      <span className={`badge ${rule.lift >= 1.0 ? 'badge-sage' : 'badge-amber'}`}>
+                        {rule.lift >= 1.0 ? 'High Affinity' : 'Moderate'}
+                      </span>
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>

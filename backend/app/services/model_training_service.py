@@ -23,6 +23,7 @@ from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
 from sklearn.metrics import (
     silhouette_score,
+    calinski_harabasz_score,
     davies_bouldin_score,
     roc_auc_score,
     precision_recall_curve,
@@ -90,6 +91,107 @@ class ModelTrainingService:
     # -------------------------------------------------------------
     # 1. K-Means Customer Segmentation
     # -------------------------------------------------------------
+    @staticmethod
+    def derive_cluster_metadata(profile_mean: pd.DataFrame, k: int) -> Tuple[Dict[int, str], Dict[int, str], Dict[int, str]]:
+        """
+        Derives unique, data-driven persona names, descriptions, and palette colors
+        based on actual centroid behavioral statistics without hardcoding customer IDs.
+        Guarantees strict 1-to-1 bijective mapping: no two clusters share the same name.
+        """
+        PALETTE = [
+            "#A394BF",  # Lavender (Brand Advocates)
+            "#E57373",  # Coral / Salmon (High Friction)
+            "#90A4AE",  # Blue Grey (Dormant)
+            "#D0A16E",  # Amber / Gold (VIP Spenders)
+            "#6E96CE",  # Soft Blue (Casual)
+            "#C77F83",  # Rose (At-Risk Churned)
+            "#70AFA6",  # Teal / Sage (Bargain Hunters)
+            "#BA68C8",  # Purple
+            "#FFB74D",  # Orange
+            "#4DB6AC"   # Mint
+        ]
+
+        cluster_names = {}
+        cluster_descs = {}
+        cluster_colors = {}
+        used_names = set()
+
+        FALLBACK_PERSONAS = [
+            ("Active Value Shoppers", "Core engaged shoppers with above-average cohort spend, regular checkouts, and steady repeat purchasing."),
+            ("Occasional Budget Shoppers", "Price-conscious buyers with modest order values and longer intervals between purchases."),
+            ("Satisfied Mainstream Buyers", "Consistent shoppers with solid brand satisfaction and regular transaction cadence."),
+            ("Window Shoppers & Deal Seekers", "Active digital browsing and category research with selective purchase conversion."),
+            ("Selective Seasonal Buyers", "Periodic shoppers who make targeted purchases during promotional windows."),
+            ("Infrequent Utility Buyers", "Need-based purchases with minimal browsing footprint and modest basket totals."),
+            ("High-Engagement Explorers", "Frequent website visits and active community sentiment across product lines.")
+        ]
+
+        mean_cohort_spend = float(profile_mean["total_spend"].mean()) if "total_spend" in profile_mean else 500.0
+
+        for cid in range(k):
+            cm = profile_mean.loc[cid]
+            spend = float(cm.get("total_spend", 0.0))
+            recency = float(cm.get("recency_days", 100.0))
+            social = float(cm.get("total_social_interactions", 0.0))
+            sentiment = float(cm.get("avg_sentiment_score", 0.0))
+            web = float(cm.get("total_web_activities", 0.0))
+            cancel = float(cm.get("cancellation_rate", 0.0))
+
+            if spend > 2500 and sentiment > 0.3:
+                candidate = "High-Value VIP Tech Spenders"
+                desc = "Top revenue contributors, highest basket size, frequent checkouts, high positive sentiment."
+            elif social > 10 and sentiment > 0.5:
+                candidate = "Active Brand Advocates & Influencers"
+                desc = "High brand affinity, top viral reach, consistent purchase frequency."
+            elif web > 120 and spend > 800:
+                candidate = "High-Activity Bargain Hunters"
+                desc = "High session volume, deal-oriented browsing, frequent low-basket checkouts."
+            elif recency > 200:
+                if cancel > 0.3:
+                    candidate = "High-Friction Cancelled Accounts"
+                    desc = "Extreme order cancellation rate and checkout friction requiring operational review."
+                elif spend < 50 and web < 10:
+                    candidate = "Dormant & Inactive Registrations"
+                    desc = "Inactive accounts with near-zero web touchpoints and no purchases for 11+ months."
+                elif sentiment < -0.2:
+                    candidate = "At-Risk & Lapsed Churned Customers"
+                    desc = "Lapsed buyers with long inactivity (>300 days) and severe negative sentiment."
+                else:
+                    candidate = "Disengaged Customers"
+                    desc = "Customers with elevated recency and low ongoing touchpoints."
+            elif spend >= 350 or (spend >= mean_cohort_spend and k > 1):
+                candidate = "Active Value Shoppers"
+                desc = "Core engaged shoppers with above-average cohort spend, regular checkouts, and steady repeat purchasing."
+            elif spend < 350 or recency > 60:
+                candidate = "Occasional Budget Shoppers"
+                desc = "Price-conscious buyers with modest order values and longer intervals between purchases."
+            elif spend < 800:
+                candidate = "Casual & Occasional Shoppers"
+                desc = "Largest core customer segment, moderate purchase intervals, standard basket size."
+            else:
+                candidate = f"Customer Segment {cid + 1}"
+                desc = f"Distinct behavioral segment with average spend ${spend:.2f} and recency {recency:.0f} days."
+
+            if candidate in used_names:
+                # Find the next distinct persona from the fallback list to avoid generic "(Cohort 2)"
+                chosen_fallback = None
+                for fb_name, fb_desc in FALLBACK_PERSONAS:
+                    if fb_name not in used_names:
+                        chosen_fallback = (fb_name, fb_desc)
+                        break
+                if chosen_fallback:
+                    candidate, desc = chosen_fallback
+                else:
+                    candidate = f"{candidate} (Cohort {cid + 1})"
+
+            used_names.add(candidate)
+
+            cluster_names[cid] = candidate
+            cluster_descs[cid] = desc
+            cluster_colors[cid] = PALETTE[cid % len(PALETTE)]
+
+        return cluster_names, cluster_descs, cluster_colors
+
     def train_kmeans(self, version_id: str) -> Dict[str, Any]:
         feat_path = os.path.join(self.versions_dir, version_id, "unified_customer_features.parquet")
         if not os.path.exists(feat_path):
@@ -103,11 +205,49 @@ class ModelTrainingService:
         X_scaled = scaler.fit_transform(X)
 
         n_samples = len(df)
+        if n_samples < 2:
+            version_data_dir = os.path.join(self.versions_dir, version_id)
+            version_models_dir = os.path.join(self.models_versions_dir, version_id)
+            os.makedirs(version_models_dir, exist_ok=True)
+            os.makedirs(version_data_dir, exist_ok=True)
+            empty_report = {
+                "status": "INSUFFICIENT_DATA",
+                "message": f"Sample size (N={n_samples}) is insufficient for K-Means clustering (minimum 2 required).",
+                "selected_k": 0,
+                "silhouette_score": 0.0,
+                "davies_bouldin": 0.0,
+                "inertia": 0.0,
+                "customer_count": n_samples
+            }
+            profiles_payload = {
+                "metrics": {
+                    "selected_k": 0,
+                    "silhouette_score": 0.0,
+                    "davies_bouldin": 0.0,
+                    "total_customers": n_samples,
+                    "status": "INSUFFICIENT_DATA"
+                },
+                "clusters": []
+            }
+            with open(os.path.join(version_models_dir, "cluster_profiles.json"), "w", encoding="utf-8") as f:
+                json.dump(profiles_payload, f, indent=2)
+            with open(os.path.join(version_models_dir, "elbow_metrics.json"), "w", encoding="utf-8") as f:
+                json.dump([], f, indent=2)
+            df["cluster_id"] = 0
+            df["cluster_name"] = "Unassigned"
+            df["pca_x"] = 0.0
+            df["pca_y"] = 0.0
+            df.to_csv(os.path.join(version_data_dir, "customer_segments.csv"), index=False)
+            df.to_csv(os.path.join(version_data_dir, "customer_segment_assignments.csv"), index=False)
+            df.to_parquet(os.path.join(version_data_dir, "customer_segments.parquet"), index=False)
+            return empty_report
+
         max_k = min(8, max(2, n_samples - 1))
         k_range = range(2, max_k + 1)
 
         best_k = 5 if n_samples >= 10 else 2
         best_sil = -1.0
+        best_sil_k = 2
         elbow_metrics = []
 
         for k in k_range:
@@ -115,19 +255,25 @@ class ModelTrainingService:
             labels = km.fit_predict(X_scaled)
             sil = float(silhouette_score(X_scaled, labels))
             db = float(davies_bouldin_score(X_scaled, labels))
+            ch = float(calinski_harabasz_score(X_scaled, labels))
             sizes = np.bincount(labels).tolist()
+            non_empty = int(np.count_nonzero(sizes))
 
             metric_entry = {
                 "k": k,
                 "inertia": round(float(km.inertia_), 2),
                 "silhouette_score": round(sil, 4),
                 "davies_bouldin": round(db, 4),
-                "cluster_sizes": sizes
+                "davies_bouldin_index": round(db, 4),
+                "calinski_harabasz_score": round(ch, 2),
+                "cluster_sizes": sizes,
+                "non_empty_clusters": non_empty
             }
             elbow_metrics.append(metric_entry)
 
             if sil > best_sil:
                 best_sil = sil
+                best_sil_k = k
                 best_k = k
 
         # Final fit
@@ -135,54 +281,62 @@ class ModelTrainingService:
         cluster_labels = final_km.fit_predict(X_scaled)
         df["cluster_id"] = cluster_labels
 
-        # PCA 2D & 3D Projections
+        # PCA 2D Projections
         pca = PCA(n_components=2, random_state=42)
         pca_coords = pca.fit_transform(X_scaled)
         df["pca_x"] = np.round(pca_coords[:, 0], 4)
         df["pca_y"] = np.round(pca_coords[:, 1], 4)
+        pca_exp_var = [round(float(v), 4) for v in pca.explained_variance_ratio_]
 
-        # Cluster Profiles & Naming
+        # Cluster Profiles & Authoritative Unique Naming
         cluster_sizes = np.bincount(cluster_labels)
         profile_mean = df.groupby("cluster_id")[feature_cols].mean()
 
-        cluster_names = {}
-        for cid in range(best_k):
-            c_mean = profile_mean.loc[cid]
-            spend = c_mean.get("total_spend", 0)
-            recency = c_mean.get("recency_days", 100)
-            social_acts = c_mean.get("total_social_interactions", 0)
-            sentiment = c_mean.get("avg_sentiment_score", 0)
-            web_acts = c_mean.get("total_web_activities", 0)
-
-            if spend > 2500 and sentiment > 0.3:
-                name = "High-Value VIP Tech Spenders"
-            elif recency > 180:
-                name = "At-Risk & Churned Customers"
-            elif social_acts > 8 and sentiment > 0.4:
-                name = "Active Brand Advocates & Influencers"
-            elif web_acts > 100:
-                name = "High-Activity Bargain Hunters"
-            else:
-                name = "Casual & Occasional Shoppers"
-            cluster_names[cid] = name
-
+        cluster_names, cluster_descs, cluster_colors = self.derive_cluster_metadata(profile_mean, best_k)
         df["cluster_name"] = df["cluster_id"].map(cluster_names)
+
+        final_db = round(float(davies_bouldin_score(X_scaled, cluster_labels)), 4)
+        final_ch = round(float(calinski_harabasz_score(X_scaled, cluster_labels)), 2)
+        final_sil = round(float(silhouette_score(X_scaled, cluster_labels)), 4)
 
         profiles_summary = []
         for cid in range(best_k):
             c_mean = profile_mean.loc[cid]
+            c_count = int(cluster_sizes[cid])
+            c_pct = round(float(c_count / n_samples * 100), 2)
+            c_spend = round(float(c_mean.get("total_spend", 0)), 2)
+            c_tx = round(float(c_mean.get("total_transactions", 0)), 2)
+            c_aov = round(float(c_mean.get("avg_order_value", 0)), 2)
+            c_recency = round(float(c_mean.get("recency_days", 0)), 1)
+            c_cancel = round(float(c_mean.get("cancellation_rate", 0)), 3)
+            c_web = round(float(c_mean.get("total_web_activities", 0)), 1)
+            c_sess = round(float(c_mean.get("total_sessions", 0)), 1)
+            c_cart = round(float(c_mean.get("cart_additions_count", 0)), 1)
+            c_soc = round(float(c_mean.get("total_social_interactions", 0)), 1)
+            c_eng = round(float(c_mean.get("avg_engagement_score", 0)), 1)
+            c_sent = round(float(c_mean.get("avg_sentiment_score", 0)), 3)
+
             profiles_summary.append({
                 "cluster_id": cid,
                 "cluster_name": cluster_names[cid],
-                "customer_count": int(cluster_sizes[cid]),
-                "percentage_of_total": round(float(cluster_sizes[cid] / n_samples * 100), 2),
-                "avg_spend": round(float(c_mean.get("total_spend", 0)), 2),
-                "avg_transactions": round(float(c_mean.get("total_transactions", 0)), 2),
-                "avg_order_value": round(float(c_mean.get("avg_order_value", 0)), 2),
-                "avg_recency_days": round(float(c_mean.get("recency_days", 0)), 1),
-                "avg_web_activities": round(float(c_mean.get("total_web_activities", 0)), 1),
-                "avg_social_interactions": round(float(c_mean.get("total_social_interactions", 0)), 1),
-                "avg_sentiment_score": round(float(c_mean.get("avg_sentiment_score", 0)), 3)
+                "color": cluster_colors[cid],
+                "description": cluster_descs[cid],
+                "customer_count": c_count,
+                "percentage": c_pct,
+                "percentage_of_total": c_pct,
+                "avg_spend": c_spend,
+                "avg_total_spend": c_spend,
+                "avg_transactions": c_tx,
+                "avg_order_value": c_aov,
+                "avg_recency_days": c_recency,
+                "avg_cancellation_rate": c_cancel,
+                "avg_web_activities": c_web,
+                "avg_sessions": c_sess,
+                "avg_cart_additions": c_cart,
+                "avg_social_interactions": c_soc,
+                "avg_engagement_score": c_eng,
+                "avg_sentiment": c_sent,
+                "avg_sentiment_score": c_sent
             })
 
         # Save artifacts to version dir
@@ -197,9 +351,16 @@ class ModelTrainingService:
         profiles_payload = {
             "metrics": {
                 "selected_k": best_k,
-                "silhouette_score": round(best_sil, 4),
-                "davies_bouldin": round(float(davies_bouldin_score(X_scaled, cluster_labels)), 4),
-                "inertia": round(float(final_km.inertia_), 2)
+                "best_silhouette_k": best_sil_k,
+                "silhouette_score": final_sil,
+                "davies_bouldin": final_db,
+                "davies_bouldin_index": final_db,
+                "calinski_harabasz_score": final_ch,
+                "inertia": round(float(final_km.inertia_), 2),
+                "pca_explained_variance_ratio": pca_exp_var,
+                "pca_total_variance": round(float(sum(pca.explained_variance_ratio_)), 4),
+                "total_customers": n_samples,
+                "dataset_version": version_id
             },
             "clusters": profiles_summary
         }
@@ -217,10 +378,14 @@ class ModelTrainingService:
         return {
             "status": "TRAINING_COMPLETED",
             "selected_k": best_k,
-            "silhouette_score": round(best_sil, 4),
-            "davies_bouldin": round(float(davies_bouldin_score(X_scaled, cluster_labels)), 4),
+            "best_silhouette_k": best_sil_k,
+            "silhouette_score": final_sil,
+            "davies_bouldin": final_db,
+            "davies_bouldin_index": final_db,
+            "calinski_harabasz_score": final_ch,
             "inertia": round(float(final_km.inertia_), 2),
-            "customer_count": n_samples
+            "customer_count": n_samples,
+            "pca_explained_variance_ratio": pca_exp_var
         }
 
     # -------------------------------------------------------------
@@ -254,6 +419,42 @@ class ModelTrainingService:
         all_inter = pd.concat([tx_inter, web_inter], ignore_index=True)
         inter_df = all_inter.groupby(["customer_id", "product_id"])["weight"].sum().reset_index()
         inter_df.rename(columns={"weight": "interaction_score"}, inplace=True)
+
+        version_models_dir = os.path.join(self.models_versions_dir, version_id)
+        version_data_dir = os.path.join(self.versions_dir, version_id)
+        os.makedirs(version_models_dir, exist_ok=True)
+        os.makedirs(version_data_dir, exist_ok=True)
+
+        if len(all_products) < 2 or len(inter_df) < 2:
+            empty_rec = {
+                "status": "INSUFFICIENT_DATA",
+                "message": "Insufficient product interactions in current batch to train recommendation models (minimum 2 products and interactions required).",
+                "hit_rate_5": 0.0,
+                "precision_5": 0.0,
+                "recall_5": 0.0,
+                "catalog_coverage": 0.0,
+                "rules_mined": 0,
+                "rules_status": "INSUFFICIENT_DATA",
+                "recommendation_catalog_size": len(all_products),
+                "evaluated_customers": 0
+            }
+            with open(os.path.join(version_models_dir, "rules_metadata.json"), "w", encoding="utf-8") as f:
+                json.dump({"status": "INSUFFICIENT_DATA", "rules_count": 0, "rules_source": "NONE"}, f, indent=2)
+            with open(os.path.join(version_models_dir, "customer_recommendations.json"), "w", encoding="utf-8") as f:
+                json.dump({}, f, indent=2)
+            with open(os.path.join(version_models_dir, "product_association_rules.json"), "w", encoding="utf-8") as f:
+                json.dump([], f, indent=2)
+            eval_payload = [
+                {"evaluation_metric": "Hit_Rate@5", "metric_value": 0.0, "benchmark_baseline": 0.7600, "interpretation": "Insufficient data in batch"},
+                {"evaluation_metric": "Precision@5", "metric_value": 0.0, "benchmark_baseline": 0.3007, "interpretation": "Insufficient data in batch"},
+                {"evaluation_metric": "Recall@5", "metric_value": 0.0, "benchmark_baseline": 0.6110, "interpretation": "Insufficient data in batch"},
+                {"evaluation_metric": "Catalog_Coverage", "metric_value": 0.0, "benchmark_baseline": 1.0000, "interpretation": "Insufficient data in batch"},
+                {"evaluation_metric": "Evaluated_Customers_Count", "metric_value": 0.0, "benchmark_baseline": 1200.0, "interpretation": "Insufficient data in batch"}
+            ]
+            with open(os.path.join(version_models_dir, "evaluation_metrics.json"), "w", encoding="utf-8") as f:
+                json.dump(eval_payload, f, indent=2)
+            pd.DataFrame(eval_payload).to_csv(os.path.join(version_data_dir, "recommendation_evaluation.csv"), index=False)
+            return empty_rec
 
         # 1. Strict Zero-Leakage Offline Train/Test Evaluation (Reusing Baseline Protocol)
         eval_res_df = evaluate_recommendations_strict(inter_df, completed_tx, all_products, test_ratio=0.2, top_k=5)
@@ -556,28 +757,83 @@ class ModelTrainingService:
             skip_msg = (
                 f"Uploaded batch timeline span ({span_days} days) is less than the required 270 days "
                 f"(180d historical feature window + 90d future label observation). "
-                "Point-in-time churn training was safely skipped. Baseline churn model retained."
+                "Point-in-time churn training was safely skipped."
             )
+            is_batch_only = version_id.startswith("v_batch_only_")
             skip_payload = {
-                "status": "SKIPPED_INSUFFICIENT_TEMPORAL_DATA",
+                "status": "INSUFFICIENT_TEMPORAL_DATA",
                 "span_days": span_days,
                 "required_days": 270,
                 "reason": skip_msg,
-                "retained_baseline": True
+                "retained_baseline": not is_batch_only
             }
             with open(os.path.join(version_models_dir, "churn_status.json"), "w", encoding="utf-8") as f:
                 json.dump(skip_payload, f, indent=2)
 
-            # Copy baseline predictions for smooth dashboard preview
-            base_churn_pred = os.path.join(self.workspace_root, "data", "processed", "customer_churn_predictions.csv")
-            if os.path.exists(base_churn_pred):
-                df_base = pd.read_csv(base_churn_pred)
-                df_base.to_csv(os.path.join(version_data_dir, "customer_churn_predictions.csv"), index=False)
+            if is_batch_only:
+                cust_ids = df_tx["customer_id"].dropna().unique().tolist()
+                churn_rows = []
+                for cid in cust_ids:
+                    churn_rows.append({
+                        "customer_id": cid,
+                        "cluster_id": -1,
+                        "cluster_name": "Unassigned",
+                        "predicted_churn_class": 0,
+                        "churn_risk_score": 0.0,
+                        "risk_category": "Insufficient Temporal Data",
+                        "model_version": f"batch_only_{version_id}",
+                        "suggested_retention_action": "Timeline span (<270 days) insufficient for forward 90d churn observation.",
+                        "recency_days_at_cutoff": 0.0,
+                        "hist_completed_orders": 0,
+                        "hist_total_orders": 0,
+                        "hist_total_spend": 0.0,
+                        "hist_avg_order_value": 0.0,
+                        "hist_cancellation_rate": 0.0
+                    })
+                df_batch_churn = pd.DataFrame(churn_rows)
+                df_batch_churn.to_csv(os.path.join(version_data_dir, "customer_churn_predictions.csv"), index=False)
+
+                churn_summary = {
+                    "status": "INSUFFICIENT_TEMPORAL_DATA",
+                    "total_customers_evaluated": len(cust_ids),
+                    "churn_rate_percentage": 0.0,
+                    "predicted_churn_counts": {
+                        "Non-Churn": len(cust_ids),
+                        "Churned": 0
+                    },
+                    "risk_distribution": {
+                        "Low Risk": 0,
+                        "Medium Risk": 0,
+                        "High Risk": 0,
+                        "Insufficient Temporal Data": len(cust_ids)
+                    },
+                    "high_risk_revenue_exposure": 0.0,
+                    "message": skip_msg
+                }
+                with open(os.path.join(version_models_dir, "customer_churn_summary.json"), "w", encoding="utf-8") as f:
+                    json.dump(churn_summary, f, indent=2)
+
+                churn_eval = {
+                    "status": "INSUFFICIENT_TEMPORAL_DATA",
+                    "span_days": span_days,
+                    "required_days": 270,
+                    "models_evaluated": [],
+                    "academic_limitations": [skip_msg]
+                }
+                with open(os.path.join(version_models_dir, "churn_evaluation_metrics.json"), "w", encoding="utf-8") as f:
+                    json.dump(churn_eval, f, indent=2)
+            else:
+                base_churn_pred = os.path.join(self.workspace_root, "data", "processed", "customer_churn_predictions.csv")
+                if os.path.exists(base_churn_pred):
+                    df_base = pd.read_csv(base_churn_pred)
+                    df_base.to_csv(os.path.join(version_data_dir, "customer_churn_predictions.csv"), index=False)
 
             return {
-                "status": "SKIPPED_INSUFFICIENT_TEMPORAL_DATA",
+                "status": "INSUFFICIENT_TEMPORAL_DATA",
                 "span_days": span_days,
-                "reason": skip_msg
+                "reason": skip_msg,
+                "roc_auc": "N/A",
+                "f1_score": "N/A"
             }
 
         # Temporal window calculation
@@ -787,6 +1043,102 @@ class ModelTrainingService:
 
         except Exception as e:
             return False, f"Model retraining failed for {version_id}: {str(e)}", {}
+
+    def retrain_batch_only_models(self, version_id: str) -> Tuple[bool, str, Dict[str, Any]]:
+        """
+        Orchestrates isolated retraining of K-Means, Recommender, and Churn models
+        for a New Batch Only dataset (v_batch_only_<batch_id>).
+        Guarantees:
+        - Never touches baseline models in ml/models/_baseline_backup/ or ml/models/
+        - Produces artifacts in ml/models/versions/<version_id>/
+        - Mirrors artifacts to data/batch_previews/<batch_id>/models/ and /evaluation/
+        - Handles small sample sizes, sparse items, and short timelines honestly without fabricating metrics.
+        """
+        try:
+            batch_id = version_id.replace("v_batch_only_", "")
+            km_res = self.train_kmeans(version_id)
+            rec_res = self.train_recommender(version_id)
+            churn_res = self.train_churn(version_id)
+
+            report = {
+                "version_id": version_id,
+                "batch_id": batch_id,
+                "processing_mode": "NEW_BATCH_ONLY",
+                "retrained_at": datetime.now().isoformat(),
+                "status": "EVALUATION_COMPLETED",
+                "models": {
+                    "kmeans": km_res,
+                    "recommender": rec_res,
+                    "churn": churn_res
+                },
+                "comparison": [
+                    {
+                        "model": "K-Means Segmentation",
+                        "metric": "Silhouette Score",
+                        "baseline": 0.3451,
+                        "new_batch": km_res.get("silhouette_score", 0.0),
+                        "difference": round(km_res.get("silhouette_score", 0.0) - 0.3451, 4),
+                        "status": km_res.get("status", "COMPLETED")
+                    },
+                    {
+                        "model": "Recommendation Engine",
+                        "metric": "Hit Rate@5",
+                        "baseline": 0.7600,
+                        "new_batch": rec_res.get("hit_rate_5", 0.0),
+                        "difference": round(rec_res.get("hit_rate_5", 0.0) - 0.7600, 4),
+                        "status": rec_res.get("status", "COMPLETED")
+                    },
+                    {
+                        "model": "Customer Churn Prediction",
+                        "metric": "ROC-AUC",
+                        "baseline": 0.9365,
+                        "new_batch": churn_res.get("roc_auc", "N/A"),
+                        "difference": round(churn_res.get("roc_auc", 0.0) - 0.9365, 4) if isinstance(churn_res.get("roc_auc"), (int, float)) else "N/A",
+                        "status": churn_res.get("status")
+                    }
+                ]
+            }
+
+            version_models_dir = os.path.join(self.models_versions_dir, version_id)
+            with open(os.path.join(version_models_dir, "model_evaluation_report.json"), "w", encoding="utf-8") as f:
+                json.dump(report, f, indent=2)
+
+            # Mirror to data/batch_previews/<batch_id>/
+            preview_dir = os.path.join(self.workspace_root, "data", "batch_previews", batch_id)
+            preview_models_dir = os.path.join(preview_dir, "models")
+            preview_eval_dir = os.path.join(preview_dir, "evaluation")
+            os.makedirs(preview_models_dir, exist_ok=True)
+            os.makedirs(preview_eval_dir, exist_ok=True)
+
+            import shutil
+            for item in os.listdir(version_models_dir):
+                s_item = os.path.join(version_models_dir, item)
+                d_item = os.path.join(preview_models_dir, item)
+                if os.path.isdir(s_item):
+                    if os.path.exists(d_item):
+                        shutil.rmtree(d_item)
+                    shutil.copytree(s_item, d_item)
+                else:
+                    shutil.copy2(s_item, d_item)
+
+            shutil.copy2(os.path.join(version_models_dir, "model_evaluation_report.json"),
+                         os.path.join(preview_eval_dir, "model_evaluation_report.json"))
+
+            self._update_version_index(version_id, {
+                "models_trained": True,
+                "status": "EVALUATION_COMPLETED",
+                "processing_mode": "NEW_BATCH_ONLY",
+                "metrics": {
+                    "silhouette_score": km_res.get("silhouette_score"),
+                    "hit_rate_5": rec_res.get("hit_rate_5"),
+                    "churn_status": churn_res.get("status")
+                }
+            })
+
+            return True, f"Batch-only models retrained successfully for {version_id}.", report
+
+        except Exception as e:
+            return False, f"Batch-only model retraining failed for {version_id}: {str(e)}", {}
 
     def get_evaluation_report(self, version_id: str) -> Optional[Dict[str, Any]]:
         report_path = os.path.join(self.models_versions_dir, version_id, "model_evaluation_report.json")

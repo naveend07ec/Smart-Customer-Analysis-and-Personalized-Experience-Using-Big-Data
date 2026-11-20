@@ -165,6 +165,8 @@ export default function CustomerRetention() {
         return <span className="badge badge-rose">High Risk</span>;
       case 'Medium':
         return <span className="badge badge-amber">Medium Risk</span>;
+      case 'Insufficient Temporal Data':
+        return <span className="badge badge-amber">Timeline &lt; 270d</span>;
       default:
         return <span className="badge badge-sage">Low Risk</span>;
     }
@@ -198,7 +200,7 @@ export default function CustomerRetention() {
       <div className="grid-4" style={{ marginBottom: '2rem' }}>
         <MetricCard
           title="Evaluated Customers"
-          value={summary.total_customers_evaluated.toLocaleString()}
+          value={Number(summary?.total_customers_evaluated || 0).toLocaleString()}
           subtitle="Qualified with historical purchases"
           badgeText="Eligible Cohort"
           badgeColor="blue"
@@ -206,120 +208,156 @@ export default function CustomerRetention() {
         />
         <MetricCard
           title="High Churn Risk"
-          value={`${risk_distribution.high_risk.count} (${risk_distribution.high_risk.percentage}%)`}
-          subtitle="Score >= 65.0 (Priority Action)"
-          badgeText="At-Risk"
+          value={summary?.status === 'INSUFFICIENT_TEMPORAL_DATA' ? 'N/A' : `${risk_distribution?.high_risk?.count ?? 0} (${risk_distribution?.high_risk?.percentage ?? 0}%)`}
+          subtitle={summary?.status === 'INSUFFICIENT_TEMPORAL_DATA' ? 'Temporal Window Required' : 'Score >= 65.0 (Priority Action)'}
+          badgeText={summary?.status === 'INSUFFICIENT_TEMPORAL_DATA' ? 'Requires 270d' : 'At-Risk'}
           badgeColor="rose"
           icon={AlertTriangle}
         />
         <MetricCard
           title="Medium Churn Risk"
-          value={`${risk_distribution.medium_risk.count} (${risk_distribution.medium_risk.percentage}%)`}
-          subtitle="35.0 <= Score < 65.0"
-          badgeText="Monitor"
+          value={summary?.status === 'INSUFFICIENT_TEMPORAL_DATA' ? 'N/A' : `${risk_distribution?.medium_risk?.count ?? 0} (${risk_distribution?.medium_risk?.percentage ?? 0}%)`}
+          subtitle={summary?.status === 'INSUFFICIENT_TEMPORAL_DATA' ? 'Temporal Window Required' : '35.0 <= Score < 65.0'}
+          badgeText={summary?.status === 'INSUFFICIENT_TEMPORAL_DATA' ? 'Requires 270d' : 'Monitor'}
           badgeColor="amber"
           icon={TrendingDown}
         />
         <MetricCard
           title="Low Churn Risk"
-          value={`${risk_distribution.low_risk.count} (${risk_distribution.low_risk.percentage}%)`}
-          subtitle="Score < 35.0 (Active & Loyal)"
-          badgeText="Retained"
-          badgeColor="sage"
+          value={summary?.status === 'INSUFFICIENT_TEMPORAL_DATA' ? 'N/A' : `${risk_distribution?.low_risk?.count ?? 0} (${risk_distribution?.low_risk?.percentage ?? 0}%)`}
+          subtitle={summary?.status === 'INSUFFICIENT_TEMPORAL_DATA' ? 'Span < 270 Days' : 'Score < 35.0 (Active & Loyal)'}
+          badgeText={summary?.status === 'INSUFFICIENT_TEMPORAL_DATA' ? 'Timeline < 270d' : 'Retained'}
+          badgeColor={summary?.status === 'INSUFFICIENT_TEMPORAL_DATA' ? 'amber' : 'sage'}
           icon={CheckCircle}
         />
       </div>
 
-      {/* Visual Analytics & Confusion Matrix Grid */}
-      <div className="grid-3" style={{ marginBottom: '2rem' }}>
-        {/* Risk Distribution Chart */}
-        <div className="card" style={{ display: 'flex', flexDirection: 'column' }}>
-          <div className="card-title">
-            <ShieldAlert size={17} color="var(--accent-blue)" />
-            <span>Risk Tier Distribution</span>
+      {summary?.status === 'INSUFFICIENT_TEMPORAL_DATA' && (
+        <div className="card" style={{ marginBottom: '1.5rem', backgroundColor: 'rgba(217, 119, 6, 0.08)', border: '1px solid rgba(217, 119, 6, 0.3)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '0.35rem' }}>
+            <AlertTriangle size={18} color="#F59E0B" />
+            <span style={{ fontWeight: '700', color: '#FBBF24', fontSize: '0.9rem' }}>
+              Academic Integrity: Insufficient Temporal History for Churn Supervision
+            </span>
           </div>
-          <div style={{ height: '220px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <Doughnut
-              data={riskDoughnutData}
-              options={{
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                  legend: { position: 'bottom', labels: { color: '#F5F5F7', font: { family: 'var(--font-sans)', size: 11 }, padding: 12 } },
-                  tooltip: {
-                    backgroundColor: '#1D1D20',
-                    borderColor: '#303035',
-                    borderWidth: 1,
-                    titleColor: '#F5F5F7',
-                    bodyColor: '#A1A1A8'
-                  }
-                }
-              }}
-            />
-          </div>
-        </div>
-
-        {/* Top Predictive Feature Importances */}
-        <div className="card" style={{ display: 'flex', flexDirection: 'column' }}>
-          <div className="card-title">
-            <Activity size={17} color="var(--accent-purple)" />
-            <span>Top Predictive Factors (Random Forest)</span>
-          </div>
-          <div style={{ height: '220px' }}>
-            <Bar
-              data={featureBarData}
-              options={{
-                indexAxis: 'y',
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                  legend: { display: false },
-                  tooltip: {
-                    backgroundColor: '#1D1D20',
-                    borderColor: '#303035',
-                    borderWidth: 1,
-                    titleColor: '#F5F5F7',
-                    bodyColor: '#A1A1A8'
-                  }
-                },
-                scales: {
-                  x: { grid: { color: '#303035' }, ticks: { color: '#A1A1A8' } },
-                  y: { grid: { display: false }, ticks: { color: '#A1A1A8', font: { size: 10 } } }
-                }
-              }}
-            />
-          </div>
-        </div>
-
-        {/* Holdout Confusion Matrix Card */}
-        <div className="card" style={{ display: 'flex', flexDirection: 'column' }}>
-          <div className="card-title">
-            <Layers size={17} color="var(--accent-teal)" />
-            <span>Test Set Confusion Matrix (20% Holdout)</span>
-          </div>
-          <p style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', marginBottom: '0.75rem' }}>
-            Performance on 236 unseen test customers (ROC-AUC: <strong>{evaluation_metrics?.roc_auc}</strong>, Recall: <strong>{(evaluation_metrics?.recall * 100).toFixed(1)}%</strong>):
+          <p style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.5 }}>
+            {summary.message || "The active New Batch Only timeline does not span the required 270 days (180 days feature observation + 90 days forward inactivity label). Churn scoring is marked as 'Insufficient Temporal Data' to preserve mathematical rigor without fabricating synthetic labels."}
           </p>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem', marginTop: 'auto' }}>
-            <div className="glass-sub-card" style={{ padding: '0.75rem', textAlign: 'center' }}>
-              <div style={{ fontSize: '0.72rem', color: 'var(--text-secondary)' }}>True Negative (Retained)</div>
-              <div style={{ fontSize: '1.25rem', fontWeight: '600', color: 'var(--accent-green)', marginTop: '0.2rem' }}>{cm.true_negatives}</div>
+        </div>
+      )}
+
+      {/* Visual Analytics & Confusion Matrix Grid */}
+      {summary?.status === 'INSUFFICIENT_TEMPORAL_DATA' ? (
+        <div className="card" style={{ marginBottom: '2rem', padding: '2.5rem', textAlign: 'center', borderLeft: '4px solid var(--accent-amber)', backgroundColor: 'var(--surface-elevated)' }}>
+          <div style={{ display: 'inline-flex', padding: '0.85rem', borderRadius: '50%', backgroundColor: 'rgba(217, 119, 6, 0.12)', marginBottom: '1rem' }}>
+            <AlertTriangle size={32} color="#F59E0B" />
+          </div>
+          <h2 style={{ fontSize: '1.2rem', fontWeight: '600', color: 'var(--text-primary)', marginBottom: '0.5rem' }}>
+            Supervised Churn Model Omitted for Isolated Batch
+          </h2>
+          <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', maxWidth: '680px', margin: '0 auto 1.5rem', lineHeight: '1.6' }}>
+            Point-in-time supervised churn prediction requires an observation timeline of at least <strong>270 days</strong> (180 days feature history + 90 days forward purchase observation window to observe customer inactivity). The uploaded batch spans <strong>{summary?.timeline_span_days || 266} days</strong>.
+          </p>
+          <div style={{ display: 'inline-flex', gap: '0.75rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+            <span className="badge badge-amber" style={{ padding: '0.4rem 0.85rem', fontSize: '0.8rem' }}>
+              Academic Integrity: No Synthetic Labels Fabricated
+            </span>
+            <span className="badge badge-blue" style={{ padding: '0.4rem 0.85rem', fontSize: '0.8rem' }}>
+              Full 365-Day Retraining Available in Cumulative Mode
+            </span>
+          </div>
+        </div>
+      ) : (
+        <div className="grid-3" style={{ marginBottom: '2rem' }}>
+          {/* Risk Distribution Chart */}
+          <div className="card" style={{ display: 'flex', flexDirection: 'column' }}>
+            <div className="card-title">
+              <ShieldAlert size={17} color="var(--accent-blue)" />
+              <span>Risk Tier Distribution</span>
             </div>
-            <div className="glass-sub-card" style={{ padding: '0.75rem', textAlign: 'center' }}>
-              <div style={{ fontSize: '0.72rem', color: 'var(--text-secondary)' }}>False Positive (False Alarm)</div>
-              <div style={{ fontSize: '1.25rem', fontWeight: '600', color: 'var(--accent-orange)', marginTop: '0.2rem' }}>{cm.false_positives}</div>
+            <div style={{ height: '220px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <Doughnut
+                data={riskDoughnutData}
+                options={{
+                  responsive: true,
+                  maintainAspectRatio: false,
+                  plugins: {
+                    legend: { position: 'bottom', labels: { color: '#F5F5F7', font: { family: 'var(--font-sans)', size: 11 }, padding: 12 } },
+                    tooltip: {
+                      backgroundColor: '#1D1D20',
+                      borderColor: '#303035',
+                      borderWidth: 1,
+                      titleColor: '#F5F5F7',
+                      bodyColor: '#A1A1A8'
+                    }
+                  }
+                }}
+              />
             </div>
-            <div className="glass-sub-card" style={{ padding: '0.75rem', textAlign: 'center' }}>
-              <div style={{ fontSize: '0.72rem', color: 'var(--text-secondary)' }}>False Negative (Missed Churn)</div>
-              <div style={{ fontSize: '1.25rem', fontWeight: '600', color: 'var(--accent-red)', marginTop: '0.2rem' }}>{cm.false_negatives}</div>
+          </div>
+
+          {/* Top Predictive Feature Importances */}
+          <div className="card" style={{ display: 'flex', flexDirection: 'column' }}>
+            <div className="card-title">
+              <Activity size={17} color="var(--accent-purple)" />
+              <span>Top Predictive Factors (Random Forest)</span>
             </div>
-            <div className="glass-sub-card" style={{ padding: '0.75rem', textAlign: 'center' }}>
-              <div style={{ fontSize: '0.72rem', color: 'var(--text-secondary)' }}>True Positive (Detected Churn)</div>
-              <div style={{ fontSize: '1.25rem', fontWeight: '600', color: 'var(--accent-red)', marginTop: '0.2rem' }}>{cm.true_positives}</div>
+            <div style={{ height: '220px' }}>
+              <Bar
+                data={featureBarData}
+                options={{
+                  indexAxis: 'y',
+                  responsive: true,
+                  maintainAspectRatio: false,
+                  plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                      backgroundColor: '#1D1D20',
+                      borderColor: '#303035',
+                      borderWidth: 1,
+                      titleColor: '#F5F5F7',
+                      bodyColor: '#A1A1A8'
+                    }
+                  },
+                  scales: {
+                    x: { grid: { color: '#303035' }, ticks: { color: '#A1A1A8' } },
+                    y: { grid: { display: false }, ticks: { color: '#A1A1A8', font: { size: 10 } } }
+                  }
+                }}
+              />
+            </div>
+          </div>
+
+          {/* Holdout Confusion Matrix Card */}
+          <div className="card" style={{ display: 'flex', flexDirection: 'column' }}>
+            <div className="card-title">
+              <Layers size={17} color="var(--accent-teal)" />
+              <span>Test Set Confusion Matrix (20% Holdout)</span>
+            </div>
+            <p style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', marginBottom: '0.75rem' }}>
+              Performance on 236 unseen test customers (ROC-AUC: <strong>{evaluation_metrics?.roc_auc}</strong>, Recall: <strong>{(evaluation_metrics?.recall * 100).toFixed(1)}%</strong>):
+            </p>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem', marginTop: 'auto' }}>
+              <div className="glass-sub-card" style={{ padding: '0.75rem', textAlign: 'center' }}>
+                <div style={{ fontSize: '0.72rem', color: 'var(--text-secondary)' }}>True Negative (Retained)</div>
+                <div style={{ fontSize: '1.25rem', fontWeight: '600', color: 'var(--accent-green)', marginTop: '0.2rem' }}>{cm.true_negatives}</div>
+              </div>
+              <div className="glass-sub-card" style={{ padding: '0.75rem', textAlign: 'center' }}>
+                <div style={{ fontSize: '0.72rem', color: 'var(--text-secondary)' }}>False Positive (False Alarm)</div>
+                <div style={{ fontSize: '1.25rem', fontWeight: '600', color: 'var(--accent-orange)', marginTop: '0.2rem' }}>{cm.false_positives}</div>
+              </div>
+              <div className="glass-sub-card" style={{ padding: '0.75rem', textAlign: 'center' }}>
+                <div style={{ fontSize: '0.72rem', color: 'var(--text-secondary)' }}>False Negative (Missed Churn)</div>
+                <div style={{ fontSize: '1.25rem', fontWeight: '600', color: 'var(--accent-red)', marginTop: '0.2rem' }}>{cm.false_negatives}</div>
+              </div>
+              <div className="glass-sub-card" style={{ padding: '0.75rem', textAlign: 'center' }}>
+                <div style={{ fontSize: '0.72rem', color: 'var(--text-secondary)' }}>True Positive (Detected Churn)</div>
+                <div style={{ fontSize: '1.25rem', fontWeight: '600', color: 'var(--accent-red)', marginTop: '0.2rem' }}>{cm.true_positives}</div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* Search and Filters Bar */}
       <div className="card" style={{ marginBottom: '1.5rem', padding: '1rem' }}>
@@ -391,17 +429,25 @@ export default function CustomerRetention() {
                     </span>
                   </td>
                   <td>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                      <span style={{ fontWeight: '600', color: c.churn_risk_score >= 65 ? 'var(--accent-red)' : c.churn_risk_score >= 35 ? 'var(--accent-orange)' : 'var(--accent-green)' }}>
-                        {c.churn_risk_score} / 100
-                      </span>
-                    </div>
+                    {summary?.status === 'INSUFFICIENT_TEMPORAL_DATA' ? (
+                      <span style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>N/A</span>
+                    ) : (
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                        <span style={{ fontWeight: '600', color: c.churn_risk_score >= 65 ? 'var(--accent-red)' : c.churn_risk_score >= 35 ? 'var(--accent-orange)' : 'var(--accent-green)' }}>
+                          {c.churn_risk_score} / 100
+                        </span>
+                      </div>
+                    )}
                   </td>
                   <td>{getRiskBadge(c.risk_category)}</td>
                   <td>
-                    <span className={`badge ${c.predicted_churn_class === 1 ? 'badge-rose' : 'badge-sage'}`}>
-                      {c.predicted_churn_class === 1 ? 'Yes (Churn Risk)' : 'No (Active)'}
-                    </span>
+                    {summary?.status === 'INSUFFICIENT_TEMPORAL_DATA' ? (
+                      <span className="badge badge-amber">Omitted (No Leakage)</span>
+                    ) : (
+                      <span className={`badge ${c.predicted_churn_class === 1 ? 'badge-rose' : 'badge-sage'}`}>
+                        {c.predicted_churn_class === 1 ? 'Yes (Churn Risk)' : 'No (Active)'}
+                      </span>
+                    )}
                   </td>
                   <td style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', maxWidth: '300px' }}>
                     {c.suggested_retention_action}

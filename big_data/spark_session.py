@@ -46,8 +46,8 @@ def get_spark_session(app_name: str = "SmartCustomerBigDataPipeline") -> SparkSe
         SparkSession.builder
         .master("local[2]")
         .appName(app_name)
-        .config("spark.driver.memory", "2g")
-        .config("spark.executor.memory", "1g")
+        .config("spark.driver.memory", "1g")
+        .config("spark.executor.memory", "512m")
         .config("spark.sql.shuffle.partitions", "4")
         .config("spark.default.parallelism", "2")
         .config("spark.sql.execution.arrow.pyspark.enabled", "true")

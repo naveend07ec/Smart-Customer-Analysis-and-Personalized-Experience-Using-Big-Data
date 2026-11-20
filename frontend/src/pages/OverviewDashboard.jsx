@@ -73,21 +73,28 @@ export default function OverviewDashboard() {
   const hitRateMetric = evalMetrics?.find((m) => m.evaluation_metric === 'Hit_Rate@5')?.metric_value;
   const hitRateDisplay = hitRateMetric ? `${(hitRateMetric * 100).toFixed(1)}%` : '76.0%';
 
-  const atRiskSeg = segments?.find((s) => s.cluster_id === 3 || s.cluster_name?.toLowerCase().includes('at-risk')) || {
-    customer_count: 168,
-    percentage_of_total: 14.0
-  };
-  const atRiskPct = atRiskSeg.percentage_of_total ? `${atRiskSeg.percentage_of_total.toFixed(0)}%` : '14%';
-  const activePct = atRiskSeg.percentage_of_total ? `${(100 - atRiskSeg.percentage_of_total).toFixed(0)}%` : '86%';
-  const atRiskCount = `${atRiskSeg.customer_count || 168} cust`;
+  const atRiskSeg = segments?.find((s) => s.cluster_name?.toLowerCase().includes('at-risk') || s.cluster_name?.toLowerCase().includes('churn') || s.cluster_name?.toLowerCase().includes('friction')) || (segments && segments.length > 0 ? segments[segments.length - 1] : null);
+  const atRiskPctVal = atRiskSeg ? (atRiskSeg.percentage_of_total ?? (atRiskSeg.customer_count && kpis?.total_customers ? (atRiskSeg.customer_count / kpis.total_customers) * 100 : 0)) : 0;
+  const atRiskPct = `${Number(atRiskPctVal).toFixed(0)}%`;
+  const activePct = `${Math.max(0, 100 - Number(atRiskPctVal)).toFixed(0)}%`;
+  const atRiskCount = atRiskSeg ? `${atRiskSeg.customer_count} cust` : '0 cust';
 
-  const webRaw = pipelineSummary?.raw_datasets?.web_activity?.records || 120979;
-  const txRaw = pipelineSummary?.raw_datasets?.transactions?.records || 12239;
-  const socRaw = pipelineSummary?.raw_datasets?.social_media?.records || 8828;
-  const totalRaw = webRaw + txRaw + socRaw;
+  const webRaw = kpis?.total_web_touchpoints || pipelineSummary?.raw_datasets?.web_activity?.records || 0;
+  const txRaw = kpis?.total_transactions || pipelineSummary?.raw_datasets?.transactions?.records || 0;
+  const socRaw = kpis?.total_social_interactions || pipelineSummary?.raw_datasets?.social_media?.records || 0;
+  const totalRaw = Math.max(1, webRaw + txRaw + socRaw);
   const webPct = ((webRaw / totalRaw) * 100).toFixed(0);
   const txPct = ((txRaw / totalRaw) * 100).toFixed(0);
   const socPct = ((socRaw / totalRaw) * 100).toFixed(0);
+
+  const formatStatNumber = (num, isCurrency = false) => {
+    if (num == null || isNaN(num)) return isCurrency ? '$0' : '0';
+    const n = Number(num);
+    const prefix = isCurrency ? '$' : '';
+    if (n >= 1000000) return `${prefix}${(n / 1000000).toFixed(1)}M`;
+    if (n >= 1000) return `${prefix}${(n / 1000).toFixed(1)}k`;
+    return `${prefix}${n.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+  };
 
   const fulfillmentDisplay = kpis?.fulfillment_rate ? `${kpis.fulfillment_rate.toFixed(1)}%` : '95.6%';
   const completedOrdersDisplay = kpis?.completed_orders ? `${kpis.completed_orders.toLocaleString()} Completed` : '11,672 Completed';
@@ -109,7 +116,7 @@ export default function OverviewDashboard() {
           <div className="hero-stat-box">
             <div className="hero-stat-number-row">
               <span className="hero-stat-number">
-                {kpis?.total_transactions ? `${(kpis.total_transactions / 1000).toFixed(1)}k` : '12.2k'}
+                {formatStatNumber(kpis?.total_transactions)}
               </span>
               <span className="hero-stat-pill">Verified</span>
             </div>
@@ -119,7 +126,7 @@ export default function OverviewDashboard() {
           <div className="hero-stat-box">
             <div className="hero-stat-number-row">
               <span className="hero-stat-number">
-                {kpis?.total_revenue ? `$${(kpis.total_revenue / 1000000).toFixed(1)}M` : '$1.8M'}
+                {formatStatNumber(kpis?.total_revenue, true)}
               </span>
               <span className="hero-stat-pill">HDFS</span>
             </div>

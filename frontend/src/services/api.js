@@ -28,7 +28,7 @@ export const api = {
 
   // Segmentation Page
   getSegmentationEvaluation: () => client.get('/segmentation/evaluation').then(r => r.data),
-  getPCAScatter: (limit = 1200) => client.get(`/segmentation/pca-scatter?limit=${limit}`).then(r => r.data),
+  getPCAScatter: (limit) => client.get(limit ? `/segmentation/pca-scatter?limit=${limit}` : "/segmentation/pca-scatter").then(r => r.data),
 
   // Customer Details Page
   getCustomers: (params = {}) => client.get('/customers', { params }).then(r => r.data.data || r.data),
@@ -60,6 +60,8 @@ export const api = {
   }).then(r => r.data),
   validateBatch: (batchId, options = {}) => client.post(`/ingestion/validate/${batchId}`, options).then(r => r.data),
   commitBatchToHDFS: (batchId) => client.post(`/ingestion/commit/${batchId}`).then(r => r.data),
+  retryHDFSIngestion: (batchId) => client.post(`/ingestion/retry-hdfs/${batchId}`).then(r => r.data),
+  recoverBatch: (batchId) => client.post(`/ingestion/recover/${batchId}`).then(r => r.data),
   getBatchStatus: (batchId) => client.get(`/ingestion/status/${batchId}`).then(r => r.data),
   getBatchHistory: () => client.get('/ingestion/history').then(r => r.data),
 
@@ -89,5 +91,10 @@ export const api = {
   downloadTemplateUrl: (sourceType) => `/api/ingestion/templates/${sourceType}/download`,
   exportRawUrl: (batchId, fileKey) => `/api/ingestion/export/raw/${batchId}/${fileKey}`,
   exportProcessedUrl: (versionId, datasetName, format = 'csv') => `/api/ingestion/export/processed/${versionId}/${datasetName}?format=${format}`,
-  exportAnalyticsUrl: (versionId, reportName) => `/api/ingestion/export/analytics/${versionId}/${reportName}`
+  exportAnalyticsUrl: (versionId, reportName) => `/api/ingestion/export/analytics/${versionId}/${reportName}`,
+
+  // Dual Dataset Processing Modes (Cumulative vs New Batch Only)
+  getDatasetMode: () => client.get('/dataset-mode').then(r => r.data),
+  setDatasetMode: (mode, batchId = null) => client.post('/dataset-mode', { mode, batch_id: batchId }).then(r => r.data),
+  processBatchOnly: (batchId) => client.post(`/ingestion/process-batch-only/${batchId}`).then(r => r.data)
 };

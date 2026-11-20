@@ -433,6 +433,7 @@ class IngestionService:
         Commits all staged raw files to HDFS under:
         /customer-analytics/raw/uploads/<batch_id>/
         Verifies exact remote byte sizes. Fails fast with HTTP 503 if HDFS is offline.
+        If batch is in INGESTION_FAILED, delegates to safe recover_failed_batch.
         """
         manifest_path = self._get_manifest_path(batch_id)
         if not os.path.exists(manifest_path):
@@ -442,6 +443,9 @@ class IngestionService:
             manifest = json.load(f)
 
         current_status = manifest.get("status")
+        if current_status == STATUS_INGESTION_FAILED:
+            return self.recover_failed_batch(batch_id)
+
         if current_status == STATUS_UPLOADED and manifest.get("batch_type") == "MULTI_FORMAT":
             # Auto-validate multi-format batch before commit
             self.validate_batch(batch_id)
@@ -454,12 +458,25 @@ class IngestionService:
 
         # 1. Genuine HDFS connectivity check
         hdfs_stat = self.hdfs_manager.check_hdfs_status()
+        retry_history = manifest.setdefault("retry_history", [])
+        now_iso = datetime.now().isoformat()
+
         if not hdfs_stat["is_available"]:
-            manifest["status"] = STATUS_INGESTION_FAILED
-            manifest["message"] = (
+            fail_reason = (
                 f"Hadoop HDFS cluster is OFFLINE. Cannot ingest to HDFS. "
                 f"Details: {hdfs_stat['message']}. Start Hadoop daemons in WSL2 and retry."
             )
+            manifest["status"] = STATUS_INGESTION_FAILED
+            manifest["message"] = fail_reason
+            manifest["last_retry_at"] = now_iso
+            retry_history.append({
+                "attempt": len(retry_history) + 1,
+                "timestamp": now_iso,
+                "status": "FAILED",
+                "action": "COMMIT_TO_HDFS_CONNECTIVITY_CHECK",
+                "reason": fail_reason
+            })
+            manifest["retry_count"] = len(retry_history)
             with open(manifest_path, "w", encoding="utf-8") as f:
                 json.dump(manifest, f, indent=2)
             self._update_index_entry(manifest)
@@ -491,16 +508,33 @@ class IngestionService:
         if not success:
             manifest["status"] = STATUS_INGESTION_FAILED
             manifest["message"] = f"HDFS Ingestion failed: {msg}"
+            manifest["last_retry_at"] = now_iso
+            retry_history.append({
+                "attempt": len(retry_history) + 1,
+                "timestamp": now_iso,
+                "status": "FAILED",
+                "action": "COMMIT_TO_HDFS_UPLOAD",
+                "reason": msg
+            })
+            manifest["retry_count"] = len(retry_history)
             with open(manifest_path, "w", encoding="utf-8") as f:
                 json.dump(manifest, f, indent=2)
             self._update_index_entry(manifest)
             return False, manifest["message"], self.sanitize_manifest_for_client(manifest)
 
         manifest["status"] = STATUS_INGESTED
-        manifest["ingested_at"] = datetime.now().isoformat()
+        manifest["ingested_at"] = now_iso
         manifest["hdfs_path"] = target_hdfs_dir
         manifest["hdfs_details"] = upload_details
         manifest["message"] = f"Batch successfully ingested and verified in Hadoop HDFS ({target_hdfs_dir})."
+        retry_history.append({
+            "attempt": len(retry_history) + 1,
+            "timestamp": now_iso,
+            "status": "SUCCESS",
+            "action": "COMMIT_TO_HDFS_UPLOAD",
+            "message": f"Successfully uploaded and verified {len(files_to_transfer)} files in HDFS."
+        })
+        manifest["retry_count"] = len(retry_history)
 
         with open(manifest_path, "w", encoding="utf-8") as f:
             json.dump(manifest, f, indent=2)
@@ -514,6 +548,193 @@ class IngestionService:
 
         self._update_index_entry(manifest)
         return True, manifest["message"], self.sanitize_manifest_for_client(manifest)
+
+    def recover_failed_batch(self, batch_id: str) -> Tuple[bool, str, Dict[str, Any]]:
+        """
+        Safely recovers a batch in INGESTION_FAILED (or VALIDATED/UPLOADED) status.
+        1. Preserves original batch ID and local staged files.
+        2. Inspects HDFS directory /customer-analytics/raw/uploads/<batch_id>/.
+        3. Verifies file presence and byte size against manifest.
+        4. If all files exist & verify in HDFS -> idempotently recovers status to INGESTED.
+        5. If files are missing/incomplete -> retries HDFS upload with same batch ID.
+        6. Logs retry attempt, timestamp, and failure reason in retry_history.
+        7. Returns sanitized manifest.
+        """
+        manifest_path = self._get_manifest_path(batch_id)
+        if not os.path.exists(manifest_path):
+            return False, f"Batch '{batch_id}' not found.", {}
+
+        with open(manifest_path, "r", encoding="utf-8") as f:
+            manifest = json.load(f)
+
+        current_status = manifest.get("status")
+        if current_status == STATUS_INGESTED:
+            return True, f"Batch '{batch_id}' is already in INGESTED status.", self.sanitize_manifest_for_client(manifest)
+
+        if current_status not in (STATUS_INGESTION_FAILED, STATUS_VALIDATED, STATUS_UPLOADED):
+            return False, (
+                f"Cannot recover batch in status '{current_status}'. "
+                f"Batch must be in '{STATUS_INGESTION_FAILED}', '{STATUS_VALIDATED}', or '{STATUS_UPLOADED}'."
+            ), self.sanitize_manifest_for_client(manifest)
+
+        # 1. Collect local staged files to verify/transfer
+        staged_files = manifest.get("staged_files", {})
+        if not staged_files:
+            return False, f"Batch '{batch_id}' has no staged files to recover.", self.sanitize_manifest_for_client(manifest)
+
+        batch_dir = self._get_batch_dir(batch_id)
+        files_to_transfer: Dict[str, str] = {}
+        for fid, finfo in staged_files.items():
+            loc_path = finfo.get("local_path")
+            if not loc_path or not os.path.exists(loc_path):
+                candidate_name = finfo.get("staged_filename") or finfo.get("original_filename") or f"{fid}.csv"
+                fallback_path = os.path.join(batch_dir, candidate_name)
+                if os.path.exists(fallback_path):
+                    loc_path = fallback_path
+                    finfo["local_path"] = loc_path
+                else:
+                    return False, f"Local raw file '{candidate_name}' for file '{fid}' is missing on disk. Cannot recover batch without original files.", self.sanitize_manifest_for_client(manifest)
+            files_to_transfer[fid] = loc_path
+
+        files_to_transfer["manifest"] = manifest_path
+
+        target_hdfs_dir = f"/customer-analytics/raw/uploads/{batch_id}"
+        now_iso = datetime.now().isoformat()
+        retry_history = manifest.setdefault("retry_history", [])
+        attempt_number = len(retry_history) + 1
+
+        # 2. Check HDFS connectivity
+        hdfs_stat = self.hdfs_manager.check_hdfs_status()
+        if not hdfs_stat["is_available"]:
+            fail_reason = (
+                f"Hadoop HDFS cluster is OFFLINE. Cannot recover or ingest batch '{batch_id}' to HDFS. "
+                f"Details: {hdfs_stat['message']}. Start Hadoop daemons in WSL2 and retry."
+            )
+            retry_history.append({
+                "attempt": attempt_number,
+                "timestamp": now_iso,
+                "status": "FAILED",
+                "action": "CHECK_HDFS_CONNECTIVITY",
+                "reason": fail_reason
+            })
+            manifest["status"] = STATUS_INGESTION_FAILED
+            manifest["message"] = fail_reason
+            manifest["last_retry_at"] = now_iso
+            manifest["retry_count"] = len(retry_history)
+            with open(manifest_path, "w", encoding="utf-8") as f:
+                json.dump(manifest, f, indent=2)
+            self._update_index_entry(manifest)
+            return False, fail_reason, self.sanitize_manifest_for_client(manifest)
+
+        # 3. Check if all raw data files already exist in HDFS and verify byte sizes
+        dir_exists, hdfs_listing = self.hdfs_manager.verify_hdfs_directory(target_hdfs_dir)
+        raw_files_to_check = {fid: p for fid, p in files_to_transfer.items() if fid != "manifest"}
+        all_files_verified = dir_exists and len(raw_files_to_check) > 0
+
+        if dir_exists:
+            for fid, loc_path in raw_files_to_check.items():
+                fname = os.path.basename(loc_path)
+                target_file = f"{target_hdfs_dir}/{fname}"
+                local_size = os.path.getsize(loc_path)
+                stat_ret, stat_out, _ = self.hdfs_manager._exec_hdfs_cmd(["dfs", "-stat", "%b", target_file])
+                if stat_ret != 0:
+                    all_files_verified = False
+                    break
+                try:
+                    remote_size = int(stat_out.strip())
+                    if remote_size != local_size:
+                        all_files_verified = False
+                        break
+                except (ValueError, TypeError):
+                    all_files_verified = False
+                    break
+        else:
+            all_files_verified = False
+
+        # 4. If all files already present & verified in HDFS: Recover idempotently without re-upload
+        if all_files_verified:
+            manifest["status"] = STATUS_INGESTED
+            manifest["hdfs_path"] = target_hdfs_dir
+            manifest["ingested_at"] = manifest.get("ingested_at") or now_iso
+            manifest["recovered_at"] = now_iso
+            manifest["message"] = f"Batch raw files verified in Hadoop HDFS ({target_hdfs_dir}) and recovered to INGESTED."
+            retry_history.append({
+                "attempt": attempt_number,
+                "timestamp": now_iso,
+                "status": "SUCCESS",
+                "action": "VERIFY_EXISTING_HDFS_FILES",
+                "message": f"All {len(raw_files_to_check)} raw data files already present and verified in HDFS. Batch recovered to INGESTED."
+            })
+            manifest["retry_count"] = len(retry_history)
+            with open(manifest_path, "w", encoding="utf-8") as f:
+                json.dump(manifest, f, indent=2)
+
+            # Upload updated manifest copy to HDFS
+            self.hdfs_manager.upload_batch_to_hdfs(
+                batch_id=batch_id,
+                staged_files={"manifest": manifest_path},
+                hdfs_target_dir=target_hdfs_dir
+            )
+
+            self._update_index_entry(manifest)
+            return True, manifest["message"], self.sanitize_manifest_for_client(manifest)
+
+        # 5. Missing or incomplete files -> retry ingestion using the SAME batch ID
+        manifest["status"] = STATUS_INGESTING
+        manifest["last_retry_at"] = now_iso
+        with open(manifest_path, "w", encoding="utf-8") as f:
+            json.dump(manifest, f, indent=2)
+
+        upload_success, upload_msg, upload_details = self.hdfs_manager.upload_batch_to_hdfs(
+            batch_id=batch_id,
+            staged_files=files_to_transfer,
+            hdfs_target_dir=target_hdfs_dir
+        )
+
+        if not upload_success:
+            manifest["status"] = STATUS_INGESTION_FAILED
+            manifest["message"] = f"HDFS Ingestion retry failed: {upload_msg}"
+            retry_history.append({
+                "attempt": attempt_number,
+                "timestamp": now_iso,
+                "status": "FAILED",
+                "action": "RETRY_HDFS_UPLOAD",
+                "reason": upload_msg
+            })
+            manifest["retry_count"] = len(retry_history)
+            with open(manifest_path, "w", encoding="utf-8") as f:
+                json.dump(manifest, f, indent=2)
+            self._update_index_entry(manifest)
+            return False, manifest["message"], self.sanitize_manifest_for_client(manifest)
+
+        # 6. Upload succeeded -> update to INGESTED
+        manifest["status"] = STATUS_INGESTED
+        manifest["ingested_at"] = now_iso
+        manifest["hdfs_path"] = target_hdfs_dir
+        manifest["hdfs_details"] = upload_details
+        manifest["message"] = f"Batch successfully ingested and verified in Hadoop HDFS ({target_hdfs_dir}) on retry."
+        retry_history.append({
+            "attempt": attempt_number,
+            "timestamp": now_iso,
+            "status": "SUCCESS",
+            "action": "RETRY_HDFS_UPLOAD",
+            "message": f"Successfully uploaded and verified {len(files_to_transfer)} files in HDFS."
+        })
+        manifest["retry_count"] = len(retry_history)
+
+        with open(manifest_path, "w", encoding="utf-8") as f:
+            json.dump(manifest, f, indent=2)
+
+        # Upload final verified manifest copy to HDFS
+        self.hdfs_manager.upload_batch_to_hdfs(
+            batch_id=batch_id,
+            staged_files={"manifest": manifest_path},
+            hdfs_target_dir=target_hdfs_dir
+        )
+
+        self._update_index_entry(manifest)
+        return True, manifest["message"], self.sanitize_manifest_for_client(manifest)
+
 
     # -------------------------------------------------------------
     # 5. Schema Discovery & Intelligent Field Mapping API

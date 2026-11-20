@@ -274,10 +274,32 @@ class PipelineExecutionService:
         with open(manifest_path, "r", encoding="utf-8") as f:
             manifest = json.load(f)
 
-        # Check batch status
+        # Check batch status and handle INGESTION_FAILED or INGESTING_TO_HDFS recovery
         status = manifest.get("status")
+        if status in ("INGESTION_FAILED", "INGESTING_TO_HDFS"):
+            # Attempt safe recovery if raw files exist in HDFS or can be committed safely
+            from backend.app.services.ingestion_service import IngestionService
+            rec_ok, rec_msg, rec_manifest = IngestionService.get_instance().recover_failed_batch(batch_id)
+            if rec_ok:
+                manifest = rec_manifest
+                status = manifest.get("status")
+            elif force_local_input:
+                status = "VALIDATED"
+            else:
+                return False, (
+                    f"Cannot process batch '{batch_id}' in status '{status}'. "
+                    f"Raw data could not be verified in HDFS ({rec_msg}). "
+                    f"Ensure Hadoop daemons are running in WSL and click 'Retry HDFS Ingestion'."
+                ), {}
+
         if status not in ("INGESTED", "VALIDATED", "UPLOADED"):
-            return False, f"Cannot process batch in status '{status}'. Batch must be VALIDATED, INGESTED, or UPLOADED.", {}
+            if status == "VALIDATION_FAILED":
+                err_detail = manifest.get("message") or "Schema validation errors detected."
+                return False, f"Cannot process batch '{batch_id}' in status 'VALIDATION_FAILED'. {err_detail} Please fix errors before processing.", {}
+            elif status in ("DISCOVERED", "MAPPING_PENDING"):
+                return False, f"Cannot process batch '{batch_id}' in status '{status}'. Batch must be validated before processing.", {}
+            else:
+                return False, f"Cannot process batch '{batch_id}' in status '{status}'. Batch must be in 'INGESTED', 'VALIDATED', or 'UPLOADED' status.", {}
 
         version_id = f"v_{batch_id}"
         version_dir = os.path.join(self.versions_dir, version_id)
@@ -583,6 +605,234 @@ class PipelineExecutionService:
 
         except Exception as e:
             err_msg = f"PySpark processing failed for batch '{batch_id}': {str(e)}"
+            return False, err_msg, {}
+        finally:
+            if spark is not None:
+                try:
+                    spark.stop()
+                except Exception:
+                    pass
+
+    def execute_batch_only_pipeline(
+        self,
+        batch_id: str,
+        force_local_input: bool = False,
+        force_reprocess: bool = False
+    ) -> Tuple[bool, str, Dict[str, Any]]:
+        """
+        Executes lightweight PySpark batch cleaning and feature engineering ONLY on the current batch.
+        Does NOT load, union, or reprocess historical baseline datasets or prior batches.
+        Produces isolated artifacts in data/versions/v_batch_only_<batch_id>/ and data/batch_previews/<batch_id>/.
+        Guarantees 100% preservation of historical baseline and accepted cumulative lineage.
+        """
+        start_time = time.time()
+        batch_dir = os.path.join(self.uploads_dir, batch_id)
+        manifest_path = os.path.join(batch_dir, "manifest.json")
+
+        if not os.path.exists(manifest_path):
+            return False, f"Batch '{batch_id}' not found. Cannot execute PySpark pipeline.", {}
+
+        with open(manifest_path, "r", encoding="utf-8") as f:
+            manifest = json.load(f)
+
+        # Check batch status and handle INGESTION_FAILED or INGESTING_TO_HDFS recovery
+        status = manifest.get("status")
+        if status in ("INGESTION_FAILED", "INGESTING_TO_HDFS"):
+            from backend.app.services.ingestion_service import IngestionService
+            rec_ok, rec_msg, rec_manifest = IngestionService.get_instance().recover_failed_batch(batch_id)
+            if rec_ok:
+                manifest = rec_manifest
+                status = manifest.get("status")
+            elif force_local_input:
+                status = "VALIDATED"
+            else:
+                return False, (
+                    f"Cannot process batch '{batch_id}' in status '{status}'. "
+                    f"Raw data could not be verified in HDFS ({rec_msg}). "
+                    f"Ensure Hadoop daemons are running in WSL and click 'Retry HDFS Ingestion'."
+                ), {}
+
+        if status not in ("INGESTED", "VALIDATED", "UPLOADED"):
+            return False, f"Cannot process batch '{batch_id}' in status '{status}'. Batch must be in 'INGESTED', 'VALIDATED', or 'UPLOADED' status.", {}
+
+        version_id = f"v_batch_only_{batch_id}"
+        version_dir = os.path.join(self.versions_dir, version_id)
+        preview_dir = os.path.join(self.workspace_root, "data", "batch_previews", batch_id)
+
+        os.makedirs(version_dir, exist_ok=True)
+        os.makedirs(os.path.join(preview_dir, "raw"), exist_ok=True)
+        os.makedirs(os.path.join(preview_dir, "processed"), exist_ok=True)
+        os.makedirs(os.path.join(preview_dir, "features"), exist_ok=True)
+        os.makedirs(os.path.join(preview_dir, "models"), exist_ok=True)
+        os.makedirs(os.path.join(preview_dir, "evaluation"), exist_ok=True)
+
+        # Idempotency check: only return cached report if force_reprocess is False
+        existing_report_path = os.path.join(version_dir, "processing_report.json")
+        data_comp_path = os.path.join(version_dir, "data_composition.json")
+        if not force_reprocess and os.path.exists(existing_report_path) and os.path.exists(data_comp_path):
+            try:
+                with open(existing_report_path, "r", encoding="utf-8") as f:
+                    existing_report = json.load(f)
+                with open(data_comp_path, "r", encoding="utf-8") as f:
+                    existing_comp = json.load(f)
+                if existing_report.get("status") == "PROCESSING_COMPLETED":
+                    existing_report["data_composition"] = existing_comp
+                    return True, f"Batch '{batch_id}' has already been processed in New Batch Only mode ('{version_id}').", existing_report
+            except Exception:
+                pass
+
+        # Stage 1: Resolve Input Sources
+        t1_start = time.time()
+        hdfs_stat = self.hdfs_manager.check_hdfs_status()
+        use_hdfs_input = (hdfs_stat["is_available"] and status == "INGESTED" and not force_local_input)
+        wsl_ip = self.hdfs_manager.wsl_ip
+        input_source_desc = f"Hadoop HDFS cluster (hdfs://{wsl_ip}:9000)" if use_hdfs_input else f"Local Staging Directory ({batch_id})"
+        stage_1_duration = round(time.time() - t1_start, 3)
+
+        spark = None
+        try:
+            # Stage 2: Load and Clean Batch Datasets (NO HISTORICAL BASELINE LOADED)
+            t2_start = time.time()
+            spark = get_spark_session(f"SMART_BatchOnly_{version_id}")
+
+            df_tx_raw = self._load_batch_source_df(spark, batch_id, "transactions", use_hdfs_input, wsl_ip)
+            df_web_raw = self._load_batch_source_df(spark, batch_id, "web_activity", use_hdfs_input, wsl_ip)
+            df_soc_raw = self._load_batch_source_df(spark, batch_id, "social_media", use_hdfs_input, wsl_ip)
+
+            df_tx_clean, tx_stats = clean_transactions(df_tx_raw)
+            df_web_clean, web_stats = clean_web_activity(df_web_raw)
+            df_soc_clean, soc_stats = clean_social_media(df_soc_raw)
+
+            df_tx_clean.persist()
+            df_web_clean.persist()
+            df_soc_clean.persist()
+            stage_2_duration = round(time.time() - t2_start, 3)
+
+            # Stage 3: Feature Engineering (Canonical 23 Columns)
+            t3_start = time.time()
+            df_tx_feat = aggregate_transactions(df_tx_clean)
+            df_web_feat = aggregate_web_activity(df_web_clean)
+            df_soc_feat = aggregate_social_media(df_soc_clean)
+            df_unified = build_unified_customer_features(df_tx_feat, df_web_feat, df_soc_feat)
+            df_unified.persist()
+
+            batch_cust_count = df_unified.count()
+            batch_tx_count = df_tx_clean.count()
+            batch_completed_tx = df_tx_clean.filter(F.col("order_status") == "Completed").count()
+            batch_web_count = df_web_clean.count()
+            batch_soc_count = df_soc_clean.count()
+            batch_rev_row = df_tx_clean.filter(F.col("order_status") == "Completed").agg(F.sum("total_amount")).collect()[0][0]
+            batch_revenue = round(float(batch_rev_row or 0.0), 2)
+            stage_3_duration = round(time.time() - t3_start, 3)
+
+            # Build New Batch Only Data Composition (0 historical, 100% batch)
+            data_composition = {
+                "mode": "NEW_BATCH_ONLY",
+                "processing_mode": "NEW_BATCH_ONLY",
+                "version_id": version_id,
+                "batch_id": batch_id,
+                "active_dataset_version": version_id,
+                "current_batch_id": batch_id,
+                "created_at": datetime.now().isoformat(),
+                "historical": {
+                    "total_customers": 0,
+                    "total_transactions": 0,
+                    "valid_completed_transactions": 0,
+                    "total_web_activities": 0,
+                    "total_social_interactions": 0,
+                    "total_revenue": 0.0
+                },
+                "newly_added": {
+                    "new_unique_customers": batch_cust_count,
+                    "existing_customers_with_new_activity": 0,
+                    "valid_transactions": batch_tx_count,
+                    "total_transactions": batch_tx_count,
+                    "valid_completed_transactions": batch_completed_tx,
+                    "valid_web_activities": batch_web_count,
+                    "total_web_activities": batch_web_count,
+                    "valid_social_interactions": batch_soc_count,
+                    "total_social_interactions": batch_soc_count,
+                    "new_revenue": batch_revenue
+                },
+                "overall": {
+                    "total_customers": batch_cust_count,
+                    "total_transactions": batch_tx_count,
+                    "valid_completed_transactions": batch_completed_tx,
+                    "total_web_activities": batch_web_count,
+                    "total_social_interactions": batch_soc_count,
+                    "total_revenue": batch_revenue
+                }
+            }
+
+            # Export Version-Isolated Datasets (Parquet + CSV)
+            export_spark_dataframe(df_tx_clean, version_dir, "cleaned_transactions")
+            export_spark_dataframe(df_web_clean, version_dir, "cleaned_web_activity")
+            export_spark_dataframe(df_soc_clean, version_dir, "cleaned_social_media")
+            export_spark_dataframe(df_unified, version_dir, "unified_customer_features")
+
+            # Mirror outputs to data/batch_previews/<batch_id>/
+            export_spark_dataframe(df_tx_clean, os.path.join(preview_dir, "processed"), "cleaned_transactions")
+            export_spark_dataframe(df_web_clean, os.path.join(preview_dir, "processed"), "cleaned_web_activity")
+            export_spark_dataframe(df_soc_clean, os.path.join(preview_dir, "processed"), "cleaned_social_media")
+            export_spark_dataframe(df_unified, os.path.join(preview_dir, "features"), "unified_customer_features")
+
+            with open(os.path.join(version_dir, "data_composition.json"), "w", encoding="utf-8") as f:
+                json.dump(data_composition, f, indent=2)
+            with open(os.path.join(preview_dir, "data_composition.json"), "w", encoding="utf-8") as f:
+                json.dump(data_composition, f, indent=2)
+
+            duration = round(time.time() - start_time, 2)
+            report = {
+                "status": "PROCESSING_COMPLETED",
+                "processing_mode": "NEW_BATCH_ONLY",
+                "version_id": version_id,
+                "batch_id": batch_id,
+                "created_at": datetime.now().isoformat(),
+                "duration_seconds": duration,
+                "input_source": input_source_desc,
+                "stage_timings": {
+                    "stage_1_ingestion_seconds": stage_1_duration,
+                    "stage_2_cleaning_seconds": stage_2_duration,
+                    "stage_3_feature_engineering_seconds": stage_3_duration,
+                    "total_pipeline_seconds": duration
+                },
+                "data_composition": data_composition,
+                "cleaning_statistics": {
+                    "transactions": tx_stats,
+                    "web_activity": web_stats,
+                    "social_media": soc_stats
+                },
+                "feature_matrix": {
+                    "rows": batch_cust_count,
+                    "columns": 23,
+                    "schema_verified": True
+                }
+            }
+
+            with open(os.path.join(version_dir, "processing_report.json"), "w", encoding="utf-8") as f:
+                json.dump(report, f, indent=2)
+            with open(os.path.join(preview_dir, "processing_report.json"), "w", encoding="utf-8") as f:
+                json.dump(report, f, indent=2)
+
+            # Update Versions Registry for Mode Switching & Discovery
+            version_entry = {
+                "version_id": version_id,
+                "batch_id": batch_id,
+                "processing_mode": "NEW_BATCH_ONLY",
+                "status": "PROCESSING_COMPLETED",
+                "models_trained": False,
+                "created_at": datetime.now().isoformat(),
+                "duration_seconds": duration,
+                "total_customers": batch_cust_count,
+                "included_batches": [batch_id],
+                "preview_directory": preview_dir
+            }
+            self._update_version_entry(version_entry)
+
+            return True, f"New Batch Only PySpark processing completed in {duration}s for {version_id}.", report
+
+        except Exception as e:
+            err_msg = f"New Batch Only PySpark processing failed for batch '{batch_id}': {str(e)}"
             return False, err_msg, {}
         finally:
             if spark is not None:

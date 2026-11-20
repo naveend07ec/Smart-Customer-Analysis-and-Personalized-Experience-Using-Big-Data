@@ -74,3 +74,4 @@ ml/models/_backup_prior_to_promotion/
 ml/models/_baseline_backup/
 ml/models/versions/
 scratch/
+data/batch_previews/

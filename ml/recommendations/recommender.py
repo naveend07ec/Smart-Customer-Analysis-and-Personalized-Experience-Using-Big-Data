@@ -149,28 +149,25 @@ def evaluate_recommendations_strict(interaction_df, completed_tx_df, all_product
     4. Evaluates hybrid recommendation Precision@5, Recall@5, Hit Rate@5, and Coverage.
     """
     np.random.seed(42)
-    cust_counts = interaction_df["customer_id"].value_counts()
-    eligible_custs = set(cust_counts[cust_counts >= 3].index)
-
-    train_int_rows = []
     test_dict = {}
+    test_pairs = set()
 
-    for cid in interaction_df["customer_id"].unique():
-        c_items = interaction_df[interaction_df["customer_id"] == cid]["product_id"].values
-        if cid in eligible_custs:
+    # Fast group-based test split without full-table scans
+    for cid, group in interaction_df.groupby("customer_id"):
+        c_items = group["product_id"].values
+        if len(c_items) >= 3:
             n_test = max(1, int(len(c_items) * test_ratio))
             test_items = set(np.random.choice(c_items, size=n_test, replace=False))
             test_dict[cid] = test_items
-            for it in c_items:
-                if it not in test_items:
-                    row = interaction_df[(interaction_df["customer_id"] == cid) & (interaction_df["product_id"] == it)].iloc[0]
-                    train_int_rows.append(row)
-        else:
-            for it in c_items:
-                row = interaction_df[(interaction_df["customer_id"] == cid) & (interaction_df["product_id"] == it)].iloc[0]
-                train_int_rows.append(row)
+            for it in test_items:
+                test_pairs.add((cid, it))
 
-    train_int_df = pd.DataFrame(train_int_rows)
+    # Fast set-based masking for train DataFrame
+    is_test_mask = [
+        (cid, pid) in test_pairs
+        for cid, pid in zip(interaction_df["customer_id"], interaction_df["product_id"])
+    ]
+    train_int_df = interaction_df[~np.array(is_test_mask)].copy()
 
     # 1. Train Item-Item Collaborative Filtering Matrix
     train_pivot = train_int_df.pivot_table(index="customer_id", columns="product_id", values="interaction_score", fill_value=0.0)
@@ -187,9 +184,11 @@ def evaluate_recommendations_strict(interaction_df, completed_tx_df, all_product
 
     # 2. Mine Association Rules on Train-Only Completed Transactions
     train_pairs_set = set(zip(train_int_df["customer_id"], train_int_df["product_id"]))
-    train_tx = completed_tx_df[completed_tx_df.apply(
-        lambda r: (r["customer_id"], r["product_id"]) in train_pairs_set, axis=1
-    )]
+    train_tx_mask = [
+        (cid, pid) in train_pairs_set
+        for cid, pid in zip(completed_tx_df["customer_id"], completed_tx_df["product_id"])
+    ]
+    train_tx = completed_tx_df[train_tx_mask]
     train_rules_df = mine_association_rules(train_tx, min_support=0.01, min_lift=1.05)
 
     assoc_map_train = {}

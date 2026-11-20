@@ -106,9 +106,16 @@ def validate_batch(batch_id: str):
 
 
 @ingestion_bp.route("/commit/<batch_id>", methods=["POST"])
+@ingestion_bp.route("/retry-hdfs/<batch_id>", methods=["POST"])
+@ingestion_bp.route("/recover/<batch_id>", methods=["POST"])
 def commit_batch(batch_id: str):
     service = IngestionService.get_instance()
-    success, message, manifest = service.commit_to_hdfs(batch_id)
+    # If already INGESTION_FAILED, use safe recover_failed_batch
+    status_info = service.get_batch_status(batch_id)
+    if status_info and status_info.get("status") == "INGESTION_FAILED":
+        success, message, manifest = service.recover_failed_batch(batch_id)
+    else:
+        success, message, manifest = service.commit_to_hdfs(batch_id)
 
     if not manifest:
         return jsonify({"status": "error", "message": f"Batch '{batch_id}' not found.", "data": None}), 404
@@ -270,9 +277,17 @@ def evaluate_and_apply(batch_id: str):
 
     force_local = False
     if batch_manifest.get("status") != "INGESTED":
-        hdfs_ok, hdfs_msg, _ = ingestion_service.commit_to_hdfs(batch_id)
+        if batch_manifest.get("status") in ("INGESTION_FAILED", "INGESTING_TO_HDFS"):
+            hdfs_ok, hdfs_msg, hdfs_manifest = ingestion_service.recover_failed_batch(batch_id)
+        else:
+            hdfs_ok, hdfs_msg, hdfs_manifest = ingestion_service.commit_to_hdfs(batch_id)
+
         if not hdfs_ok:
-            force_local = True
+            return jsonify({
+                "status": "error",
+                "message": f"HDFS Ingestion failed: {hdfs_msg}",
+                "data": hdfs_manifest
+            }), 503 if "OFFLINE" in hdfs_msg else 400
 
     # 1. Cumulative PySpark Processing (Historical + Incoming)
     pipe_ok, pipe_msg, pipe_report = pipe_service.execute_batch_pipeline(batch_id, force_local_input=force_local, force_reprocess=True)
@@ -448,3 +463,82 @@ def export_analytics_report(version_id: str, report_name: str):
         return jsonify({"status": "error", "message": f"Analytics report '{report_name}' for version '{version_id}' not found."}), 404
 
     return send_file(path, as_attachment=True, download_name=f"{version_id}_{report_name}.json")
+
+
+# -------------------------------------------------------------
+# Dual Dataset Processing Modes (Mode 1: Cumulative | Mode 2: New Batch Only)
+# -------------------------------------------------------------
+@ingestion_bp.route("/dataset-mode", methods=["GET", "POST"])
+def dataset_mode():
+    """Gets or sets the platform-wide active dataset mode (Cumulative vs New Batch Only)."""
+    from backend.app.services.data_service import DataService
+    data_service = DataService.get_instance()
+
+    if request.method == "POST":
+        body = request.get_json(silent=True) or {}
+        mode = body.get("mode", "cumulative")
+        batch_id = body.get("batch_id")
+        ok, msg, ctx = data_service.switch_mode(mode, batch_id)
+        if not ok:
+            return jsonify({"status": "error", "message": msg, "data": ctx}), 400
+        return jsonify({"status": "success", "message": msg, "data": ctx}), 200
+
+    return jsonify({"status": "success", "data": data_service.get_mode_context()}), 200
+
+
+@ingestion_bp.route("/process-batch-only/<batch_id>", methods=["POST"])
+def process_batch_only(batch_id: str):
+    """
+    MODE 2: NEW BATCH ONLY (Fast Demo)
+    1. Validates and commits batch to HDFS (or local staging if HDFS offline).
+    2. Runs lightweight PySpark batch cleaning and feature engineering ONLY on this batch.
+    3. Retrains models (K-Means, Recommender, Churn) strictly using batch data when sufficient.
+    4. Automatically activates batch_only mode in DataService so all 7 modules serve this batch.
+    5. Returns stage timings and data composition.
+    """
+    pipe_service = PipelineExecutionService.get_instance()
+    model_service = ModelTrainingService.get_instance()
+    ingestion_service = IngestionService.get_instance()
+    from backend.app.services.data_service import DataService
+
+    batch_manifest = ingestion_service.get_batch_status(batch_id)
+    if not batch_manifest:
+        return jsonify({"status": "error", "message": f"Batch '{batch_id}' not found."}), 404
+
+    force_local = False
+    if batch_manifest.get("status") != "INGESTED":
+        if batch_manifest.get("status") in ("INGESTION_FAILED", "INGESTING_TO_HDFS"):
+            hdfs_ok, hdfs_msg, _ = ingestion_service.recover_failed_batch(batch_id)
+        else:
+            hdfs_ok, hdfs_msg, _ = ingestion_service.commit_to_hdfs(batch_id)
+        if not hdfs_ok:
+            force_local = True
+
+    # 1. Execute lightweight PySpark pipeline for this batch only
+    pipe_ok, pipe_msg, pipe_report = pipe_service.execute_batch_only_pipeline(
+        batch_id, force_local_input=force_local, force_reprocess=True
+    )
+    if not pipe_ok:
+        return jsonify({"status": "error", "message": pipe_msg, "data": pipe_report}), 500
+
+    version_id = f"v_batch_only_{batch_id}"
+
+    # 2. Retrain batch-only models
+    train_ok, train_msg, train_report = model_service.retrain_batch_only_models(version_id)
+
+    # 3. Switch DataService active mode to batch_only
+    data_service = DataService.get_instance()
+    data_service.switch_mode("batch_only", batch_id)
+
+    return jsonify({
+        "status": "success",
+        "message": f"New Batch Only processed successfully in {pipe_report.get('duration_seconds', 0)}s. Switched active mode to NEW BATCH ONLY.",
+        "data": {
+            "version_id": version_id,
+            "batch_id": batch_id,
+            "processing_mode": "NEW_BATCH_ONLY",
+            "pipeline_report": pipe_report,
+            "model_report": train_report,
+            "mode_context": data_service.get_mode_context()
+        }
+    }), 200

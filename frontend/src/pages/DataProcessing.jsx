@@ -7,8 +7,11 @@ import { Database, Cpu, CheckCircle2, ShieldCheck, HardDrive, FileSpreadsheet, S
 export default function DataProcessing() {
   const [pipelineSummary, setPipelineSummary] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  useEffect(() => {
+  const fetchSummary = () => {
+    setLoading(true);
+    setError(null);
     api.getPipelineSummary()
       .then((data) => {
         setPipelineSummary(data);
@@ -16,16 +19,50 @@ export default function DataProcessing() {
       })
       .catch((err) => {
         console.error('Error fetching pipeline summary:', err);
+        setError(err.message || 'Failed to load pipeline metrics');
         setLoading(false);
       });
+  };
+
+  useEffect(() => {
+    fetchSummary();
   }, []);
 
-  if (loading || !pipelineSummary) {
+  if (loading && !pipelineSummary) {
     return (
       <div className="page-container">
         <div className="loading-spinner">
           <div className="spinner"></div>
           <div>Loading PySpark Pipeline Metrics...</div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error && !pipelineSummary) {
+    return (
+      <div className="page-container">
+        <div className="glass-card" style={{ padding: '2rem', textAlign: 'center', maxWidth: '500px', margin: '4rem auto' }}>
+          <div style={{ color: 'var(--accent-red, #EF4444)', fontSize: '1rem', fontWeight: '600', marginBottom: '0.75rem' }}>
+            Unable to Connect to Pipeline Metrics Service
+          </div>
+          <div style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', marginBottom: '1.25rem' }}>
+            {error}. Ensure the backend server and HDFS cluster are active.
+          </div>
+          <button
+            onClick={fetchSummary}
+            style={{
+              padding: '0.5rem 1.25rem',
+              backgroundColor: 'var(--surface-elevated)',
+              color: 'var(--text-primary)',
+              border: '1px solid var(--border-subtle)',
+              borderRadius: '8px',
+              fontSize: '0.85rem',
+              cursor: 'pointer'
+            }}
+          >
+            Retry Connection
+          </button>
         </div>
       </div>
     );

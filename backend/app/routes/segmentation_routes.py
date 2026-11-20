@@ -9,7 +9,7 @@ segmentation_bp = Blueprint("segmentation", __name__, url_prefix="/api/segmentat
 def get_segments_root():
     service = DataService.get_instance()
     eval_data = service.get_segmentation_evaluation()
-    pca_data = service.get_pca_scatter(limit=1200)
+    pca_data = service.get_pca_scatter(limit=None)
     clusters = service.cluster_profiles.get("clusters", [])
 
     segment_names = [c.get("cluster_name", c.get("name")) for c in clusters]
@@ -40,5 +40,5 @@ def get_evaluation():
 @segmentation_bp.route("/pca-scatter", methods=["GET"])
 def get_pca_scatter():
     service = DataService.get_instance()
-    limit = request.args.get("limit", default=1200, type=int)
+    limit = request.args.get("limit", default=None, type=int)
     return jsonify(service.get_pca_scatter(limit=limit))

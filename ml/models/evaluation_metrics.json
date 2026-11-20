@@ -1,19 +1,19 @@
 [
   {
     "evaluation_metric": "Hit_Rate@5",
-    "metric_value": 0.7756,
+    "metric_value": 0.7959,
     "benchmark_baseline": 0.76,
     "interpretation": "76%+ top-5 holdout hit rate"
   },
   {
     "evaluation_metric": "Precision@5",
-    "metric_value": 0.3205,
+    "metric_value": 0.3223,
     "benchmark_baseline": 0.3007,
     "interpretation": "Relevant recommendations per customer"
   },
   {
     "evaluation_metric": "Recall@5",
-    "metric_value": 0.6107,
+    "metric_value": 0.6452,
     "benchmark_baseline": 0.611,
     "interpretation": "Coverage of held-out test interactions"
   },
@@ -25,7 +25,7 @@
   },
   {
     "evaluation_metric": "Evaluated_Customers_Count",
-    "metric_value": 1301.0,
+    "metric_value": 1421.0,
     "benchmark_baseline": 1200.0,
     "interpretation": "Eligible customers with >=3 interactions evaluated"
   }

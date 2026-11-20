@@ -10,7 +10,7 @@ import os
 import json
 import numpy as np
 import pandas as pd
-from typing import Dict, Any, List, Optional
+from typing import Dict, Any, List, Optional, Tuple
 
 
 def sanitize_for_json(obj: Any) -> Any:
@@ -36,6 +36,10 @@ class DataService:
     def __init__(self):
         # 3 levels up from backend/app/services to workspace root
         self.base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
+        self.active_mode = "cumulative"  # "cumulative" or "batch_only"
+        self.active_batch_id = None
+        self.active_version_id = None
+        self.batch_only_data_composition = None
         self._load_datasets()
 
     @classmethod
@@ -46,8 +50,210 @@ class DataService:
 
     def reload(self) -> bool:
         """Reloads all processed DataFrames and ML model artifacts into memory."""
-        self._load_datasets()
+        if self.active_mode == "batch_only" and self.active_version_id:
+            self._load_version_datasets(self.active_version_id, self.active_batch_id)
+        else:
+            self._load_datasets()
         return True
+
+    def get_mode_context(self) -> Dict[str, Any]:
+        curr_ver_path = self._resolve_path("data/current_version.json")
+        active_cumul_ver = "baseline"
+        if os.path.exists(curr_ver_path):
+            try:
+                with open(curr_ver_path, "r", encoding="utf-8") as f:
+                    active_cumul_ver = json.load(f).get("active_version", "baseline")
+            except Exception:
+                pass
+
+        if self.active_mode == "batch_only":
+            indicator_label = f"NEW BATCH ONLY — {self.active_batch_id or 'Preview'}"
+            active_version = self.active_version_id or f"v_batch_only_{self.active_batch_id}"
+        else:
+            indicator_label = f"CUMULATIVE ANALYSIS — {active_cumul_ver}"
+            active_version = active_cumul_ver
+
+        return {
+            "mode": self.active_mode,
+            "active_mode": self.active_mode,
+            "batch_id": self.active_batch_id,
+            "version_id": active_version,
+            "active_version": active_version,
+            "cumulative_version": active_cumul_ver,
+            "indicator_label": indicator_label,
+            "available_batch_only": self.list_available_batch_only_versions()
+        }
+
+    def list_available_batch_only_versions(self) -> List[Dict[str, Any]]:
+        versions_dir = self._resolve_path("data/versions")
+        res = []
+        if not os.path.exists(versions_dir):
+            return res
+        for d in sorted(os.listdir(versions_dir), reverse=True):
+            if d.startswith("v_batch_only_"):
+                bid = d.replace("v_batch_only_", "")
+                comp_file = os.path.join(versions_dir, d, "data_composition.json")
+                cust_count = 0
+                rev_total = 0.0
+                if os.path.exists(comp_file):
+                    try:
+                        with open(comp_file, "r", encoding="utf-8") as f:
+                            comp = json.load(f)
+                            cust_count = comp.get("overall", {}).get("total_customers", 0)
+                            rev_total = comp.get("overall", {}).get("total_revenue", 0.0)
+                    except Exception:
+                        pass
+                res.append({
+                    "version_id": d,
+                    "batch_id": bid,
+                    "customer_count": cust_count,
+                    "total_revenue": rev_total
+                })
+        return res
+
+    def switch_mode(self, mode: str, batch_id: Optional[str] = None) -> Tuple[bool, str, Dict[str, Any]]:
+        norm_mode = mode.lower().strip()
+        if norm_mode in ("cumulative", "baseline", "production"):
+            self.active_mode = "cumulative"
+            self.active_batch_id = None
+            self.active_version_id = None
+            self.batch_only_data_composition = None
+            self._load_datasets()
+            return True, "Switched to Cumulative Analysis mode.", self.get_mode_context()
+
+        elif norm_mode in ("batch_only", "new_batch_only", "batch"):
+            if not batch_id:
+                available = self.list_available_batch_only_versions()
+                if not available:
+                    return False, "No processed New Batch Only versions available to switch to.", self.get_mode_context()
+                batch_id = available[0]["batch_id"]
+
+            version_id = f"v_batch_only_{batch_id}"
+            v_dir = self._resolve_path(f"data/versions/{version_id}")
+            if not os.path.exists(v_dir):
+                return False, f"Batch-only dataset directory not found for batch '{batch_id}' ({version_id}).", self.get_mode_context()
+
+            self._load_version_datasets(version_id, batch_id)
+            self.active_mode = "batch_only"
+            self.active_batch_id = batch_id
+            self.active_version_id = version_id
+            return True, f"Switched to New Batch Only mode for batch '{batch_id}'.", self.get_mode_context()
+        else:
+            return False, f"Invalid mode '{mode}'. Must be 'cumulative' or 'new_batch_only'.", self.get_mode_context()
+
+    def _load_version_datasets(self, version_id: str, batch_id: str):
+        print(f"Loading version-isolated datasets for {version_id} (batch {batch_id})...")
+        v_data_dir = self._resolve_path(f"data/versions/{version_id}")
+        v_models_dir = self._resolve_path(f"ml/models/versions/{version_id}")
+
+        # 1. Customer Segments
+        seg_csv = os.path.join(v_data_dir, "customer_segments.csv")
+        seg_pq = os.path.join(v_data_dir, "customer_segments.parquet")
+        if os.path.exists(seg_csv):
+            self.df_segments = pd.read_csv(seg_csv)
+        elif os.path.exists(seg_pq):
+            self.df_segments = pd.read_parquet(seg_pq)
+        else:
+            self.df_segments = pd.DataFrame()
+
+        # 2. Cleaned Transactions
+        tx_csv = os.path.join(v_data_dir, "cleaned_transactions.csv")
+        tx_pq = os.path.join(v_data_dir, "cleaned_transactions.parquet")
+        if os.path.exists(tx_csv):
+            self.df_transactions = pd.read_csv(tx_csv)
+            self.df_transactions["transaction_date"] = pd.to_datetime(self.df_transactions["transaction_date"])
+        elif os.path.exists(tx_pq):
+            self.df_transactions = pd.read_parquet(tx_pq)
+            self.df_transactions["transaction_date"] = pd.to_datetime(self.df_transactions["transaction_date"])
+        else:
+            self.df_transactions = pd.DataFrame()
+
+        # 3. Cleaned Web Activity
+        web_csv = os.path.join(v_data_dir, "cleaned_web_activity.csv")
+        web_pq = os.path.join(v_data_dir, "cleaned_web_activity.parquet")
+        if os.path.exists(web_csv):
+            self.df_web = pd.read_csv(web_csv)
+            self.df_web["timestamp"] = pd.to_datetime(self.df_web["timestamp"])
+        elif os.path.exists(web_pq):
+            self.df_web = pd.read_parquet(web_pq)
+            self.df_web["timestamp"] = pd.to_datetime(self.df_web["timestamp"])
+        else:
+            self.df_web = pd.DataFrame()
+
+        # 4. Cleaned Social Media
+        soc_csv = os.path.join(v_data_dir, "cleaned_social_media.csv")
+        soc_pq = os.path.join(v_data_dir, "cleaned_social_media.parquet")
+        if os.path.exists(soc_csv):
+            self.df_social = pd.read_csv(soc_csv)
+            self.df_social["timestamp"] = pd.to_datetime(self.df_social["timestamp"])
+        elif os.path.exists(soc_pq):
+            self.df_social = pd.read_parquet(soc_pq)
+            self.df_social["timestamp"] = pd.to_datetime(self.df_social["timestamp"])
+        else:
+            self.df_social = pd.DataFrame()
+
+        # 5. Cluster Profiles & Elbow Metrics
+        prof_json = os.path.join(v_models_dir, "cluster_profiles.json")
+        if os.path.exists(prof_json):
+            with open(prof_json, "r", encoding="utf-8") as f:
+                self.cluster_profiles = json.load(f)
+        else:
+            self.cluster_profiles = {"metrics": {}, "clusters": []}
+
+        elbow_json = os.path.join(v_models_dir, "elbow_metrics.json")
+        if os.path.exists(elbow_json):
+            with open(elbow_json, "r", encoding="utf-8") as f:
+                self.elbow_metrics = json.load(f)
+        else:
+            self.elbow_metrics = []
+
+        # 6. Recommendations & Association Rules
+        recs_json = os.path.join(v_models_dir, "customer_recommendations.json")
+        if os.path.exists(recs_json):
+            with open(recs_json, "r", encoding="utf-8") as f:
+                self.recommendations = json.load(f)
+        else:
+            self.recommendations = {}
+
+        rules_json = os.path.join(v_models_dir, "product_association_rules.json")
+        if os.path.exists(rules_json):
+            with open(rules_json, "r", encoding="utf-8") as f:
+                self.association_rules = json.load(f)
+        else:
+            self.association_rules = []
+
+        # 7. Churn predictions & evaluation
+        churn_csv = os.path.join(v_data_dir, "customer_churn_predictions.csv")
+        if os.path.exists(churn_csv):
+            self.df_churn = pd.read_csv(churn_csv)
+        else:
+            self.df_churn = pd.DataFrame()
+
+        churn_sum_json = os.path.join(v_models_dir, "churn", "customer_churn_summary.json")
+        if not os.path.exists(churn_sum_json):
+            churn_sum_json = os.path.join(v_models_dir, "customer_churn_summary.json")
+        if os.path.exists(churn_sum_json):
+            with open(churn_sum_json, "r", encoding="utf-8") as f:
+                self.churn_summary = json.load(f)
+        else:
+            self.churn_summary = {}
+
+        churn_eval_json = os.path.join(v_models_dir, "churn", "churn_evaluation_metrics.json")
+        if not os.path.exists(churn_eval_json):
+            churn_eval_json = os.path.join(v_models_dir, "churn_evaluation_metrics.json")
+        if os.path.exists(churn_eval_json):
+            with open(churn_eval_json, "r", encoding="utf-8") as f:
+                self.churn_evaluation = json.load(f)
+        else:
+            self.churn_evaluation = {}
+
+        # 8. Data Composition
+        comp_json = os.path.join(v_data_dir, "data_composition.json")
+        if os.path.exists(comp_json):
+            with open(comp_json, "r", encoding="utf-8") as f:
+                self.batch_only_data_composition = json.load(f)
+        else:
+            self.batch_only_data_composition = None
 
     def _resolve_path(self, rel_path: str) -> str:
         return os.path.join(self.base_dir, rel_path)
@@ -151,6 +357,19 @@ class DataService:
         Guarantees strict integrity: returns verified metadata or explicit error.
         Never fabricates historical counts from arbitrary loaded subsets.
         """
+        if self.active_mode == "batch_only":
+            if self.batch_only_data_composition:
+                return self.batch_only_data_composition
+            if self.active_version_id:
+                comp_v_path = self._resolve_path(f"data/versions/{self.active_version_id}/data_composition.json")
+                if os.path.exists(comp_v_path):
+                    try:
+                        with open(comp_v_path, "r", encoding="utf-8") as f:
+                            self.batch_only_data_composition = json.load(f)
+                            return self.batch_only_data_composition
+                    except Exception:
+                        pass
+
         curr_ver_path = self._resolve_path("data/current_version.json")
         active_ver = "baseline"
         if os.path.exists(curr_ver_path):
@@ -230,7 +449,9 @@ class DataService:
         total_orders = int(len(self.df_transactions)) if not self.df_transactions.empty else 0
         completed_orders = int(len(completed_tx)) if not completed_tx.empty else 0
         total_customers = int(len(self.df_segments)) if not self.df_segments.empty else (
-            int(self.df_transactions["customer_id"].nunique()) if not self.df_transactions.empty else 1200
+            int(self.df_transactions["customer_id"].nunique()) if not self.df_transactions.empty else (
+                0 if self.active_mode == "batch_only" else 1200
+            )
         )
         avg_spend_per_cust = float(total_revenue / total_customers) if total_customers > 0 else 0.0
         avg_sentiment = float(self.df_social["sentiment_score"].mean()) if not self.df_social.empty else 0.0
@@ -330,16 +551,32 @@ class DataService:
     # Customer Segmentation & PCA
     # -------------------------------------------------------------
     def get_segmentation_evaluation(self) -> Dict[str, Any]:
+        metrics = dict(self.cluster_profiles.get("metrics", {}))
+        metrics["total_customers"] = len(self.df_segments)
+        metrics["selected_k"] = metrics.get("selected_k", len(self.cluster_profiles.get("clusters", [])))
+        active_ver = self.active_version_id or "active"
+        if not self.active_version_id:
+            cur_file = self._resolve_path("data/current_version.json")
+            if os.path.exists(cur_file):
+                try:
+                    with open(cur_file, "r", encoding="utf-8") as f:
+                        active_ver = json.load(f).get("active_version", "active")
+                except Exception:
+                    pass
+        metrics["dataset_version"] = active_ver
         return {
-            "metrics": self.cluster_profiles.get("metrics", {}),
+            "metrics": metrics,
             "elbow_curve": self.elbow_metrics,
             "clusters": self.cluster_profiles.get("clusters", [])
         }
 
-    def get_pca_scatter(self, limit: int = 1200) -> List[Dict[str, Any]]:
+    def get_pca_scatter(self, limit: Optional[int] = None) -> List[Dict[str, Any]]:
         cols = ["customer_id", "cluster_id", "cluster_name", "pca_x", "pca_y", "total_spend", "total_transactions", "avg_sentiment_score"]
         available_cols = [c for c in cols if c in self.df_segments.columns]
-        sample_df = self.df_segments[available_cols].head(limit)
+        if limit and limit > 0:
+            sample_df = self.df_segments[available_cols].head(limit)
+        else:
+            sample_df = self.df_segments[available_cols]
         return sample_df.to_dict(orient="records")
 
     # -------------------------------------------------------------
@@ -436,14 +673,17 @@ class DataService:
 
     def get_rules_metadata(self) -> Dict[str, Any]:
         """Returns dynamic metadata describing the dataset population used for association rule mining."""
-        curr_ver_path = self._resolve_path("data/current_version.json")
-        active_ver = "baseline"
-        if os.path.exists(curr_ver_path):
-            try:
-                with open(curr_ver_path, "r", encoding="utf-8") as f:
-                    active_ver = json.load(f).get("active_version", "baseline")
-            except Exception:
-                pass
+        if self.active_mode == "batch_only" and self.active_version_id:
+            active_ver = self.active_version_id
+        else:
+            curr_ver_path = self._resolve_path("data/current_version.json")
+            active_ver = "baseline"
+            if os.path.exists(curr_ver_path):
+                try:
+                    with open(curr_ver_path, "r", encoding="utf-8") as f:
+                        active_ver = json.load(f).get("active_version", "baseline")
+                except Exception:
+                    pass
 
         if active_ver != "baseline":
             v_meta_path = self._resolve_path(f"ml/models/versions/{active_ver}/rules_metadata.json")
@@ -497,17 +737,19 @@ class DataService:
             except Exception:
                 pass
 
-        wsl_ip = "172.27.214.120"
-        try:
-            out = subprocess.check_output(['wsl', '-d', 'Debian', 'hostname', '-I'], text=True, timeout=2)
-            wsl_ip = out.strip().split()[0]
-        except Exception:
-            pass
+        wsl_ip = getattr(self, "_cached_wsl_ip", None) or "172.27.214.120"
+        if not hasattr(self, "_cached_wsl_ip"):
+            try:
+                out = subprocess.check_output(['wsl', '-d', 'Debian', 'hostname', '-I'], text=True, timeout=1.5)
+                wsl_ip = out.strip().split()[0]
+                self._cached_wsl_ip = wsl_ip
+            except Exception:
+                self._cached_wsl_ip = wsl_ip
 
         # Check NameNode socket
         is_connected = False
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.settimeout(1.0)
+        s.settimeout(0.5)
         try:
             s.connect((wsl_ip, 9000))
             s.close()
@@ -539,11 +781,32 @@ class DataService:
             except Exception:
                 live_nodes_count = 1 if is_connected else 0
 
+        # Check for latest dynamic pipeline execution report
+        last_pipeline_ts = meta.get("timestamp", "2026-11-14 10:47:50")
+        proc_rep_path = self._resolve_path("data/processed/processing_report.json")
+        if os.path.exists(proc_rep_path):
+            try:
+                with open(proc_rep_path, "r", encoding="utf-8") as f:
+                    proc_rep = json.load(f)
+                    raw_ts = proc_rep.get("processed_at")
+                    if raw_ts:
+                        last_pipeline_ts = raw_ts.replace("T", " ").split(".")[0]
+            except Exception:
+                pass
+
+        # Dynamic record counts based on active dataset composition
+        comp = self.get_data_composition()
+        cust_count = comp.get("overall", {}).get("total_customers", len(self.df_segments) if not self.df_segments.empty else 1200)
+        tx_count = comp.get("overall", {}).get("total_transactions", len(self.df_transactions) if not self.df_transactions.empty else 12214)
+        web_count = comp.get("overall", {}).get("total_web_activities", len(self.df_web) if not self.df_web.empty else 120944)
+        soc_count = comp.get("overall", {}).get("total_social_records", len(self.df_social) if not self.df_social.empty else 8828)
+        total_raw = tx_count + web_count + soc_count
+
         directories = [
-            {"path": "/customer-analytics/raw", "type": "Raw Multi-Source CSVs", "size": "16.2 MB", "records": "142,046 total"},
-            {"path": "/customer-analytics/processed", "type": "Cleaned Deduplicated Parquet", "size": "18.8 MB", "records": "141,986 clean"},
-            {"path": "/customer-analytics/features", "type": "Customer Feature Matrices", "size": "3.5 MB", "records": "1,200 customers (23 cols)"},
-            {"path": "/customer-analytics/analytics", "type": "ML Parquet Stores", "size": "2.1 MB", "records": "Segments, Recs, Churn"}
+            {"path": "/customer-analytics/raw", "type": "Raw Multi-Source CSVs / Batches", "size": "16.8+ MB", "records": f"{total_raw:,} total"},
+            {"path": "/customer-analytics/processed", "type": "Cleaned Deduplicated Parquet", "size": "19.2+ MB", "records": f"{total_raw:,} clean"},
+            {"path": "/customer-analytics/features", "type": "Customer Feature Matrices", "size": "3.8+ MB", "records": f"{cust_count:,} customers (23 cols)"},
+            {"path": "/customer-analytics/analytics", "type": "ML Parquet Stores", "size": "2.4+ MB", "records": "Segments, Recs, Churn"}
         ]
 
         return {
@@ -557,7 +820,7 @@ class DataService:
             "dfs_remaining_gb": dfs_remaining_gb,
             "cluster_id": cluster_id,
             "spark_execution_mode": "local[2] Batch Processing (2 Cores, 2GB)",
-            "last_pipeline_execution": meta.get("timestamp", "2026-11-14 10:47:50"),
+            "last_pipeline_execution": last_pipeline_ts,
             "storage_directories": directories
         }
 
@@ -598,10 +861,11 @@ class DataService:
     # -------------------------------------------------------------
     def get_churn_summary(self) -> Dict[str, Any]:
         rf_metrics = {}
-        if self.churn_evaluation and "models_evaluated" in self.churn_evaluation:
+        if self.churn_evaluation and self.churn_evaluation.get("models_evaluated"):
             rf_metrics = self.churn_evaluation["models_evaluated"][0]
 
         return {
+            "status": self.churn_summary.get("status", "COMPLETED"),
             "model_name": self.churn_summary.get("model_name", "Random Forest Classifier"),
             "model_version": self.churn_summary.get("model_version", "v1.0-rf"),
             "prediction_cutoff": self.churn_summary.get("prediction_cutoff", "2024-10-01 00:00:00"),
@@ -611,7 +875,8 @@ class DataService:
             "evaluation_metrics": rf_metrics,
             "all_models_evaluated": self.churn_evaluation.get("models_evaluated", []),
             "top_features": self.churn_evaluation.get("top_features", []),
-            "academic_limitations": self.churn_evaluation.get("academic_limitations", [])
+            "academic_limitations": self.churn_evaluation.get("academic_limitations", []),
+            "message": self.churn_summary.get("message", "")
         }
 
     def get_churn_customers(self, page: int = 1, page_size: int = 20, search: str = "", risk_category: str = "all", sort_by: str = "churn_risk_score", sort_dir: str = "desc") -> Dict[str, Any]:

@@ -163,15 +163,22 @@ export default function StudentDatasetUpload() {
   const [uiError, setUiError] = useState(null);
   const [uiSuccess, setUiSuccess] = useState(null);
 
+  // Dual Dataset Processing Modes ('cumulative' vs 'batch_only')
+  const [datasetMode, setDatasetMode] = useState('cumulative');
+  const [isProcessingBatchOnly, setIsProcessingBatchOnly] = useState(false);
+  const [batchOnlyReport, setBatchOnlyReport] = useState(null);
+
   const loadMetadata = () => {
     setLoadingHistory(true);
     Promise.all([
       api.getBatchHistory().catch(() => ({ data: { batches: [] } })),
-      api.getVersions().catch(() => ({ data: { versions: [] } }))
+      api.getVersions().catch(() => ({ data: { versions: [] } })),
+      api.getDatasetMode().catch(() => ({ data: { mode: 'cumulative' } }))
     ])
-      .then(([bRes, vRes]) => {
+      .then(([bRes, vRes, mRes]) => {
         if (bRes?.data?.batches) setHistory(bRes.data.batches);
         if (vRes?.data?.versions) setVersions(vRes.data.versions);
+        if (mRes?.data?.mode) setDatasetMode(mRes.data.mode);
         setLoadingHistory(false);
       })
       .catch((err) => {
@@ -182,7 +189,51 @@ export default function StudentDatasetUpload() {
 
   useEffect(() => {
     loadMetadata();
+    const handleModeUpdate = (e) => {
+      if (e?.detail?.mode) {
+        setDatasetMode(e.detail.mode);
+      }
+    };
+    window.addEventListener('smart-dataset-mode-changed', handleModeUpdate);
+    return () => window.removeEventListener('smart-dataset-mode-changed', handleModeUpdate);
   }, []);
+
+  const handleDatasetModeChange = async (targetMode) => {
+    setDatasetMode(targetMode);
+    try {
+      const res = await api.setDatasetMode(targetMode, activeBatch?.batch_id);
+      if (res?.data) {
+        window.dispatchEvent(new CustomEvent('smart-dataset-mode-changed', { detail: res.data }));
+      }
+      loadMetadata();
+    } catch (err) {
+      console.error('Mode change error:', err);
+    }
+  };
+
+  const handleProcessBatchOnly = async () => {
+    const bid = activeBatch?.batch_id;
+    if (!bid) return;
+    setIsProcessingBatchOnly(true);
+    setUiError(null);
+    try {
+      const res = await api.processBatchOnly(bid);
+      if (res?.data) {
+        setBatchOnlyReport(res.data.pipeline_report);
+        setActiveVersionId(res.data.version_id);
+        setDatasetMode('batch_only');
+        const dur = res.data.pipeline_report?.duration_seconds || 0;
+        const custs = res.data.pipeline_report?.data_composition?.overall?.total_customers || 0;
+        setUiSuccess(`New Batch Only processed successfully in ${dur}s! Mode set to NEW BATCH ONLY (${custs} customers). All 7 modules updated.`);
+        window.dispatchEvent(new CustomEvent('smart-dataset-mode-changed', { detail: res.data.mode_context }));
+        loadMetadata();
+      }
+    } catch (err) {
+      setUiError('New Batch Only processing failed: ' + (err.response?.data?.message || err.message));
+    } finally {
+      setIsProcessingBatchOnly(false);
+    }
+  };
 
   // Multi-Format File Management
   const handleAddMultiFiles = (newFiles) => {
@@ -239,7 +290,7 @@ export default function StudentDatasetUpload() {
       const res = await api.generateSyntheticBatch(count);
       if (res?.data) {
         setActiveBatch(res.data);
-        setUiSuccess(res.message || `Generated and staged ${count} new unique customer records (CUST_1201+) with zero ID collisions! Click '⚡ Evaluate Old + New' to apply.`);
+        setUiSuccess(res.message || `Generated and staged ${count} new unique customer records (CUST_1201+) with zero ID collisions! Click 'Evaluate Old + New' to apply.`);
         loadMetadata();
       }
     } catch (err) {
@@ -298,13 +349,10 @@ export default function StudentDatasetUpload() {
       if (response?.data) {
         setActiveBatch(response.data);
         setActiveVersionId(`v_${response.data.batch_id}`);
-        setUiSuccess(`Batch ${response.data.batch_id} uploaded. Discovered ${Object.keys(response.data.staged_files || {}).length} file schemas.`);
+        setIsEvaluatingAndApplying(false);
+        setUiSuccess(`Batch ${response.data.batch_id} uploaded and verified in HDFS. Select your processing mode below to proceed:`);
         setMultiFiles([]);
         loadMetadata();
-
-        if (autoApply || autoApplyAfterUpload) {
-          await handleEvaluateAndApply(response.data.batch_id);
-        }
       }
     } catch (err) {
       const msg = err.response?.data?.message || err.message || 'Upload failed.';
@@ -336,12 +384,9 @@ export default function StudentDatasetUpload() {
       if (response?.data) {
         setActiveBatch(response.data);
         setActiveVersionId(`v_${response.data.batch_id}`);
-        setUiSuccess(`Batch ${response.data.batch_id} validated successfully.`);
+        setIsEvaluatingAndApplying(false);
+        setUiSuccess(`Batch ${response.data.batch_id} validated and verified in HDFS. Select your processing mode below to proceed:`);
         loadMetadata();
-
-        if (autoApply || autoApplyAfterUpload) {
-          await handleEvaluateAndApply(response.data.batch_id);
-        }
       }
     } catch (err) {
       const msg = err.response?.data?.message || err.message || 'Validation failed.';
@@ -367,6 +412,28 @@ export default function StudentDatasetUpload() {
       loadMetadata();
     } catch (err) {
       const msg = err.response?.data?.message || err.message || 'HDFS ingestion halted.';
+      setUiError(msg);
+      if (err.response?.data?.data) setActiveBatch(err.response.data.data);
+    } finally {
+      setIsCommitting(false);
+    }
+  };
+
+  // Retry HDFS Ingestion & Batch Recovery (Phase G.3)
+  const handleRetryHDFS = async () => {
+    if (!activeBatch?.batch_id) return;
+    setUiError(null);
+    setIsCommitting(true);
+
+    try {
+      const response = await api.retryHDFSIngestion(activeBatch.batch_id);
+      if (response?.data) {
+        setActiveBatch(response.data);
+        setUiSuccess(`Batch ${activeBatch.batch_id} successfully verified and recovered in Hadoop HDFS!`);
+      }
+      loadMetadata();
+    } catch (err) {
+      const msg = err.response?.data?.message || err.message || 'HDFS ingestion recovery failed.';
       setUiError(msg);
       if (err.response?.data?.data) setActiveBatch(err.response.data.data);
     } finally {
@@ -446,11 +513,24 @@ export default function StudentDatasetUpload() {
 
   // Promote Version
   const handlePromote = async (targetVid) => {
-    const vid = (typeof targetVid === 'string' && targetVid)
-      ? targetVid
-      : (activeVersionId || (activeBatch?.batch_id ? `v_${activeBatch.batch_id}` : null));
+    let vid = (typeof targetVid === 'string' && targetVid.trim()) ? targetVid.trim() : null;
     if (!vid) {
+      if (typeof activeVersionId === 'string' && activeVersionId.trim()) {
+        vid = activeVersionId.trim();
+      } else if (activeVersionId && typeof activeVersionId === 'object' && activeVersionId.version_id) {
+        vid = String(activeVersionId.version_id).trim();
+      } else if (activeBatch?.batch_id) {
+        vid = `v_${activeBatch.batch_id}`;
+      }
+    }
+
+    if (!vid || typeof vid !== 'string' || vid === '[object Object]') {
       setUiError('No valid version selected to promote.');
+      return;
+    }
+
+    if (vid.startsWith('v_batch_only_')) {
+      setUiError(`Version '${vid}' is an isolated New Batch Only demonstration and cannot be promoted to cumulative production. Switch to Cumulative Analysis mode to promote integrated candidate versions.`);
       return;
     }
 
@@ -650,33 +730,93 @@ export default function StudentDatasetUpload() {
       {/* 5-Step Progress Bar */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '0.5rem', marginBottom: '1.5rem' }}>
         {[
-          { num: '1', title: 'Upload & Discovery', desc: 'Raw Format Staging', done: !!activeBatch, active: isUploading },
-          { num: '2', title: 'HDFS Raw Storage', desc: 'Preserve Untouched Bytes', done: activeBatch?.status === 'INGESTED', active: isCommitting },
-          { num: '3', title: 'PySpark Processing', desc: 'Clean & 23-Feature Matrix', done: !!processingReport, active: isProcessing },
-          { num: '4', title: 'Model Retraining', desc: 'K-Means, CF, Churn RF', done: !!evaluationReport, active: isTraining },
-          { num: '5', title: 'Dashboard Preview', desc: 'Isolated Analytics', done: !!previewData, active: false }
+          { num: '1', title: 'Upload & Discovery', desc: 'Raw Format Staging', done: !!activeBatch, active: isUploading, failed: false },
+          { num: '2', title: 'HDFS Raw Storage', desc: 'Preserve Untouched Bytes', done: activeBatch?.status === 'INGESTED', active: isCommitting, failed: activeBatch?.status === 'INGESTION_FAILED' },
+          { num: '3', title: 'PySpark Processing', desc: 'Clean & 23-Feature Matrix', done: !!processingReport, active: isProcessing, failed: false },
+          { num: '4', title: 'Model Retraining', desc: 'K-Means, CF, Churn RF', done: !!evaluationReport, active: isTraining, failed: false },
+          { num: '5', title: 'Dashboard Preview', desc: 'Isolated Analytics', done: !!previewData, active: false, failed: false }
         ].map((step, idx) => (
           <div
             key={idx}
             className="glass-sub-card"
             style={{
               padding: '0.75rem',
-              border: step.done ? '1px solid rgba(121, 168, 139, 0.4)' : step.active ? '1px solid rgba(94, 143, 213, 0.5)' : '1px solid var(--border-subtle)',
-              backgroundColor: step.done ? 'rgba(121, 168, 139, 0.05)' : step.active ? 'rgba(94, 143, 213, 0.05)' : 'var(--surface-secondary)'
+              border: step.failed ? '1px solid rgba(239, 68, 68, 0.5)' : step.done ? '1px solid rgba(121, 168, 139, 0.4)' : step.active ? '1px solid rgba(94, 143, 213, 0.5)' : '1px solid var(--border-subtle)',
+              backgroundColor: step.failed ? 'rgba(239, 68, 68, 0.08)' : step.done ? 'rgba(121, 168, 139, 0.05)' : step.active ? 'rgba(94, 143, 213, 0.05)' : 'var(--surface-secondary)'
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.25rem' }}>
-              <span style={{ fontSize: '0.75rem', fontWeight: '700', color: step.done ? 'var(--accent-green)' : step.active ? 'var(--accent-blue)' : 'var(--text-muted)' }}>
-                {step.done ? '✓' : step.num}.
+              <span style={{ fontSize: '0.75rem', fontWeight: '700', color: step.failed ? '#EF4444' : step.done ? 'var(--accent-green)' : step.active ? 'var(--accent-blue)' : 'var(--text-muted)' }}>
+                {step.failed ? '!' : step.done ? '✓' : step.num}.
               </span>
-              <span style={{ fontSize: '0.8rem', fontWeight: '600', color: step.done ? 'var(--text-primary)' : step.active ? 'var(--accent-blue)' : 'var(--text-secondary)' }}>
+              <span style={{ fontSize: '0.8rem', fontWeight: '600', color: step.failed ? '#FCA5A5' : step.done ? 'var(--text-primary)' : step.active ? 'var(--accent-blue)' : 'var(--text-secondary)' }}>
                 {step.title}
               </span>
             </div>
-            <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>{step.desc}</div>
+            <div style={{ fontSize: '0.7rem', color: step.failed ? '#EF4444' : 'var(--text-muted)' }}>
+              {step.failed ? 'Ingestion Failed' : step.desc}
+            </div>
           </div>
         ))}
       </div>
+
+      {/* INGESTION_FAILED Safe Recovery Banner */}
+      {activeBatch?.status === 'INGESTION_FAILED' && (
+        <div style={{
+          backgroundColor: 'rgba(239, 68, 68, 0.08)',
+          border: '1px solid rgba(239, 68, 68, 0.35)',
+          borderRadius: '12px',
+          padding: '1rem 1.25rem',
+          marginBottom: '1.5rem',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: '1rem'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem', flex: '1 1 300px' }}>
+            <AlertTriangle size={20} color="#EF4444" style={{ marginTop: '0.15rem', flexShrink: 0 }} />
+            <div>
+              <div style={{ fontSize: '0.9rem', fontWeight: '700', color: '#FCA5A5', marginBottom: '0.25rem' }}>
+                HDFS Ingestion Halted for Batch <code style={{ color: '#F87171' }}>{activeBatch.batch_id}</code>
+              </div>
+              <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', lineHeight: 1.45 }}>
+                {activeBatch.message || 'HDFS cluster was unavailable during ingestion. Original raw files are safely preserved locally.'}
+              </div>
+              {activeBatch.retry_history && activeBatch.retry_history.length > 0 && (
+                <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '0.35rem' }}>
+                  Retry Attempts Logged: {activeBatch.retry_history.length}
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+            <button
+              type="button"
+              onClick={handleRetryHDFS}
+              disabled={isCommitting}
+              style={{
+                padding: '0.55rem 1.15rem',
+                backgroundColor: isCommitting ? 'var(--surface-elevated)' : '#DC2626',
+                color: '#FFF',
+                border: 'none',
+                borderRadius: '8px',
+                fontSize: '0.825rem',
+                fontWeight: '600',
+                cursor: isCommitting ? 'not-allowed' : 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.45rem',
+                boxShadow: '0 2px 10px rgba(220, 38, 38, 0.4)'
+              }}
+            >
+              {isCommitting ? <RefreshCw size={14} className="spin" /> : <RotateCcw size={14} />}
+              {isCommitting ? 'Verifying & Retrying HDFS Ingestion...' : 'Retry HDFS Ingestion'}
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Ingestion Area */}
       {ingestionMode === 'multi' ? (
@@ -726,45 +866,25 @@ export default function StudentDatasetUpload() {
                 <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', flexWrap: 'wrap' }}>
                   <button
                     type="button"
-                    onClick={() => handleUploadMultiBatch(true)}
+                    onClick={() => handleUploadMultiBatch(false)}
                     disabled={isUploading || isEvaluatingAndApplying}
                     style={{
-                      padding: '0.45rem 1.1rem',
+                      padding: '0.55rem 1.3rem',
                       background: 'linear-gradient(135deg, #7047EB 0%, #3B82F6 100%)',
                       color: '#FFF',
                       border: 'none',
                       borderRadius: '8px',
-                      fontSize: '0.8rem',
+                      fontSize: '0.825rem',
                       fontWeight: '700',
                       cursor: isUploading || isEvaluatingAndApplying ? 'not-allowed' : 'pointer',
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '0.4rem',
+                      gap: '0.45rem',
                       boxShadow: '0 2px 10px rgba(112, 71, 235, 0.4)'
                     }}
                   >
-                    {isUploading || isEvaluatingAndApplying ? <RefreshCw size={13} className="spin" /> : null}
-                    Upload & Update Platform (Old + New)
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => handleUploadMultiBatch(false)}
-                    disabled={isUploading || isEvaluatingAndApplying}
-                    style={{
-                      padding: '0.45rem 0.9rem',
-                      backgroundColor: 'var(--surface-elevated)',
-                      color: 'var(--text-secondary)',
-                      border: '1px solid var(--border-subtle)',
-                      borderRadius: '8px',
-                      fontSize: '0.8rem',
-                      fontWeight: '500',
-                      cursor: isUploading || isEvaluatingAndApplying ? 'not-allowed' : 'pointer',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '0.35rem'
-                    }}
-                  >
-                    Stage Only
+                    {isUploading ? <RefreshCw size={13} className="spin" /> : <UploadCloud size={14} />}
+                    Upload & Stage Batch Files
                   </button>
                 </div>
               </div>
@@ -900,100 +1020,302 @@ export default function StudentDatasetUpload() {
           <div style={{ marginTop: '-0.75rem', marginBottom: '1.5rem', display: 'flex', justifyContent: 'flex-end', gap: '0.6rem' }}>
             <button
               type="button"
-              onClick={() => handleUploadClassicBatch(true)}
+              onClick={() => handleUploadClassicBatch(false)}
               disabled={isUploading || isEvaluatingAndApplying}
               style={{
-                padding: '0.55rem 1.25rem',
+                padding: '0.55rem 1.3rem',
                 background: 'linear-gradient(135deg, #7047EB 0%, #3B82F6 100%)',
                 color: '#FFF',
                 border: 'none',
                 borderRadius: '8px',
-                fontSize: '0.85rem',
+                fontSize: '0.825rem',
                 fontWeight: '700',
                 cursor: isUploading || isEvaluatingAndApplying ? 'not-allowed' : 'pointer',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '0.4rem',
+                gap: '0.45rem',
                 boxShadow: '0 2px 10px rgba(112, 71, 235, 0.4)'
               }}
             >
-              {isUploading || isEvaluatingAndApplying ? <RefreshCw size={14} className="spin" /> : null}
-              Upload & Update Platform (Old + New)
+              {isUploading ? <RefreshCw size={14} className="spin" /> : <UploadCloud size={14} />}
+              Upload & Stage 3-CSV Batch
             </button>
           </div>
         )}
       </div>
     )}
 
-      {/* Unified Pipeline Execution Card */}
+      {/* Dual Dataset Processing Mode Selector & Execution Card */}
       {activeBatch && (
         <div style={{
           backgroundColor: 'var(--surface-secondary)',
-          border: '1px solid rgba(112, 71, 235, 0.4)',
+          border: '1px solid var(--border-subtle)',
           borderRadius: '12px',
           padding: '1.25rem 1.5rem',
           marginBottom: '1.5rem',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          flexWrap: 'wrap',
-          gap: '1rem',
-          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)'
+          boxShadow: 'none',
+          transition: 'border-color 0.3s ease'
         }}>
-          <div style={{ flex: '1 1 340px' }}>
-            <div style={{ fontSize: '0.95rem', fontWeight: '700', color: '#FFF', marginBottom: '0.35rem' }}>
-              Evaluate Old + New Data & Update Main Dashboard
+          {/* Header & Mode Switcher Controls */}
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.15rem', flexWrap: 'wrap', gap: '0.75rem' }}>
+            <div>
+              <div style={{ fontSize: '0.95rem', fontWeight: '700', color: '#FFF', display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+                <span>Dataset Processing Mode</span>
+                <span style={{
+                  fontSize: '0.72rem',
+                  padding: '0.2rem 0.65rem',
+                  borderRadius: '9999px',
+                  backgroundColor: 'var(--surface-elevated, #1A1A1E)',
+                  color: 'var(--text-secondary, #A1A1AA)',
+                  border: '1px solid var(--border-subtle, rgba(255, 255, 255, 0.1))',
+                  fontFamily: 'var(--font-mono)',
+                  letterSpacing: '0.04em'
+                }}>
+                  {datasetMode === 'batch_only' ? `NEW BATCH ONLY — ${activeBatch.batch_id}` : 'CUMULATIVE ANALYSIS (BASELINE + BATCHES)'}
+                </span>
+              </div>
+              <p style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', margin: '0.25rem 0 0 0' }}>
+                Select whether to process this batch integrated into cumulative production or as an isolated lightweight demonstration.
+              </p>
             </div>
-            <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.45 }}>
-              Merges historical baseline (1,200 customers, $1.8M sales) with incoming batch <code style={{ color: 'var(--accent-blue)' }}>{activeBatch.batch_id}</code> via PySpark, retrains ML models, and pushes combined analytics to the live dashboard.
-            </p>
-          </div>
 
-          <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', flexWrap: 'wrap' }}>
-            <button
-              type="button"
-              onClick={() => handleEvaluateAndApply()}
-              disabled={isEvaluatingAndApplying}
-              style={{
-                padding: '0.65rem 1.4rem',
-                background: isEvaluatingAndApplying ? 'var(--surface-elevated)' : 'linear-gradient(135deg, #7047EB 0%, #3B82F6 100%)',
-                color: '#FFF',
-                border: 'none',
-                borderRadius: '8px',
-                fontSize: '0.85rem',
-                fontWeight: '600',
-                cursor: isEvaluatingAndApplying ? 'not-allowed' : 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                boxShadow: '0 4px 14px rgba(112, 71, 235, 0.4)'
-              }}
-            >
-              {isEvaluatingAndApplying && <RefreshCw size={14} className="spin" />}
-              {isEvaluatingAndApplying ? 'Processing & Updating Platform...' : 'Process New Data (Old + New)'}
-            </button>
-
-            {activeVersionId && (
-              <Link
-                to="/"
+            {/* Mode Selector Radio Pills */}
+            <div style={{ display: 'flex', gap: '0.4rem', backgroundColor: 'rgba(0,0,0,0.3)', padding: '0.3rem', borderRadius: '10px', border: '1px solid var(--border-subtle)' }}>
+              <button
+                type="button"
+                onClick={() => handleDatasetModeChange('cumulative')}
                 style={{
-                  padding: '0.65rem 1.15rem',
-                  backgroundColor: 'rgba(255, 255, 255, 0.06)',
-                  color: 'var(--text-primary)',
-                  border: '1px solid var(--border-subtle)',
+                  padding: '0.45rem 0.95rem',
                   borderRadius: '8px',
-                  fontSize: '0.825rem',
-                  fontWeight: '500',
-                  textDecoration: 'none',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.4rem'
+                  border: 'none',
+                  fontSize: '0.78rem',
+                  fontWeight: '600',
+                  cursor: 'pointer',
+                  backgroundColor: datasetMode === 'cumulative' ? '#7047EB' : 'transparent',
+                  color: datasetMode === 'cumulative' ? '#FFF' : 'var(--text-secondary)',
+                  boxShadow: datasetMode === 'cumulative' ? '0 2px 8px rgba(112, 71, 235, 0.3)' : 'none',
+                  transition: 'all 0.2s ease'
                 }}
               >
-                View Main Dashboard <ArrowRight size={13} />
-              </Link>
-            )}
+                Cumulative Analysis
+              </button>
+              <button
+                type="button"
+                onClick={() => handleDatasetModeChange('batch_only')}
+                style={{
+                  padding: '0.45rem 0.95rem',
+                  borderRadius: '8px',
+                  border: 'none',
+                  fontSize: '0.78rem',
+                  fontWeight: '600',
+                  cursor: 'pointer',
+                  backgroundColor: datasetMode === 'batch_only' ? '#5B5BD6' : 'transparent',
+                  color: datasetMode === 'batch_only' ? '#FFF' : 'var(--text-secondary)',
+                  boxShadow: datasetMode === 'batch_only' ? '0 2px 8px rgba(91, 91, 214, 0.3)' : 'none',
+                  transition: 'all 0.2s ease'
+                }}
+              >
+                New Batch Only (Fast Demo)
+              </button>
+            </div>
           </div>
+
+          {/* MODE 1: Cumulative Analysis Panel */}
+          {datasetMode === 'cumulative' ? (
+            <div style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+              gap: '1rem',
+              padding: '1rem',
+              backgroundColor: 'rgba(112, 71, 235, 0.06)',
+              borderRadius: '10px',
+              border: '1px solid rgba(112, 71, 235, 0.25)'
+            }}>
+              <div style={{ flex: '1 1 340px' }}>
+                <div style={{ fontWeight: '600', color: '#C4B5FD', fontSize: '0.86rem', marginBottom: '0.25rem' }}>
+                  Cumulative Integration (1,200 Baseline + Accepted Batches + Incoming Batch)
+                </div>
+                <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', lineHeight: 1.45 }}>
+                  {activeBatch?.status === 'INGESTION_FAILED'
+                    ? <>HDFS ingestion was previously halted. Original files are preserved. Click below to recover and process, or click <strong>Retry HDFS Ingestion</strong> above.</>
+                    : <>Full enterprise lineage: cross-batch primary-key deduplication, cumulative 23-column PySpark feature engineering, ML retraining, and candidate version generation.</>
+                  }
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', flexWrap: 'wrap' }}>
+                <button
+                  type="button"
+                  onClick={() => handleEvaluateAndApply()}
+                  disabled={isEvaluatingAndApplying}
+                  style={{
+                    padding: '0.65rem 1.4rem',
+                    background: isEvaluatingAndApplying ? 'var(--surface-elevated)' : 'linear-gradient(135deg, #7047EB 0%, #3B82F6 100%)',
+                    color: '#FFF',
+                    border: 'none',
+                    borderRadius: '8px',
+                    fontSize: '0.85rem',
+                    fontWeight: '600',
+                    cursor: isEvaluatingAndApplying ? 'not-allowed' : 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    boxShadow: '0 4px 14px rgba(112, 71, 235, 0.4)'
+                  }}
+                >
+                  {isEvaluatingAndApplying && <RefreshCw size={14} className="spin" />}
+                  {isEvaluatingAndApplying ? 'Processing Cumulative Pipeline...' : activeBatch?.status === 'INGESTION_FAILED' ? 'Recover & Process Cumulative Data' : 'Process Cumulative Data (Old + New)'}
+                </button>
+
+                {activeVersionId && (
+                  <Link
+                    to="/"
+                    style={{
+                      padding: '0.65rem 1.15rem',
+                      backgroundColor: 'rgba(255, 255, 255, 0.06)',
+                      color: 'var(--text-primary)',
+                      border: '1px solid var(--border-subtle)',
+                      borderRadius: '8px',
+                      fontSize: '0.825rem',
+                      fontWeight: '500',
+                      textDecoration: 'none',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '0.4rem'
+                    }}
+                  >
+                    View Main Dashboard <ArrowRight size={13} />
+                  </Link>
+                )}
+              </div>
+
+              {isEvaluatingAndApplying && (
+                <div style={{
+                  width: '100%',
+                  marginTop: '0.5rem',
+                  padding: '0.65rem 0.85rem',
+                  backgroundColor: 'rgba(112, 71, 235, 0.08)',
+                  borderRadius: '8px',
+                  border: '1px solid rgba(112, 71, 235, 0.25)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.65rem',
+                  fontSize: '0.78rem',
+                  color: 'var(--text-secondary)'
+                }}>
+                  <RefreshCw size={14} className="spin" color="#A78BFA" />
+                  <span>
+                    <strong style={{ color: '#FFF' }}>PySpark Big Data Pipeline Active:</strong> Merging historical records in HDFS, executing deduplication, computing 23 customer features, and retraining ML models (typically takes 2–3 minutes).
+                  </span>
+                </div>
+              )}
+            </div>
+          ) : (
+            /* MODE 2: New Batch Only Panel */
+            <div style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '0.85rem',
+              padding: '1rem',
+              backgroundColor: 'rgba(255, 255, 255, 0.03)',
+              borderRadius: '10px',
+              border: '1px solid var(--border-subtle)'
+            }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
+                <div style={{ flex: '1 1 340px' }}>
+                  <div style={{ fontWeight: '600', color: 'var(--text-primary)', fontSize: '0.86rem', marginBottom: '0.25rem' }}>
+                    Lightweight Batch Only Processing (Fast Demo — No Historical Union)
+                  </div>
+                  <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', lineHeight: 1.45 }}>
+                    Reads only the 3 newly uploaded batch datasets. Runs PySpark cleaning and feature engineering strictly on batch data. Skips baseline union and baseline model retraining. Stores output in isolated batch preview directory.
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', flexWrap: 'wrap' }}>
+                  <button
+                    type="button"
+                    onClick={() => handleProcessBatchOnly()}
+                    disabled={isProcessingBatchOnly}
+                    style={{
+                      padding: '0.65rem 1.4rem',
+                      background: isProcessingBatchOnly ? 'var(--surface-elevated)' : 'linear-gradient(135deg, #7047EB 0%, #4F46E5 100%)',
+                      color: '#FFF',
+                      border: 'none',
+                      borderRadius: '8px',
+                      fontSize: '0.85rem',
+                      fontWeight: '600',
+                      cursor: isProcessingBatchOnly ? 'not-allowed' : 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.5rem',
+                      boxShadow: '0 2px 8px rgba(0, 0, 0, 0.25)'
+                    }}
+                  >
+                    {isProcessingBatchOnly && <RefreshCw size={14} className="spin" />}
+                    {isProcessingBatchOnly ? 'Processing Batch Only...' : 'Process New Batch Only (Fast Demo)'}
+                  </button>
+
+                  <Link
+                    to="/"
+                    style={{
+                      padding: '0.65rem 1.15rem',
+                      backgroundColor: 'rgba(255, 255, 255, 0.06)',
+                      color: 'var(--text-primary)',
+                      border: '1px solid var(--border-subtle)',
+                      borderRadius: '8px',
+                      fontSize: '0.825rem',
+                      fontWeight: '500',
+                      textDecoration: 'none',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '0.4rem'
+                    }}
+                  >
+                    View Batch Only Dashboard <ArrowRight size={13} />
+                  </Link>
+                </div>
+              </div>
+
+              {/* Execution Timing Breakdown */}
+              {batchOnlyReport?.stage_timings && (
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))',
+                  gap: '0.65rem',
+                  marginTop: '0.4rem',
+                  paddingTop: '0.65rem',
+                  borderTop: '1px solid var(--border-subtle)'
+                }}>
+                  <div style={{ backgroundColor: 'rgba(0,0,0,0.3)', padding: '0.5rem 0.75rem', borderRadius: '6px' }}>
+                    <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)' }}>Stage 1 Ingestion</div>
+                    <div style={{ fontSize: '0.88rem', fontWeight: '700', color: '#FFF', fontFamily: 'var(--font-mono)' }}>
+                      {batchOnlyReport.stage_timings.stage_1_ingestion_seconds}s
+                    </div>
+                  </div>
+                  <div style={{ backgroundColor: 'rgba(0,0,0,0.3)', padding: '0.5rem 0.75rem', borderRadius: '6px' }}>
+                    <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)' }}>Stage 2 Cleaning</div>
+                    <div style={{ fontSize: '0.88rem', fontWeight: '700', color: '#FFF', fontFamily: 'var(--font-mono)' }}>
+                      {batchOnlyReport.stage_timings.stage_2_cleaning_seconds}s
+                    </div>
+                  </div>
+                  <div style={{ backgroundColor: 'rgba(0,0,0,0.3)', padding: '0.5rem 0.75rem', borderRadius: '6px' }}>
+                    <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)' }}>Stage 3 Features (23-Col)</div>
+                    <div style={{ fontSize: '0.88rem', fontWeight: '700', color: '#FFF', fontFamily: 'var(--font-mono)' }}>
+                      {batchOnlyReport.stage_timings.stage_3_feature_engineering_seconds}s
+                    </div>
+                  </div>
+                  <div style={{ backgroundColor: 'rgba(0,0,0,0.3)', padding: '0.5rem 0.75rem', borderRadius: '6px' }}>
+                    <div style={{ fontSize: '0.68rem', color: 'var(--text-secondary)' }}>Total Execution Time</div>
+                    <div style={{ fontSize: '0.88rem', fontWeight: '700', color: 'var(--text-primary)', fontFamily: 'var(--font-mono)' }}>
+                      {batchOnlyReport.stage_timings.total_pipeline_seconds}s
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       )}
 
@@ -1028,19 +1350,19 @@ export default function StudentDatasetUpload() {
             style={{
               padding: '0.45rem 0.85rem',
               backgroundColor: 'var(--surface-elevated)',
-              color: 'var(--text-primary)',
-              border: '1px solid var(--border-subtle)',
+              color: activeBatch?.status === 'INGESTION_FAILED' ? '#EF4444' : 'var(--text-primary)',
+              border: activeBatch?.status === 'INGESTION_FAILED' ? '1px solid rgba(239, 68, 68, 0.4)' : '1px solid var(--border-subtle)',
               borderRadius: '6px',
               fontSize: '0.75rem',
               cursor: 'pointer'
             }}
           >
-            2. Commit to HDFS
+            {activeBatch?.status === 'INGESTION_FAILED' ? '2. Retry HDFS Ingestion' : '2. Commit to HDFS'}
           </button>
           <button
             type="button"
             onClick={handleRunPySpark}
-            disabled={!activeBatch || isProcessing}
+            disabled={!activeBatch || activeBatch.status === 'INGESTION_FAILED' || isProcessing}
             style={{
               padding: '0.45rem 0.85rem',
               backgroundColor: 'var(--surface-elevated)',
