@@ -19,29 +19,35 @@ export default function OverviewDashboard() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    Promise.all([
-      api.getKPIs(),
-      api.getSegmentDistribution(),
-      api.getMonthlyTrends(),
-      api.getCustomers({ page: 1, pageSize: 6, sortBy: 'total_spend', sortDir: 'desc' }),
-      api.getRecommendationEvaluation().catch(() => []),
-      api.getPipelineSummary().catch(() => null),
-      api.getDataComposition().catch(() => null)
-    ])
-      .then(([kpiData, segData, trendData, custList, recEval, pipeData, compData]) => {
-        setKpis(kpiData);
-        setSegments(segData || []);
-        setMonthlyTrends(trendData || []);
-        setRecentCustomers(custList?.customers || []);
-        setEvalMetrics(Array.isArray(recEval) ? recEval : (recEval?.data || []));
-        setPipelineSummary(pipeData);
-        setDataComposition(compData);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error('Error loading overview data:', err);
-        setLoading(false);
-      });
+    const fetchOverviewData = () => {
+      Promise.all([
+        api.getKPIs(),
+        api.getSegmentDistribution(),
+        api.getMonthlyTrends(),
+        api.getCustomers({ page: 1, pageSize: 6, sortBy: 'total_spend', sortDir: 'desc' }),
+        api.getRecommendationEvaluation().catch(() => []),
+        api.getPipelineSummary().catch(() => null),
+        api.getDataComposition().catch(() => null)
+      ])
+        .then(([kpiData, segData, trendData, custList, recEval, pipeData, compData]) => {
+          setKpis(kpiData);
+          setSegments(segData || []);
+          setMonthlyTrends(trendData || []);
+          setRecentCustomers(custList?.customers || []);
+          setEvalMetrics(Array.isArray(recEval) ? recEval : (recEval?.data || []));
+          setPipelineSummary(pipeData);
+          setDataComposition(compData);
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.error('Error loading overview data:', err);
+          setLoading(false);
+        });
+    };
+
+    fetchOverviewData();
+    window.addEventListener('smart-dataset-mode-changed', fetchOverviewData);
+    return () => window.removeEventListener('smart-dataset-mode-changed', fetchOverviewData);
   }, []);
 
   const handleExportCSV = () => {

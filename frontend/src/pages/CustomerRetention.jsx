@@ -58,21 +58,27 @@ export default function CustomerRetention() {
 
   // Initial load: summary + customer table
   useEffect(() => {
-    Promise.all([
-      api.getChurnSummary(),
-      api.getChurnCustomers({ page: 1, pageSize: 15, search: '', riskCategory: 'all', sortBy: 'churn_risk_score', sortDir: 'desc' })
-    ])
-      .then(([sumData, custListData]) => {
-        setSummary(sumData);
-        setCustomers(custListData.customers || []);
-        setTotalRecords(custListData.total_records || 0);
-        setTotalPages(custListData.total_pages || 1);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error('Error loading churn summary:', err);
-        setLoading(false);
-      });
+    const fetchRetentionData = () => {
+      Promise.all([
+        api.getChurnSummary(),
+        api.getChurnCustomers({ page: 1, pageSize: 15, search: '', riskCategory: 'all', sortBy: 'churn_risk_score', sortDir: 'desc' })
+      ])
+        .then(([sumData, custListData]) => {
+          setSummary(sumData);
+          setCustomers(custListData.customers || []);
+          setTotalRecords(custListData.total_records || 0);
+          setTotalPages(custListData.total_pages || 1);
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.error('Error loading churn summary:', err);
+          setLoading(false);
+        });
+    };
+
+    fetchRetentionData();
+    window.addEventListener('smart-dataset-mode-changed', fetchRetentionData);
+    return () => window.removeEventListener('smart-dataset-mode-changed', fetchRetentionData);
   }, []);
 
   // Reload customer list on filter/page change

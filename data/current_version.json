@@ -1,5 +1,4 @@
 {
-  "active_version": "v_batch_20261119_170651_ba61",
-  "promoted_at": "2026-11-19T17:11:42.235039",
-  "previous_version": "v_batch_20261119_152208_bf35"
+  "active_version": "baseline",
+  "rolled_back_at": "2026-11-20T11:59:16.283459"
 }

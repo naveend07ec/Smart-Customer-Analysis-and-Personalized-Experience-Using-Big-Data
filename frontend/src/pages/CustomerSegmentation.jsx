@@ -23,19 +23,25 @@ export default function CustomerSegmentation() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    Promise.all([
-      api.getSegmentationEvaluation(),
-      api.getPCAScatter()
-    ])
-      .then(([evaluation, scatter]) => {
-        setEvalData(evaluation);
-        setPcaPoints(Array.isArray(scatter) ? scatter : (scatter?.points || []));
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error('Error loading segmentation data:', err);
-        setLoading(false);
-      });
+    const fetchSegmentationData = () => {
+      Promise.all([
+        api.getSegmentationEvaluation(),
+        api.getPCAScatter()
+      ])
+        .then(([evaluation, scatter]) => {
+          setEvalData(evaluation);
+          setPcaPoints(Array.isArray(scatter) ? scatter : (scatter?.points || []));
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.error('Error loading segmentation data:', err);
+          setLoading(false);
+        });
+    };
+
+    fetchSegmentationData();
+    window.addEventListener('smart-dataset-mode-changed', fetchSegmentationData);
+    return () => window.removeEventListener('smart-dataset-mode-changed', fetchSegmentationData);
   }, []);
 
   if (loading || !evalData) {

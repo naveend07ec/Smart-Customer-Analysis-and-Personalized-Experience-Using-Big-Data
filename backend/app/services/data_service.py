@@ -56,6 +56,15 @@ class DataService:
             self._load_datasets()
         return True
 
+    def reset_to_baseline(self) -> bool:
+        """Forces DataService back to the cumulative baseline mode and reloads datasets."""
+        self.active_mode = "cumulative"
+        self.active_batch_id = None
+        self.active_version_id = None
+        self.batch_only_data_composition = None
+        self._load_datasets()
+        return True
+
     def get_mode_context(self) -> Dict[str, Any]:
         curr_ver_path = self._resolve_path("data/current_version.json")
         active_cumul_ver = "baseline"

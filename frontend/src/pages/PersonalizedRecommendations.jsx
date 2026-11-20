@@ -32,48 +32,54 @@ export default function PersonalizedRecommendations() {
   };
 
   useEffect(() => {
-    // 1. Fetch association rules and offline evaluation metrics independently
-    api.getAssociationRules(50)
-      .then((rulesData) => {
-        const ruleList = Array.isArray(rulesData) ? rulesData : (rulesData?.data || []);
-        const rulesMeta = rulesData?.metadata || null;
-        setAssociationRules(ruleList);
-        setRulesMetadata(rulesMeta);
-      })
-      .catch((err) => console.error('Error loading association rules:', err));
+    const fetchRecEngineData = () => {
+      // 1. Fetch association rules and offline evaluation metrics independently
+      api.getAssociationRules(50)
+        .then((rulesData) => {
+          const ruleList = Array.isArray(rulesData) ? rulesData : (rulesData?.data || []);
+          const rulesMeta = rulesData?.metadata || null;
+          setAssociationRules(ruleList);
+          setRulesMetadata(rulesMeta);
+        })
+        .catch((err) => console.error('Error loading association rules:', err));
 
-    api.getRecommendationEvaluation()
-      .then((evalData) => {
-        const evalList = Array.isArray(evalData) ? evalData : (evalData?.data || []);
-        setEvaluationMetrics(evalList);
-      })
-      .catch((err) => console.error('Error loading evaluation metrics:', err));
+      api.getRecommendationEvaluation()
+        .then((evalData) => {
+          const evalList = Array.isArray(evalData) ? evalData : (evalData?.data || []);
+          setEvaluationMetrics(evalList);
+        })
+        .catch((err) => console.error('Error loading evaluation metrics:', err));
 
-    // 2. Fetch customers dynamically from the active dataset so quick-select archetypes match current data
-    api.getCustomers({ page: 1, pageSize: 6 })
-      .then((custRes) => {
-        const custList = custRes?.customers || custRes?.data?.customers || [];
-        if (custList.length > 0) {
-          const archetypes = custList.slice(0, 5).map((c) => ({
-            id: c.customer_id,
-            label: `${c.customer_id} (${c.cluster_name ? c.cluster_name.split('&')[0].trim() : 'Cohort'})`
-          }));
-          setSampleArchetypes(archetypes);
-          const firstId = custList[0].customer_id;
-          setSelectedCustomerId(firstId);
-          fetchCustomerRecs(firstId);
-        } else {
+      // 2. Fetch customers dynamically from the active dataset so quick-select archetypes match current data
+      api.getCustomers({ page: 1, pageSize: 6 })
+        .then((custRes) => {
+          const custList = custRes?.customers || custRes?.data?.customers || [];
+          if (custList.length > 0) {
+            const archetypes = custList.slice(0, 5).map((c) => ({
+              id: c.customer_id,
+              label: `${c.customer_id} (${c.cluster_name ? c.cluster_name.split('&')[0].trim() : 'Cohort'})`
+            }));
+            setSampleArchetypes(archetypes);
+            const firstId = custList[0].customer_id;
+            setSelectedCustomerId(firstId);
+            fetchCustomerRecs(firstId);
+          } else {
+            setSelectedCustomerId('CUST_0001');
+            fetchCustomerRecs('CUST_0001');
+          }
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.error('Error loading active customers for recommendations:', err);
           setSelectedCustomerId('CUST_0001');
           fetchCustomerRecs('CUST_0001');
-        }
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error('Error loading active customers for recommendations:', err);
-        setSelectedCustomerId('CUST_0001');
-        fetchCustomerRecs('CUST_0001');
-        setLoading(false);
-      });
+          setLoading(false);
+        });
+    };
+
+    fetchRecEngineData();
+    window.addEventListener('smart-dataset-mode-changed', fetchRecEngineData);
+    return () => window.removeEventListener('smart-dataset-mode-changed', fetchRecEngineData);
   }, []);
 
   const handleFetchCustomerRecs = (cid) => {

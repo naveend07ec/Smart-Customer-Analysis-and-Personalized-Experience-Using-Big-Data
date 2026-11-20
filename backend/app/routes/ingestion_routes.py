@@ -324,12 +324,23 @@ def evaluate_and_apply(batch_id: str):
 
 
 @ingestion_bp.route("/rollback", methods=["POST"])
+@ingestion_bp.route("/rollback/baseline", methods=["POST"])
 def rollback_version():
     preview_service = VersionPreviewService.get_instance()
     success, message = preview_service.rollback_version()
     if not success:
         return jsonify({"status": "error", "message": message}), 400
-    return jsonify({"status": "success", "message": message}), 200
+
+    from backend.app.services.data_service import DataService
+    data_service = DataService.get_instance()
+    data_service.reset_to_baseline()
+    mode_context = data_service.get_mode_context()
+
+    return jsonify({
+        "status": "success",
+        "message": message,
+        "mode_context": mode_context
+    }), 200
 
 
 # -------------------------------------------------------------

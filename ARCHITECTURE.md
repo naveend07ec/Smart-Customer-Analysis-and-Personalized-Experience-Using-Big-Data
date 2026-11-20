@@ -111,3 +111,4 @@ flowchart LR
 * **Machine Learning:** Scikit-Learn 1.4, SciPy, Joblib.
 * **Backend:** Flask 3.1 REST API, Flask-CORS.
 * **Frontend:** React 18, Vite, Lucide Icons, Chart.js / React-Chartjs-2.
+

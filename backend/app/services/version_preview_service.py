@@ -602,6 +602,6 @@ class VersionPreviewService:
         with open(self.current_version_file, "w", encoding="utf-8") as f:
             json.dump(pointer_data, f, indent=2)
 
-        # In-memory reload of DataService
-        DataService.get_instance().reload()
+        # Force DataService back to cumulative baseline mode and reload
+        DataService.get_instance().reset_to_baseline()
         return True, "Successfully rolled back to the original Academic Baseline."

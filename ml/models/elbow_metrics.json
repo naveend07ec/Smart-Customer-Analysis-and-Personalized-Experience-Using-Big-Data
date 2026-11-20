@@ -1,114 +1,37 @@
 [
   {
     "k": 2,
-    "inertia": 22253.6,
-    "silhouette_score": 0.3265,
-    "davies_bouldin": 1.2832,
-    "davies_bouldin_index": 1.2832,
-    "calinski_harabasz_score": 826.12,
-    "cluster_sizes": [
-      792,
-      759
-    ],
-    "non_empty_clusters": 2
+    "inertia": 17925.61,
+    "silhouette_score": 0.3314
   },
   {
     "k": 3,
-    "inertia": 18972.96,
-    "silhouette_score": 0.3062,
-    "davies_bouldin": 1.3024,
-    "davies_bouldin_index": 1.3024,
-    "calinski_harabasz_score": 618.0,
-    "cluster_sizes": [
-      793,
-      414,
-      344
-    ],
-    "non_empty_clusters": 3
+    "inertia": 14460.38,
+    "silhouette_score": 0.3194
   },
   {
     "k": 4,
-    "inertia": 16283.51,
-    "silhouette_score": 0.3023,
-    "davies_bouldin": 1.4508,
-    "davies_bouldin_index": 1.4508,
-    "calinski_harabasz_score": 564.91,
-    "cluster_sizes": [
-      414,
-      587,
-      205,
-      345
-    ],
-    "non_empty_clusters": 4
+    "inertia": 11642.59,
+    "silhouette_score": 0.3365
   },
   {
     "k": 5,
-    "inertia": 14520.61,
-    "silhouette_score": 0.3084,
-    "davies_bouldin": 1.3238,
-    "davies_bouldin_index": 1.3238,
-    "calinski_harabasz_score": 521.74,
-    "cluster_sizes": [
-      582,
-      339,
-      209,
-      205,
-      216
-    ],
-    "non_empty_clusters": 5
+    "inertia": 9784.31,
+    "silhouette_score": 0.3533
   },
   {
     "k": 6,
-    "inertia": 12793.1,
-    "silhouette_score": 0.3308,
-    "davies_bouldin": 1.2269,
-    "davies_bouldin_index": 1.2269,
-    "calinski_harabasz_score": 515.17,
-    "cluster_sizes": [
-      339,
-      60,
-      206,
-      205,
-      216,
-      525
-    ],
-    "non_empty_clusters": 6
+    "inertia": 9175.91,
+    "silhouette_score": 0.3484
   },
   {
     "k": 7,
-    "inertia": 11821.09,
-    "silhouette_score": 0.3375,
-    "davies_bouldin": 1.2187,
-    "davies_bouldin_index": 1.2187,
-    "calinski_harabasz_score": 485.47,
-    "cluster_sizes": [
-      506,
-      204,
-      334,
-      59,
-      148,
-      84,
-      216
-    ],
-    "non_empty_clusters": 7
+    "inertia": 8848.88,
+    "silhouette_score": 0.3502
   },
   {
     "k": 8,
-    "inertia": 11258.85,
-    "silhouette_score": 0.3046,
-    "davies_bouldin": 1.2663,
-    "davies_bouldin_index": 1.2663,
-    "calinski_harabasz_score": 447.62,
-    "cluster_sizes": [
-      84,
-      215,
-      335,
-      46,
-      443,
-      204,
-      78,
-      146
-    ],
-    "non_empty_clusters": 8
+    "inertia": 8426.4,
+    "silhouette_score": 0.3337
   }
 ]

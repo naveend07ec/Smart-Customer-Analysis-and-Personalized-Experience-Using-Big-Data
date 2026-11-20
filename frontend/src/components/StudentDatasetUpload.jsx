@@ -560,6 +560,24 @@ export default function StudentDatasetUpload() {
     try {
       const res = await api.rollbackVersion();
       setUiSuccess(res.message || 'Successfully rolled back to Academic Baseline.');
+      setActiveBatch(null);
+      setActiveVersionId('baseline');
+      setDatasetMode('cumulative');
+      setBatchOnlyReport(null);
+      setProcessingReport(null);
+      setEvaluationReport(null);
+
+      const modeCtx = res?.mode_context || {
+        mode: 'cumulative',
+        active_mode: 'cumulative',
+        active_version: 'baseline',
+        version_id: 'baseline',
+        cumulative_version: 'baseline',
+        batch_id: null,
+        indicator_label: 'CUMULATIVE ANALYSIS — baseline'
+      };
+
+      window.dispatchEvent(new CustomEvent('smart-dataset-mode-changed', { detail: modeCtx }));
       loadMetadata();
     } catch (err) {
       setUiError('Rollback failed: ' + (err.response?.data?.message || err.message));
